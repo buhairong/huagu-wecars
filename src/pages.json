@@ -1,0 +1,1201 @@
+{
+    "easycom": {
+        "^u-(.*)": "uview-ui/components/u-$1/u-$1.vue",
+        "header-top": "@/components/header-top.vue"
+    },
+    "pages": [
+        {
+            "path": "pages/home/choose-index",
+            "style": {
+                "navigationBarTitleText": "",
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "pages/home/certcar/index",
+            "style": {
+                "navigationBarTitleText": "认证好车"
+            }
+        },
+        {
+            "path": "pages/home/collage/collage-list",
+            "style": {
+                "navigationBarTitleText": "拼团列表",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/home/collage/collage-detail",
+            "style": {
+                "navigationBarTitleText": " ",
+                "navigationBarBackgroundColor": "#D8D9DD"
+            }
+        },
+        {
+            "path": "pages/home/profile/index",
+            "style": {
+                "navigationBarTitleText": "",
+                "navigationBarBackgroundColor": "#D8D9DD"
+            }
+        },
+        {
+            "path": "pages/home/search/slip-condition",
+            "style": {
+                "navigationBarTitleText": "条件选车",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/home/search/list",
+            "style": {
+                "navigationBarTitleText": "选车",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/message/list",
+            "style": {
+                "navigationBarTitleText": "消息",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/message/marketing-list",
+            "style": {
+                "navigationBarTitleText": "活动消息",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/maintenances/index",
+            "style": {
+                "navigationBarTitleText": "养车",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/maintenances/add-car",
+            "style": {
+                "navigationBarTitleText": "上传行驶证"
+            }
+        },
+        {
+            "path": "pages/maintenances/add-insurance",
+            "style": {
+                "navigationBarTitleText": "添加保单"
+            }
+        },
+        {
+            "path": "pages/maintenances/add-maintain",
+            "style": {
+                "navigationBarTitleText": "添加保养信息"
+            }
+        },
+        {
+            "path": "pages/maintenances/add-tyre",
+            "style": {
+                "navigationBarTitleText": "添加轮胎信息"
+            }
+        },
+        {
+            "path": "pages/maintenances/report",
+            "style": {
+                "navigationBarTitleText": "健康报告"
+            }
+        },
+        {
+            "path": "pages/mine/mine",
+            "style": {
+                "navigationBarTitleText": "我的",
+                "navigationStyle": "custom"
+            }
+        },
+        {
+            "path": "pages/mine/order-list",
+            "style": {
+                "navigationBarTitleText": "订单列表",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/mine/balance",
+            "style": {
+                "navigationBarTitleText": "余额明细"
+            }
+        },
+        {
+            "path": "pages/mine/deposit",
+            "style": {
+                "navigationBarTitleText": "押金明细"
+            }
+        },
+        {
+            "path": "pages/mine/coupon/list",
+            "style": {
+                "navigationBarTitleText": "优惠券"
+            }
+        },
+        {
+            "path": "pages/mine/feedback",
+            "style": {
+                "navigationBarTitleText": "建议反馈"
+            }
+        },
+        {
+            "path": "pages/mine/setup",
+            "style": {
+                "navigationBarTitleText": "WECARS"
+            }
+        },
+        {
+            "path": "pages/mine/about",
+            "style": {
+                "navigationBarTitleText": "关于车要试"
+            }
+        },
+        {
+            "path": "pages/sign/sign",
+            "style": {
+                "navigationBarTitleText": "登录",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/sign/mobile-sign",
+            "style": {
+                "navigationBarTitleText": "WECARS"
+            }
+        },
+        {
+            "path": "pages/sign/code-sign",
+            "style": {
+                "navigationBarTitleText": "WECARS"
+            }
+        },
+        {
+            "path": "pages/ordered/place-order",
+            "style": {
+                "navigationBarTitleText": "用车",
+                "navigationStyle": "custom",
+                "navigationBarTextStyle": "white"
+            }
+        },
+        {
+            "path": "pages/ordered/order-info",
+            "style": {
+                "navigationBarTitleText": "订单详情",
+                "navigationBarBackgroundColor": "#FFFFFF"
+            }
+        },
+        {
+            "path": "pages/ordered/selectCar",
+            "style": {
+                "navigationBarTitleText": "选车"
+            }
+        }
+        ,{
+            "path" : "pages/home/certcar/detail",
+            "style" :
+            {
+                "navigationBarTitleText": "好车详情",
+                "enablePullDownRefresh": false
+            }
+
+        }
+        ,{
+            "path" : "pages/ordered/sub-order-info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/html/html",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/carlife/list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "门店",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/vipcard",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "开通会员",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/mine/recharge",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "充值",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+		,{
+		    "path" : "pages/home/profile/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#D8D9DD"
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/add-certification",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "补充材料",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/wxbview",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		
+		{
+		    "path" : "pages/home/profile/addPay",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "支付订阅费用",
+		        "enablePullDownRefresh": false
+		    }
+		},{
+		    "path" : "pages/home/profile/wxPrice",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "支付订阅费用",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/bankPrice",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "银行转账",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/bankImg",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "银行转账",
+		        "enablePullDownRefresh": false
+		    }
+		},{
+		    "path" : "pages/home/profile/bank",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "各银行交易限额表",
+		        "enablePullDownRefresh": false
+		    }
+		},{
+		    "path" : "pages/home/profile/wxMinute",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "微信支付",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/test-drive",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "预约试驾",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/yuyue-success",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "预约成功",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/pay-mode",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/home/profile/scheme-trial",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "方案试算",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+            "path" : "pages/home/certcar/order-detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "订单详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/home/certcar/all-plans",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "选择方案",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/error/nodata",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/stage/stage",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+				{
+            "path" : "pages/shopinfo/shopinfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "门店信息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/diy/carslist",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "精品好车",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+				{
+				    "path": "pages/custom/custom-order",
+				    "style": {
+				        "navigationBarTitleText": "",
+				        "navigationStyle": "custom"
+				    }
+				},
+				{
+				    "path" : "pages/custom/brandlist",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "选择品牌",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				},
+				{
+				    "path" : "pages/custom/cartypelist",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				},
+				{
+				    "path" : "pages/custom/add-custom-order",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "新车订阅方案",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				},
+				{
+				    "path" : "pages/custom/create-success",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				},
+				{
+				    "path" : "pages/agreement/privacyAgreement",
+				    "style" :                                                                                    
+				    {
+				        "navigationBarTitleText": "WECARS隐私政策",
+				        "enablePullDownRefresh": false
+				    }
+				    
+				},
+				{
+				    "path": "pages/rental/home",
+				    "style": {
+				        "navigationBarTitleText": "",
+				        "navigationStyle": "custom"
+				    }
+				}
+    ],
+		"subPackages": [
+			{
+				"root": "pagesOrder",
+				"pages": [
+					{
+					    "path" : "chooseCarPlate/chooseCarPlate",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "chooseCarPlate/restrictedCityCarPlate",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "order-detail/order-detail",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "订单详情",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "order-detail/setOrderConfigInfo",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "车辆增配项",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "custom-order/order-pay",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "custom-order/customized",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "个性定制",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "custom-order/end-eriod-option",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path": "identity/choose-identity",
+					    "style": {
+					        "navigationBarTitleText": "选择签约方式"
+					    }
+					},
+					{
+					    "path": "identity/person-identity",
+					    "style": {
+					        "navigationBarTitleText": ""
+					    }
+					},
+					{
+					    "path": "identity/company-identity",
+					    "style": {
+					        "navigationBarTitleText": "企业认证"
+					    }
+					},
+					{
+					    "path": "identity/company-sign",
+					    "style": {
+					        "navigationBarTitleText": "企业认证"
+					    }
+					},
+					{
+					    "path": "identity/company-user-sign",
+					    "style": {
+					        "navigationBarTitleText": "企业实际用车人"
+					    }
+					},
+					{
+					    "path": "identity/verifyCode",
+					    "style": {
+					        "navigationBarTitleText": ""
+					    }
+					},
+					{
+					    "path": "identity/identity",
+					    "style": {
+					        "navigationBarTitleText": ""
+					    }
+					},
+					{
+					    "path": "identity/driver",
+					    "style": {
+					        "navigationBarTitleText": ""
+					    }
+					},
+					{
+					    "path": "identity/face-identity-tip",
+					    "style": {
+					        "navigationBarTitleText": "人脸识别"
+					    }
+					},
+					{
+					    "path": "identity/face-identity",
+					    "style": {
+					        "navigationBarTitleText": "人脸识别"
+					    }
+					},
+					{
+					    "path": "identity/company-face-identity-tip",
+					    "style": {
+					        "navigationBarTitleText": "企业用户签约"
+					    }
+					},
+					{
+					    "path" : "pay/chooseDepositPay",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "支付车辆押金",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/depositPayEnd",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/editDepositPay",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/setDepositPayMode",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/bankPayInfo",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "银行转账",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/wxPayDetail",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "微信支付",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/bankBillList",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "银行转账",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "pay/chooseSubscribeFreePay",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "支付订阅费用",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "order-detail/comfirmCarPhotos",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "验车照片",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+						"path" : "order-detail/carPhotoDetail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "",
+							"enablePullDownRefresh": false,
+							"navigationBarBackgroundColor": "#000000",
+							"navigationBarTextStyle": "white"
+						}
+					},
+					{
+					    "path" : "order-detail/comfirmCarCheck",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "验车信息",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "order-detail/contact",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "添加备用联系人",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "order-detail/add-certification",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "补充材料",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "order-detail/electronicContract",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "电子合约",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "depositFree/guarantorRefuse",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "depositFree/applyDepositFreeByPerson",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "认证信息",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "depositFree/applyDepositFreeByCompany",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "认证信息",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "depositFree/ApplyDepositFreeSuccess",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+						"path" : "rental/product/detail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "",
+							"navigationBarBackgroundColor": "#D8D9DD"
+						}
+					},
+					{
+						"path" : "rental/order/detail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "订单详情"
+						}
+					},
+					{
+						"path" : "rental/order/subOrderList",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "用车记录"
+						}
+					},
+					{
+						"path" : "rental/pay/wxAccount",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "线上支付"
+						}
+					},
+					{
+						"path" : "rental/pay/bankAccount",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "银行转账"
+						}
+					},
+					{
+					    "path" : "rental/pay/chooseRentalPay",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "支付费用",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "rental/pay/bankPayInfo",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "银行转账",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+						"path" : "rental/order/comfirmCarCheck",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "验车信息",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "rental/product/list",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "选车",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "customer/order/detail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "订单详情"
+						}
+					},
+					{
+						"path" : "subscribe/list",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "新车订阅"
+						}
+					},
+					{
+						"path" : "auction/detail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "车辆详情",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "auction/auctionOffer",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "出价",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "auction/auctionList",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "我的竞价",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "auction/disputes",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "交易纠纷",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "auction/cashHome",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "pay/accountDetail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+					    "path" : "pay/recharge",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "充值",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+						"path": "pay/bindcard",
+						"style":                                                                                    
+						{
+							"navigationBarTitleText": "绑定银行卡",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path": "pay/cardinfo",
+						"style":                                                                                    
+						{
+							"navigationBarTitleText": "银行卡详情",
+							"enablePullDownRefresh": false
+						}
+					},
+					{
+						"path": "pay/cashMoney",
+						"style":                                                                                    
+						{
+							"navigationBarTitleText": "提现",
+							"enablePullDownRefresh": false
+						}
+					}
+				]
+			},
+			{
+				"root": "partner",
+				"pages": [
+					{
+					    "path" : "agreement/about",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "agreement/partnerAgreement",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "全民合伙人协议",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "register/register",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false,
+									"navigationStyle": "custom"
+					    }
+					    
+					},
+					{
+					    "path" : "register/registerSuccess",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "register/uploadIdCardIdentity",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "申请成为全民合伙人",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "register/uploadCareer",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "申请成为全民合伙人",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "register/uploadCompanyInfo",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "申请成为全民合伙人",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "register/uploadPartnerInfo",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "申请成为全民合伙人",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
+					{
+					    "path" : "qrcode/qrcode",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false,
+									"navigationStyle": "custom"
+					    }
+					    
+					},
+					{
+					    "path" : "qrcode/invitePartnerQrcode",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false,
+									"navigationStyle": "custom"
+					    }
+					    
+					},
+					{
+					    "path" : "partner/home",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false,
+									"navigationStyle": "custom"
+					    }
+					    
+					},
+					{
+					    "path" : "cash/home",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false,
+									"navigationStyle": "custom"
+					    }
+					},
+					{
+					    "path" : "identity/identity",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "实名认证",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "card/bindcard",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "绑定银行卡",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "card/cardinfo",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "银行卡详情",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+					    "path" : "cash/cashMoney",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "提现",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+						"path" : "company/customer",
+						"style" :
+						{
+						    "navigationBarTitleText": "客户",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "company/mySubPartner",
+						"style" :
+						{
+						    "navigationBarTitleText": "我的合伙人",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "company/order",
+						"style" :
+						{
+						    "navigationBarTitleText": "订单",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "company/commission/setCommission",
+						"style" :
+						{
+						    "navigationBarTitleText": "佣金分配",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "cash/payVip",
+						"style" :
+						{
+						    "navigationBarTitleText": "",
+						    "enablePullDownRefresh": false,
+						    "navigationStyle": "custom"
+						}
+					},
+					{
+						"path" : "company/staff/home",
+						"style" :
+						{
+						    "navigationBarTitleText": "员工",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "company/staff/setStaff",
+						"style" :
+						{
+						    "navigationBarTitleText": "管理员工",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "task/home",
+						"style" :
+						{
+						    "navigationBarTitleText": "",
+						    "enablePullDownRefresh": false,
+						    "navigationStyle": "custom"
+						}
+					},
+					{
+						"path" : "task/ranking",
+						"style" :
+						{
+						    "navigationBarTitleText": "",
+								"navigationBarBackgroundColor": "#F9714D",
+								"navigationBarTextStyle": "#ffffff",
+						    "enablePullDownRefresh": false
+						}
+					},
+					{
+						"path" : "task/firstTask",
+						"style" :
+						{
+						    "navigationBarTitleText": "",
+						    "enablePullDownRefresh": false,
+						    "navigationStyle": "custom"
+						}
+					},
+					{
+						"path" : "task/product",
+						"style" :
+						{
+							"navigationBarTitleText": "新车订阅",
+							"enablePullDownRefresh": false,
+							"usingComponents":{
+								"wxml-to-canvas": "/partner/wxcomponents/wxml-to-canvas/index"
+							}
+						}
+					}
+				]
+			}
+		],
+    "globalStyle": {
+        "navigationBarTextStyle": "black",
+        "navigationBarTitleText": "uni-app",
+        "navigationBarBackgroundColor": "#FFFFFF",
+        "backgroundColor": "#F8F8F8",
+        "rpxCalcBaseDeviceWidth": 375,
+        "rpxCalcIncludeWidth": 375
+    },
+    "tabBar": {
+        "backgroundColor": "#FFFFFF",
+        "fontSize": "12px",
+        "color": "#999",
+        "selectedColor": "#0A0F2D",
+        "borderStyle": "black",
+        "list": [
+            {
+                "pagePath": "pages/home/choose-index",
+                "iconPath": "/static/tabBar/tab_1.png",
+                "selectedIconPath": "/static/tabBar/tab_1_check.png",
+                "text": "首页"
+            },
+            {
+                "pagePath": "pages/maintenances/index",
+                "iconPath": "/static/tabBar/tab_2.png",
+                "selectedIconPath": "/static/tabBar/tab_2_check.png",
+                "text": "养车"
+            },
+            {
+                "pagePath": "pages/rental/home",
+                "iconPath": "/static/tabBar/tab_3.png",
+                "selectedIconPath": "/static/tabBar/tab_3_check.png",
+                "text": "用车"
+            },
+            {
+                "pagePath": "pages/message/list",
+                "iconPath": "/static/tabBar/tab_4.png",
+                "selectedIconPath": "/static/tabBar/tab_4_check.png",
+                "text": "消息"
+            },
+            {
+                "pagePath": "pages/mine/mine",
+                "iconPath": "/static/tabBar/tab_5.png",
+                "selectedIconPath": "/static/tabBar/tab_5_check.png",
+                "text": "我的"
+            }
+        ]
+    },
+    "condition": {
+        "current": 0,
+        "list": []
+    }
+}

@@ -1,0 +1,80 @@
+.coupon-list {
+    padding: 0 32rpx;
+    .item {
+        padding: 40rpx 32rpx 24rpx 32rpx;
+        background: rgba(10, 15, 45, 0.04);
+        border-radius: 24rpx;
+        margin-top: 24rpx;
+        position: relative;
+        .title {
+            font-weight: 500;
+            font-size: 34rpx;
+            color: #0A0F2D;
+        }
+        .discount {
+            color: #F5194B;
+            font-weight: 500;
+            font-size: 34rpx;
+            vertical-align: top;
+            text {
+                font-size: 72rpx;
+            }
+
+        }
+        .term {
+            .time {
+                color: rgba(10, 15, 45, 0.8);
+                font-size: 24rpx;
+            }
+            .highest {
+                font-size: 24rpx;
+                color: #F5194B;
+            }
+        }
+        .rule {
+            font-size: 24rpx;
+            color: rgba(10, 15, 45, 0.5);
+            margin-top: 16rpx;
+            padding-top: 16rpx;
+            border-top: 1px dashed rgba(10, 15, 45, 0.08);
+        }
+        .logos {
+
+            position: absolute;
+            border-radius: 24rpx 0px;
+            width: 170rpx;
+            height: 40rpx;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+        .expired-tag {
+            padding: 4rpx 8rpx;
+            background: #F5194B;
+            border-radius: 8rpx;
+            color: #FFFFFF;
+            font-size: 24rpx;
+            line-height: 40rpx;
+            text-align: center;
+        }
+
+    }
+    .other-btu {
+        background: rgba(10, 15, 45, 0.04);
+        border-radius: 16rpx;
+        font-size: 30rpx;
+        color: #0A0F2D;
+        padding: 26rpx 0;
+        text-align: center;
+        margin-top: 48rpx;
+        font-weight: 500;
+        // position: fixed;
+        // bottom: 100rpx;
+        // width: 94%;
+        // left: 0;
+        // right: 0;
+        // z-index: 11;
+        // margin: 0 auto;
+
+    }
+}
