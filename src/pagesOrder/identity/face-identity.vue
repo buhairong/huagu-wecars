@@ -126,15 +126,15 @@ export default {
 			if (this.isSign) return 
 			
 			this.isSign = true
-			
 			let params={
-					idNumber: this.idNum,
-					name: this.username,
-					redirectUrl: `/pagesOrder/order-detail/order-detail?orderId=${this.userCarSubscribeId}`,
+					//idNumber: this.idNum,
+					//name: this.username,
+					//redirectUrl: `/pagesOrder/order-detail/order-detail?orderId=${this.userCarSubscribeId}`,
+					//userPhone: this.userInfo.mobile,
 					userCarSubscribeId: this.userCarSubscribeId,
-					userPhone: this.userInfo.mobile,
+					userRole: 1,
 			}
-			const result = await this.$getRequest(this.$url.esign, 'POST', params)
+			const result = await this.$getRequest(this.$url.esign, 'GET', params)
 			if(result.code == 0){
 				uni.setStorageSync('url', result.data.contractUrl || result.data)
 				uni.navigateTo({

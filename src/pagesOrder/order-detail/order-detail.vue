@@ -15,7 +15,12 @@
 				</view>
 				<view class="order-status" v-if="paymentStatus && paymentStatus!=0">
 					<view v-if="showNeedUploadAccount">待审核</view>
-					<view v-else-if="paymentStatus == 16 || paymentStatus == 17">审核通过，等待合同生成</view>
+					<view v-else-if="paymentStatus == 16 || paymentStatus == 17">
+						审核通过，等待合同生成
+					</view>
+					<view v-else-if="paymentStatus == 1  && orderInfo.carSubscribeContract && orderInfo.carSubscribeContract.isUserSign == 1">
+						等待商家签约
+					</view>
 					<view v-else-if="paymentStatus == 13 && userCarSubscribeEntity.predictPlateTime">待提车</view>
 					<view v-else>{{purchaseOrderStatus[paymentStatus]}}</view>
 					<view v-if="paymentStatus === 2 && !showNeedUploadAccount" style="font-size:12px;">{{signToCancelTimeStr}}</view>
@@ -597,7 +602,7 @@
 				立即订车
 			</view>
 		</view>
-		<view class="footer-btn" v-if="paymentStatus == 1 && orderInfo.userCarSubscribeOtherConfigId">
+		<view class="footer-btn" v-if="paymentStatus == 1 && orderInfo.userCarSubscribeOtherConfigId && (!orderInfo.carSubscribeContract || orderInfo.carSubscribeContract.isUserSign == 0)">
 			<view
 				class="sign-btn"
 				@click="contractFn"

@@ -192,7 +192,8 @@ const url = {
 	
 	ocrDrivingLicense:'app/app/audit/user/ocrDrivingLicense',//解析驾驶证
 	getDIYConfig:'app/diyConfigRecord/selectDiyConfigByCompanyIdAndPageNum',// 获取 diy 配置
-	esign:'/app/app/esign/sign',//易签宝在线签约
+	//esign:'/app/app/esign/sign',//易签宝在线签约
+	esign:'/app/app/esign/updateContractSignStatus',//易签宝在线签约
 	esign1: 'app/app/esign/signSubscribeConfirm',//易签宝在线签约
 	createOrgCreator:'/app/app/esign/createOrgCreator',//创建经办人
 	
