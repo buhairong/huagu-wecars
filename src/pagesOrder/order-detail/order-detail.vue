@@ -1335,6 +1335,7 @@ export default {
 					if (res.confirm) {
 						const esignInfo = {
 							orderId: this.orderId,
+							contractUrl: this.orderInfo.carSubscribeContract.contractUrl
 						}
 						uni.setStorageSync('esignInfo', esignInfo)
 						

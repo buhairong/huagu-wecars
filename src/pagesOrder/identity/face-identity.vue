@@ -126,21 +126,26 @@ export default {
 			if (this.isSign) return 
 			
 			this.isSign = true
-			let params={
-					//idNumber: this.idNum,
-					//name: this.username,
-					//redirectUrl: `/pagesOrder/order-detail/order-detail?orderId=${this.userCarSubscribeId}`,
-					//userPhone: this.userInfo.mobile,
-					userCarSubscribeId: this.userCarSubscribeId,
-					userRole: 1,
-			}
-			const result = await this.$getRequest(this.$url.esign, 'GET', params)
-			if(result.code == 0){
-				uni.setStorageSync('url', result.data.contractUrl || result.data)
-				uni.navigateTo({
-					url: `/pages/home/profile/wxbview?from=sign&orderId=${this.userCarSubscribeId}`
-				})
-			}
+			// let params={
+			// 		//idNumber: this.idNum,
+			// 		//name: this.username,
+			// 		//redirectUrl: `/pagesOrder/order-detail/order-detail?orderId=${this.userCarSubscribeId}`,
+			// 		//userPhone: this.userInfo.mobile,
+			// 		userCarSubscribeId: this.userCarSubscribeId,
+			// 		userRole: 1,
+			// }
+			// const result = await this.$getRequest(this.$url.esign, 'GET', params)
+			// if(result.code == 0){
+			// 	uni.setStorageSync('url', result.data.contractUrl || result.data)
+			// 	uni.navigateTo({
+			// 		url: `/pages/home/profile/wxbview?from=sign&orderId=${this.userCarSubscribeId}`
+			// 	})
+			// }
+			
+			uni.setStorageSync('url', this.esignInfo.contractUrl)
+			uni.navigateTo({
+				url: `/pages/home/profile/wxbview?from=sign&orderId=${this.userCarSubscribeId}`
+			})
 		},
 		
 		async esign1(){
@@ -403,8 +408,8 @@ export default {
 													name: this.username,
 													// idNum: '210911200201170019',
 													// name: '刘相辰',
-													// idNum: '310107198204081711',
-													// name: '卜海荣',
+													idNum: '310107198204081711',
+													name: '卜海荣',
 													// idNum: '340827199601230016',
 													// name: '仲勇',
 												}).then(async result => {
