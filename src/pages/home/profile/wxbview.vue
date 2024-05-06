@@ -30,9 +30,22 @@
 				console.log('handleGetMessage',e)
 				if (e.detail.data[0].result === 'success') {
 					if(this.from === 'sign'){
-						uni.reLaunch({
-							url: `/pagesOrder/order-detail/contact?orderId=${this.orderId}`,
+						uni.showLoading({
+							title: '加载中'
 						})
+						
+						const res = await this.$getRequest(this.$url.esign, "GET", {
+							userCarSubscribeId: this.orderId,
+							userRole: 1,
+						})
+						
+						uni.hideLoading()
+						
+						if (res.code == 0) {
+							uni.reLaunch({
+								url: `/pagesOrder/order-detail/contact?orderId=${this.orderId}`,
+							})
+						}
 					} else if(this.from === 'contact'){
 						uni.reLaunch({
 							url: `/pagesOrder/order-detail/order-detail?orderId=${this.orderId}`,
