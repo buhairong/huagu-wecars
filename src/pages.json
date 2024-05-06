@@ -12,26 +12,6 @@
             }
         },
         {
-            "path": "pages/home/certcar/index",
-            "style": {
-                "navigationBarTitleText": "认证好车"
-            }
-        },
-        {
-            "path": "pages/home/collage/collage-list",
-            "style": {
-                "navigationBarTitleText": "拼团列表",
-                "navigationBarBackgroundColor": "#FFFFFF"
-            }
-        },
-        {
-            "path": "pages/home/collage/collage-detail",
-            "style": {
-                "navigationBarTitleText": " ",
-                "navigationBarBackgroundColor": "#D8D9DD"
-            }
-        },
-        {
             "path": "pages/home/profile/index",
             "style": {
                 "navigationBarTitleText": "",
@@ -115,12 +95,6 @@
             "style": {
                 "navigationBarTitleText": "订单列表",
                 "navigationBarBackgroundColor": "#FFFFFF"
-            }
-        },
-        {
-            "path": "pages/mine/balance",
-            "style": {
-                "navigationBarTitleText": "余额明细"
             }
         },
         {
@@ -219,50 +193,7 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
-            "path" : "pages/carlife/list",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "门店",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/mine/vipcard",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "开通会员",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/mine/recharge",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "充值",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-		,{
-		    "path" : "pages/home/profile/detail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "",
-				"navigationBarBackgroundColor": "#D8D9DD"
-		    }
-		},
-		{
-		    "path" : "pages/home/profile/add-certification",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "补充材料",
-		        "enablePullDownRefresh": false
-		    }
-		},
+        },
 		{
 		    "path" : "pages/home/profile/wxbview",
 		    "style" :                                                                                    
@@ -390,15 +321,6 @@
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "门店信息",
-                "enablePullDownRefresh": false
-            }
-            
-        }
-        ,{
-            "path" : "pages/diy/carslist",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "精品好车",
                 "enablePullDownRefresh": false
             }
             

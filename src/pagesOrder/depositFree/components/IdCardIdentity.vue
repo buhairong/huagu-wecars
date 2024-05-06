@@ -264,15 +264,15 @@ export default {
 						}
 				}
 			
-				if(this.readOnly != true){
-					if(this.saveBackInfo==null||this.saveFaceInfo==null){
-						uni.showToast({
-								title: '请重新上传身份证',
-								duration: 2000,
-								icon: 'none'
-						});
-						return
-					}
+				//if(this.readOnly != true){
+					// if(this.saveBackInfo==null||this.saveFaceInfo==null){
+					// 	uni.showToast({
+					// 			title: '请重新上传身份证',
+					// 			duration: 2000,
+					// 			icon: 'none'
+					// 	});
+					// 	return
+					// }
 					let userMess={
 						name: this.form.name,
 						userId: this.userId,
@@ -289,7 +289,7 @@ export default {
 					}
 					
 					uni.setStorageSync("userMess",userMess)
-				}
+				//}
 				this.$emit('nextIdentityStep', {
 					issue: this.form.issue,
 					idNum: this.form.card,

@@ -121,7 +121,8 @@ export default {
 		
 		isSameCity() {
 			let res = false
-			
+			console.log('this.issueCityName', this.issueCityName)
+			console.log('this.form.cityName', this.form.cityName)
 			if (this.issueCityName === this.form.cityName) {
 				res = true
 			}
@@ -148,6 +149,7 @@ export default {
 	
 	mounted() {
 		this.form = this.applyDepositFreeForm
+		console.log('this.form', this.form)
 		//if (this.form.careerCode === 7) {
 			//this.getAllCity()
 			this.issueCityName = this.form.issue.slice(0, 2)
