@@ -98,18 +98,6 @@
             }
         },
         {
-            "path": "pages/mine/deposit",
-            "style": {
-                "navigationBarTitleText": "押金明细"
-            }
-        },
-        {
-            "path": "pages/mine/coupon/list",
-            "style": {
-                "navigationBarTitleText": "优惠券"
-            }
-        },
-        {
             "path": "pages/mine/feedback",
             "style": {
                 "navigationBarTitleText": "建议反馈"
