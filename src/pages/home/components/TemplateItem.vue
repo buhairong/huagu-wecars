@@ -215,6 +215,7 @@ export default {
 	},
 	
 	async mounted() {
+		console.log('carProductEntity', this.carProductEntity)
 		this.selCityId = this.cityId
 		this.thirdSubscribeId = this.thirdAppSubscribeId
 		this.showDistributionBrokerageFree = this.partnerInfo.showDistributionBrokerageFree
@@ -286,7 +287,12 @@ export default {
 										this.selCityName = '上海'
 										const city = res.data.find(city => city.id == 310100)
 										if (city) {
-											this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+											if(this.carProductEntity.powerMode == 1) {
+												this.selCityPlatePrice = city.trackPlatePrice || 0
+											} else {
+												this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+											}
+											
 										}
 										this.getCurItem()
 									}
@@ -376,7 +382,11 @@ export default {
 			console.log('changeCity', city)
 			this.selCityId = city.id
 			this.selCityName = city.city
-			this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+			if(this.carProductEntity.powerMode == 1) {
+				this.selCityPlatePrice = city.trackPlatePrice || 0
+			} else {
+				this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+			}
 			this.getCurItem()
 			this.showCityList = false
 		},
