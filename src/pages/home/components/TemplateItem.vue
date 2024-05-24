@@ -249,7 +249,11 @@ export default {
 						const city = res.data.find(city => city.id == this.cityId)
 						if (city) {
 							this.selCityName = city.city
-							this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+							if(this.carProductEntity.powerMode == 1) {
+								this.selCityPlatePrice = city.trackPlatePrice || 0
+							} else {
+								this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+							}
 							
 							const value = uni.getStorageSync('isFirstLoginCity')
 							if (!value || value != this.cityId) {
@@ -262,7 +266,12 @@ export default {
 										if (res.confirm) {
 											this.selCityId = this.cityId
 											this.selCityName = city.city
-											this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+											if(this.carProductEntity.powerMode == 1) {
+												this.selCityPlatePrice = city.trackPlatePrice || 0
+											} else {
+												this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+											}
+											
 											this.getCurItem()
 											uni.setStorageSync('isFirstLoginCity', this.selCityId)
 										} else if (res.cancel) {
@@ -397,7 +406,11 @@ export default {
 			this.selCityName = e[0].label
 			const city = this.cityList.find(city => city.id == e[0].value)
 			if (city) {
-				this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+				if(this.carProductEntity.powerMode == 1) {
+					this.selCityPlatePrice = city.trackPlatePrice || 0
+				} else {
+					this.selCityPlatePrice = city.energyVehiclesPlatePrice || 0
+				}
 			}
 			this.getCurItem()
 			const value = uni.getStorageSync('isFirstLoginCity')
