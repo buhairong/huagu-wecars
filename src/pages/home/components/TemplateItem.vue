@@ -59,18 +59,17 @@
 			 </view>
 			 
 			<!-- 0 未申请 1申请中 2审批通过 3 审批拒绝-->
-			<!-- <view class="plan-item" v-if="partnerInfo && (partnerInfo.hasDepositFree === 3 || (partnerInfo.hasDepositFree === 2 && partnerInfo.career == 7 && partnerInfo.depositFreeCityId != selCityId))">
-				<view class="item-title">车辆押金：</view>
+			<view class="plan-item">
+				<view class="item-title">订阅押金：</view>
 				<view class="item-content">
 					{{item.deposit | $numFormat}}元
-					<text style="padding-left:14rpx;font-size: 14px;color:rgba(10, 15, 45, 0.5);">(买断可抵尾款)</text>
 				</view>
-			</view> -->
+			</view>
 			 
-			<view class="plan-item">
+			<!-- <view class="plan-item">
 				<view class="item-title">违章押金：</view>
 				<view class="item-content">{{violationDeposit | $numFormat}}元</view>
-			</view>
+			</view> -->
 			
 			<view class="plan-item" v-if="item.serviceStr">
 				<view class="item-title">精选服务：</view>

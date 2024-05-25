@@ -338,8 +338,8 @@ const getRequest = (url, method, data) => {
 	
     return new Promise((resolve, reject) => {
         uni.request({
-						url: serverUrl + url,
-						//url: 'https://uat-api.51cheyaoshi.com/' + url,
+						//url: serverUrl + url,
+						url: 'https://uat-api.51cheyaoshi.com/' + url,
 						// url: 'http://api-test.51cheyaoshi.com:6999/' + url,
             method: method,
             data: data,

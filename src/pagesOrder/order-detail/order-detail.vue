@@ -137,21 +137,17 @@
 						</view>
 					</view>
 					
-					<!-- <view class="item">
-						<view class="item-title">车辆押金</view>
-						<view class="center-deposit" v-if="userCarSubscribeEntity.hasDepositFree !== 3">￥{{userCarSubscribeEntity.deposit | $numFormat}}</view>
-						<view class="item-content" style="flex:none;width:unset;">
-							<view v-if="userCarSubscribeEntity.hasDepositFree === 1">免押审核中</view>
-							<view v-else-if="userCarSubscribeEntity.hasDepositFree === 2">￥0</view>
-							<view v-else-if="userCarSubscribeEntity.hasDepositFree === 3">￥{{userCarSubscribeEntity.deposit | $numFormat}}</view>
-							<view class="link-text" v-else @click="openIdentityDialog">申请免押</view>
+					<view class="item">
+						<view class="item-title">订阅押金</view>
+						<view class="item-content">
+							￥{{userCarSubscribeEntity.deposit | $numFormat}}
 						</view>
-					</view> -->
+					</view>
 					
-					<view class="item" v-if="userCarSubscribeEntity.hasDepositFree === 2">
+					<!-- <view class="item" v-if="userCarSubscribeEntity.hasDepositFree === 2">
 						<view class="item-title">违章押金</view>
 						<view class="item-content">¥{{violationDeposit | $numFormat}}</view>
-					</view>
+					</view> -->
 					
 					<view class="item">
 						<view class="item-title">订阅周期</view>

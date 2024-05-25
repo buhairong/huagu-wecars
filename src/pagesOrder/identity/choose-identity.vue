@@ -147,7 +147,7 @@ export default {
 		goDepositFree(index) {
 			// this.hasDepositFree = 2
 			
-			if (this.hasDepositFree != 2) {
+			//if (this.hasDepositFree != 2) {
 				if (index === 1) {
 					uni.navigateTo({
 						url: `/pagesOrder/depositFree/applyDepositFreeByPerson?orderServiceType=${this.orderServiceType}&userId=${this.userId}&step=1&idNum=${this.idNum}&username=${this.username}&cityId=${this.cityId}&cityName=${this.cityName}&issue=${this.issue}`
@@ -157,9 +157,9 @@ export default {
 						url: `/pagesOrder/depositFree/applyDepositFreeByCompany?orderServiceType=${this.orderServiceType}&userId=${this.userId}&step=1&idNum=${this.idNum}&username=${this.username}&cityId=${this.cityId}&cityName=${this.cityName}&issue=${this.issue}&companyName=${this.companyName}`
 					})
 				}
-			} else {
-				this.faceIdentity()
-			}
+			// } else {
+			// 	this.faceIdentity()
+			// }
 		},
 		
 		faceIdentity() {
