@@ -608,6 +608,14 @@
 					    }
 					},
 					{
+					    "path" : "order-detail/addGuarantor",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "添加担保人",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
 					    "path" : "order-detail/electronicContract",
 					    "style" :                                                                                    
 					    {

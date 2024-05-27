@@ -241,6 +241,7 @@ const url = {
 	saveOtherConfig: 'app/app/saveOtherConfig', // 修改增配项
 	deleteDecorate: 'app/app/deleteDecorate', // 删除装潢
 	updateConfirm: 'app/app/updateConfirm', // 更新确认状态
+	addGuarantor: 'app/app/depositFreeApply/addGuarantor', // 添加担保人
 	
 	// 个人中心
 	saveNickNameOrImg: 'app/app/xcx/saveNickNameOrImg', // 修改昵称或头像

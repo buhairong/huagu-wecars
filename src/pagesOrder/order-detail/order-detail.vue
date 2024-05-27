@@ -1760,6 +1760,38 @@ export default {
 				this.configTotalMoney = orderInfo.data.carSubscribeCarSelectConfigRespVo.totalMoney
 			}
 			
+			if (this.paymentStatus === 10) {
+				let tip = ''
+				if(orderInfo.data.hasGuarantor === 1){
+					tip = '请添加担保人'
+				}
+				
+				if(orderInfo.data.guarantorIsAgree === 2){
+					tip = '很抱歉，您所添加的担保人已拒绝为您提供担保。您可以重新添加其他担保人。'
+				}
+				
+				if(orderInfo.data.guarantorStatus === 2){
+					tip = '很抱歉，您所添加的担保人审核失败。您可以重新添加其他担保人。'
+				}
+				
+				if(tip) {
+					uni.showModal({
+							title: '提示',
+							content:tip,
+							confirmText: "确定",
+							cancelText:"取消",
+							success: (res) => {
+									if (res.confirm) {
+										console.log('tip', tip)
+										uni.navigateTo({
+											url: `/pagesOrder/order-detail/addGuarantor?userId=${this.userInfo.id}&orderId=${this.orderId}`
+										})
+									}
+							}
+					})
+				}
+			}
+			
 			this.addCertification()
 			
 			uni.hideLoading()
