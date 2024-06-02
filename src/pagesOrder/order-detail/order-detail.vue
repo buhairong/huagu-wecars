@@ -19,7 +19,12 @@
 						审核通过，等待合同生成
 					</view>
 					<view v-else-if="paymentStatus == 1  && orderInfo.carSubscribeContract && orderInfo.carSubscribeContract.isUserSign == 1">
-						等待商家签约
+						<view v-if="orderInfo.carSubscribeContract.isMerchantSign == 1">
+							等待担保人签约
+						</view>
+						<view v-else>
+							等待商家签约
+						</view>
 					</view>
 					<view v-else-if="paymentStatus == 13 && userCarSubscribeEntity.predictPlateTime">待提车</view>
 					<view v-else>{{purchaseOrderStatus[paymentStatus]}}</view>
