@@ -674,7 +674,7 @@
 		/>
 		
 		<view 
-			v-if="paymentStatus == 2 || paymentStatus == 4 || paymentStatus == 14"
+			v-if="paymentStatus == 2 || paymentStatus == 4 || paymentStatus == 14 || paySubscribeFree"
 			class="footer-btn"
 		>
 			<view
@@ -687,18 +687,18 @@
 			<view class="btn" v-else>
 				<view class="left">
 					<view class="price-wrap">
-						<view class="pay-type" v-if="paymentStatus == 2">{{userCarSubscribeEntity.hasDepositFree === 2 ? '违章' : '车辆'}}押金：</view>
-						<view class="pay-type" v-else-if="paymentStatus == 4">合计费用：</view>
+						<view class="pay-type" v-if="paymentStatus == 2">订阅押金：</view>
+						<view class="pay-type" v-else-if="paymentStatus == 4 || paySubscribeFree">合计费用：</view>
 						<view class="pay">
 							<view class="unit">¥</view>
 							<view class="price" v-if="paymentStatus == 2">{{depositAboutNoPay.remainMoney | $numFormat}}</view>
-							<view class="price" v-else-if="paymentStatus == 4">{{subscribeFreeAboutNoPay.remainMoney | $numFormat}}</view>
+							<view class="price" v-else-if="paymentStatus == 4 || paySubscribeFree">{{subscribeFreeAboutNoPay.remainMoney | $numFormat}}</view>
 						</view>
-						<template v-if="paymentStatus == 2 || paymentStatus == 4">
-							<view style="margin-left:10rpx;" @click.stop="showPayPop(1)" v-if="paymentStatus == 2 && depositAboutNoPay.isFirst == 1">
+						<template v-if="paymentStatus == 2 || paymentStatus == 4 || paySubscribeFree">
+							<!-- <view style="margin-left:10rpx;" @click.stop="showPayPop(1)" v-if="paymentStatus == 2 && depositAboutNoPay.isFirst == 1">
 								<u-icon name="info-circle" color="#fff" size="28"></u-icon>
-							</view>
-							<view style="margin-left:10rpx;" @click.stop="showPayPop(2)" v-if="(paymentStatus == 4) && subscribeFreeAboutNoPay.isFirst == 1">
+							</view> -->
+							<view style="margin-left:10rpx;" @click.stop="showPayPop(2)" v-if="(paymentStatus == 4 || paySubscribeFree) && subscribeFreeAboutNoPay.isFirst == 1">
 								<u-icon name="info-circle" color="#fff" size="28"></u-icon>
 							</view>
 						</template>
@@ -708,7 +708,7 @@
 				</view>
 				<view class="right" @click="addPay">
 					<view class="btn-text" v-if="paymentStatus == 0">立即订车</view>
-					<view class="btn-text" v-else-if="paymentStatus == 2 || paymentStatus == 4">
+					<view class="btn-text" v-else-if="paymentStatus == 2 || paymentStatus == 4 || paySubscribeFree">
 						<template v-if="paymentStatus == 2">
 							<view v-if="depositAboutNoPay.isFirst == 1">
 								支付
@@ -717,7 +717,7 @@
 								继续支付
 							</view>
 						</template>
-						<template v-if="paymentStatus == 4">
+						<template v-if="paymentStatus == 4 || paySubscribeFree">
 							<view v-if="subscribeFreeAboutNoPay.isFirst == 1">
 								支付
 							</view>
@@ -1110,6 +1110,17 @@ export default {
 			return res
 		},
 		
+		paySubscribeFree() {
+			let res =  false
+			
+			if (this.paymentStatus == 3 || this.paymentStatus == 4 || this.paymentStatus == 5  
+			|| this.paymentStatus == 13 || this.paymentStatus == 14 || this.paymentStatus == 15) {
+				res = true
+			}
+			
+			return res
+		},
+		
 		showNeedUploadAccount() {
 			let res = false
 			
@@ -1117,7 +1128,7 @@ export default {
 				if (this.depositAboutNoPay.remainMoney == 0 && this.depositAboutNoPay.hasBankPay == 1) {
 					res = true
 				}
-			} else if (this.paymentStatus == 4 || this.paymentStatus == 14) {
+			} else if (this.paymentStatus == 4 || this.paymentStatus == 14 || this.paySubscribeFree) {
 				if (this.subscribeFreeAboutNoPay.remainMoney == 0 && this.subscribeFreeAboutNoPay.hasBankPay == 1) {
 					res = true
 				}
@@ -1132,6 +1143,8 @@ export default {
 			return res
 		},
 		
+		
+		
 		hasNoUploadBillRecord() {
 			let res = false
 			
@@ -1139,7 +1152,7 @@ export default {
 				if (this.depositAboutNoPay.remainMoney == 0 && this.depositAboutNoPay.hasNoUploadBillRecord == 1) {
 					res = true
 				}
-			} else if (this.paymentStatus == 4 || this.paymentStatus == 14) {
+			} else if (this.paymentStatus == 4 || this.paymentStatus == 14 || this.paySubscribeFree) {
 				if (this.subscribeFreeAboutNoPay.remainMoney == 0 && this.subscribeFreeAboutNoPay.hasNoUploadBillRecord == 1) {
 					res = true
 				}
@@ -1165,6 +1178,8 @@ export default {
 			
 			return res
 		},
+		
+		
 		
 		showSubscribeFreeAboutNoPayBtn() {
 			let res = true
@@ -1944,7 +1959,7 @@ export default {
 				}
 			}
 			
-			if(this.paymentStatus == 2 || this.paymentStatus == 4){		
+			if(this.paymentStatus == 2 || this.paymentStatus == 4 || this.paySubscribeFree){		
 				let data={
 					price:addPrice,
 					userId:this.userInfo.id,
@@ -1969,7 +1984,7 @@ export default {
 					uni.navigateTo({
 						url: `/pagesOrder/pay/chooseDepositPay?orderId=${this.orderId}&price=${this.depositAboutNoPay.remainMoney}&deposit=${this.userCarSubscribeEntity.deposit}&addedDeposit=${this.addedDeposit}&openid=${this.userInfo.xcxOpenid}&userId=${this.userInfo.id}&businessType=${businessType}`
 					})
-				} else if (this.paymentStatus == 4) {
+				} else if (this.paymentStatus == 4 || this.paySubscribeFree) {
 					uni.navigateTo({
 						url: `/pagesOrder/pay/chooseSubscribeFreePay?orderId=${this.orderId}&price=${this.subscribeFreeAboutNoPay.remainMoney}&openid=${this.userInfo.xcxOpenid}&userId=${this.userInfo.id}&totalPayment=${this.userCarSubscribeEntity.totalPayment}&premiumPay=${this.premiumPay}&carPlatePay=${this.carPlatePay}&configTotalMoney=${this.configTotalMoney}&decorateMoney=${this.decorateMoney}&businessType=${businessType}`
 					})
