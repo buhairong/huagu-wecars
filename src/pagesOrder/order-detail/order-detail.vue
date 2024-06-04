@@ -670,7 +670,7 @@
 		
 		<u-gap
 				v-if="paymentStatus == 3 || paymentStatus == 8 || paymentStatus == 12 || paymentStatus == 14 || paymentStatus == 16 || paymentStatus == 17"
-		    height="190"
+		    height="210"
 		/>
 		
 		<view 
@@ -1113,9 +1113,17 @@ export default {
 		paySubscribeFree() {
 			let res =  false
 			
-			if (this.paymentStatus == 3 || this.paymentStatus == 4 || this.paymentStatus == 5  
-			|| this.paymentStatus == 13 || this.paymentStatus == 14 || this.paymentStatus == 15) {
+			// if (this.paymentStatus == 3 || this.paymentStatus == 4 || this.paymentStatus == 5  
+			// || this.paymentStatus == 13 || this.paymentStatus == 14 || this.paymentStatus == 15) {
+			// 	res = true
+			// }
+			
+			if (this.paymentStatus == 3) {
 				res = true
+			}
+			
+			if(this.subscribeFreeAboutNoPay.hasBankPay == 1) {
+				res = false
 			}
 			
 			return res
@@ -2842,6 +2850,7 @@ export default {
 }
 
 .footer-btn {
+	margin-top: 40px;
 	width: 100%;
 	padding: 0 40rpx;
 	position: fixed;
