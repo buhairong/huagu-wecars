@@ -408,8 +408,8 @@ export default {
 													name: this.username,
 													// idNum: '210911200201170019',
 													// name: '刘相辰',
-													idNum: '310107198204081711',
-													name: '卜海荣',
+													// idNum: '310107198204081711',
+													// name: '卜海荣',
 													// idNum: '340827199601230016',
 													// name: '仲勇',
 												}).then(async result => {
