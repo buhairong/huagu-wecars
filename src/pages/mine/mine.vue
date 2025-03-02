@@ -149,6 +149,18 @@
 									<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
 								</view>
 							</view>
+							<u-cell-item
+							    :title="userInfo.userCompanyEntity ? '我的企业' : '企业申请'"
+							    arrow-direction="right"
+							    :title-style="titleStyle"
+							    @click="handleOrderList"
+							>
+							    <u-icon
+							        slot="icon"
+							        size="32"
+							        name="coupon"
+							    />
+							</u-cell-item>
                 <u-cell-item
                     title="用车订单"
                     arrow-direction="right"
@@ -486,6 +498,7 @@ export default {
 			const isLogin = uni.getStorageSync('isLogin')
 			if (isLogin) {
 				getApp().globalData.getUserInfo((data) => {
+					console.log('getUserInfo', data)
 					//data.isPartner = 0
 					// data.isHasOrder = 0
 					this.userInfo = data
