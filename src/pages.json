@@ -378,6 +378,22 @@
 				"root": "pagesOrder",
 				"pages": [
 					{
+					    "path" : "business/businessList",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "商务活动",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
+						"path" : "rental/product/carDetail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "",
+							"navigationBarBackgroundColor": "#D8D9DD"
+						}
+					},
+					{
 					    "path" : "chooseCarPlate/chooseCarPlate",
 					    "style" :                                                                                    
 					    {
