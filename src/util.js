@@ -330,6 +330,7 @@ const url = {
 	// 会员租车
 	getMemberCarRentalList: 'app/app/memberCarRental/listByPage', // 查询会员租车车辆 
 	getMemberCarRentalDetail: 'app/app/memberCarRental/detail', // 查询会员租车车辆详情
+	getButlerList: 'app/app/memberButler/listByPage', // 查询管家
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

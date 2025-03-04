@@ -832,6 +832,14 @@
 							"navigationBarTitleText": "提现",
 							"enablePullDownRefresh": false
 						}
+					},
+					{
+						"path" : "butler/butler",
+						"style" : 
+						{
+							"navigationBarTitleText" : "选择管家",
+							"enablePullDownRefresh": false
+						}
 					}
 				]
 			},

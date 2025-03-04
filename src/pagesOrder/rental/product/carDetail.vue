@@ -131,8 +131,12 @@
 					/>
 				</view>
 			</view>
-			
-			
+		</view>
+		
+		<view class="order-btn-wrap">
+			<view class="order-btn" @click="handleOrder">
+				立即订车
+			</view>
 		</view>
 		
 		<u-select
@@ -171,6 +175,7 @@ export default {
 	data() {
 		return {
 			id: '',
+			userInfo: null,
 			detail: null,
 			bannerList: [],
 			infoList: [
@@ -207,6 +212,10 @@ export default {
 				contactName: '', // 联系人
 				mobile: '', // 手机号
 				address: '', // 预约地址
+				butlerId: '', // 管家ID
+				companyId: '', // 公司ID
+				userId: '', // 用户ID
+				orderType: '', // 订单类型  1.个人 2.企业
 			}
 		}
 	},
@@ -214,10 +223,17 @@ export default {
 	onLoad(option) {
 		this.id = option.id
 		this.getAllCity()
+		this.getDetail()
 	},
 	
 	onShow() {
-		this.getDetail()
+		const isLogin = uni.getStorageSync('isLogin')
+		if (isLogin) {
+			getApp().globalData.getUserInfo((data) => {
+				this.userInfo = data
+				this.orderParams.userId = data.id
+			})
+		}
 	},
 	
 	methods: {
@@ -288,7 +304,6 @@ export default {
 		},
 		
 		changeCalendar(e) {
-			console.log('changeCalendar', e)
 			this.orderParams.pickCarTimeStart = e.startDate
 			this.orderParams.pickCarTimeEnd = e.endDate
 			
@@ -299,6 +314,65 @@ export default {
 			this.custom.pickCarTimeEnd.year = e.endYear
 			this.custom.pickCarTimeEnd.month = e.endMonth.toString().padStart(2, '0')
 			this.custom.pickCarTimeEnd.date = e.endDay.toString().padStart(2, '0')
+		},
+		
+		handleOrder() {
+			if (this.userInfo) {
+				if (!this.orderParams.pickCarTimeStart || !this.orderParams.pickCarTimeEnd) {
+					uni.showToast({
+						title: '请选择用车日期',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				if (!this.orderParams.cityId) {
+					uni.showToast({
+						title: '请选择用车城市',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				if (!this.orderParams.contactName) {
+					uni.showToast({
+						title: '请输入联系人',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				if (!this.orderParams.mobile) {
+					uni.showToast({
+						title: '请输入手机号',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				if (!this.orderParams.address) {
+					uni.showToast({
+						title: '请输入预约地址',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				uni.setStorageSync('rentalOrderParams', this.orderParams)
+				
+				uni.navigateTo({
+					url: `/pagesOrder/butler/butler?type=1&cityId=${this.orderParams.cityId}`
+				})
+			} else {
+				uni.navigateTo({
+					url: `/pages/sign/sign`
+				})
+			}
 		},
 	},
 }
@@ -373,7 +447,7 @@ export default {
 		}
 	}
 	.container {
-		padding: 32rpx 32rpx 200rpx;
+		padding: 32rpx 32rpx 240rpx;
 		.period-wrap {
 			margin-bottom: 24rpx;
 			height: 44rpx;
@@ -460,6 +534,26 @@ export default {
 				}
 			}
 		
+		}
+	}
+	
+	.order-btn-wrap {
+		width: 100vw;
+		position: fixed;
+		bottom: 80rpx;
+		left: 0;
+		z-index: 100;
+		padding: 0 40rpx;
+		.order-btn {
+			width: 100%;
+			height: 116rpx;
+			border-radius: 16rpx;
+			background: #0A0F2D;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 34rpx;
+			color: #FFFFFF;
 		}
 	}
 }
