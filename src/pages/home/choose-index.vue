@@ -191,7 +191,7 @@
 														v-for="(item, index) in parRentalCarData"
 														:key="item.id"
 														class="rental-wrap"
-														@click="goRentalDetailPage(item.id)"
+														@click="goRentalDetailPage(item)"
 													>
 														<view class="car-img">
 															<image 
@@ -1275,9 +1275,9 @@ export default {
 				})
 			},
 			
-			goRentalDetailPage(id) {
+			goRentalDetailPage(item) {
 				uni.navigateTo({
-					url: `/pagesOrder/rental/product/carDetail?id=${id}`
+					url: `/pagesOrder/rental/product/carDetail?id=${item.id}&carTypeYearProductId=${item.carTypeYearProductEntity.id}`
 				})
 			},
 			

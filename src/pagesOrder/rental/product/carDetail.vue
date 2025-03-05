@@ -56,7 +56,7 @@
 		</view>
 		
 		<view class="container">
-			<template v-if="orderParams.pickCarTimeStart && orderParams.pickCarTimeStart">
+			<template v-if="orderParams.startDate && orderParams.endDate">
 				<view class="period-wrap">
 					<view class="period-tip">开始日期</view>
 					<view class="period-box">
@@ -102,17 +102,7 @@
 			</view>
 			
 			<view class="custom-item">
-				<view class="label">联系人</view>
-				<view class="content">
-					<u-input
-						v-model="orderParams.contactName"
-						placeholder="请输入联系人"
-					/>
-				</view>
-			</view>
-			
-			<view class="custom-item">
-				<view class="label">联系人手机号</view>
+				<view class="label">手机号</view>
 				<view class="content">
 					<u-input
 						v-model="orderParams.mobile"
@@ -122,15 +112,22 @@
 				</view>
 			</view>
 			
-			<view class="custom-item">
-				<view class="label">预约地址</view>
-				<view class="content">
-					<u-input
-						v-model="orderParams.address"
-						placeholder="请输入预约地址"
-					/>
+			<template v-if="orderParams.startDate && orderParams.endDate">
+				<view class="custom-item">
+					<view class="label">预定天数</view>
+					<view class="content">
+						{{orderParams.totalDay}}天
+					</view>
 				</view>
-			</view>
+				
+				<view class="custom-item">
+					<view class="label">支付总金额</view>
+					<view class="content">
+						{{formatThousandNumber(orderParams.totalPayment)}}元
+					</view>
+				</view>
+			</template>
+			
 		</view>
 		
 		<view class="order-btn-wrap">
@@ -150,6 +147,8 @@
 </template>
 
 <script>
+import { validPhoneNum } from '@/utils/validate'
+import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 
 export default {
 	components: {
@@ -205,23 +204,28 @@ export default {
 				},
 			},
 			orderParams: {
-				cityId: undefined, // 城市ID
+				cityId: '', // 城市ID
 				cityName: '', // 城市名称
-				pickCarTimeStart: '', // 租车开始日期
-				pickCarTimeEnd: '', // 租车结束日期
-				contactName: '', // 联系人
+				carTypeYearProductId: '',
+				startDate: '', // 租车开始日期
+				endDate: '', // 租车结束日期
 				mobile: '', // 手机号
-				address: '', // 预约地址
-				butlerId: '', // 管家ID
+				memberButlerId: '', // 管家ID
 				companyId: '', // 公司ID
 				userId: '', // 用户ID
 				orderType: '', // 订单类型  1.个人 2.企业
-			}
+				payWay: '', // 支付方式：0微信支付 1银行转账",
+				totalDay: '', // 总天数
+				status: 0, // 状态 0创建订单 1支付中 2支付完成 3取消订单  默认0
+				totalPayment: '', // 支付总金额
+				riskAuditStatus: '',
+			},
 		}
 	},
 	
 	onLoad(option) {
 		this.id = option.id
+		this.orderParams.carTypeYearProductId = option.carTypeYearProductId
 		this.getAllCity()
 		this.getDetail()
 	},
@@ -230,13 +234,21 @@ export default {
 		const isLogin = uni.getStorageSync('isLogin')
 		if (isLogin) {
 			getApp().globalData.getUserInfo((data) => {
+				console.log('getUserInfo', data)
 				this.userInfo = data
 				this.orderParams.userId = data.id
+				if (data.riskAuditStatus) {
+					this.orderParams.riskAuditStatus = data.riskAuditStatus
+				}
 			})
 		}
 	},
 	
 	methods: {
+		formatThousandNumber(price) {
+			return formatThousandNumber(price)
+		},
+		
 		async getCarTypeConditionData () {
 		      uni.showLoading({
 		        title: '加载中'
@@ -304,8 +316,8 @@ export default {
 		},
 		
 		changeCalendar(e) {
-			this.orderParams.pickCarTimeStart = e.startDate
-			this.orderParams.pickCarTimeEnd = e.endDate
+			this.orderParams.startDate = e.startDate
+			this.orderParams.endDate = e.endDate
 			
 			this.custom.pickCarTimeStart.year = e.startYear
 			this.custom.pickCarTimeStart.month = e.startMonth.toString().padStart(2, '0')
@@ -314,11 +326,17 @@ export default {
 			this.custom.pickCarTimeEnd.year = e.endYear
 			this.custom.pickCarTimeEnd.month = e.endMonth.toString().padStart(2, '0')
 			this.custom.pickCarTimeEnd.date = e.endDay.toString().padStart(2, '0')
+			
+			const oneDay = 24 * 60 * 60 * 1000
+			const startTime = new Date(`${e.startDate}T00:00:00`).getTime()
+			const endTime = new Date(`${e.endDate}T00:00:00`).getTime() + oneDay
+			this.orderParams.totalDay = Math.ceil((endTime - startTime) / oneDay)
+			this.orderParams.totalPayment = this.orderParams.totalDay * this.detail.citySubscribeReq[0].money
 		},
 		
 		handleOrder() {
 			if (this.userInfo) {
-				if (!this.orderParams.pickCarTimeStart || !this.orderParams.pickCarTimeEnd) {
+				if (!this.orderParams.startDate || !this.orderParams.endDate) {
 					uni.showToast({
 						title: '请选择用车日期',
 						duration: 2000,
@@ -336,15 +354,6 @@ export default {
 					return 
 				}
 				
-				if (!this.orderParams.contactName) {
-					uni.showToast({
-						title: '请输入联系人',
-						duration: 2000,
-						icon: 'none'
-					})
-					return 
-				}
-				
 				if (!this.orderParams.mobile) {
 					uni.showToast({
 						title: '请输入手机号',
@@ -354,13 +363,13 @@ export default {
 					return 
 				}
 				
-				if (!this.orderParams.address) {
+				if(!validPhoneNum(this.orderParams.mobile)) {
 					uni.showToast({
-						title: '请输入预约地址',
+						title: '请正确输入手机号码',
 						duration: 2000,
-						icon: 'none'
+						icon: "none"
 					})
-					return 
+					return false
 				}
 				
 				uni.setStorageSync('rentalOrderParams', this.orderParams)

@@ -840,6 +840,30 @@
 							"navigationBarTitleText" : "选择管家",
 							"enablePullDownRefresh": false
 						}
+					},
+					{
+						"path" : "rentalIdentity/rentalIdentity",
+						"style" : 
+						{
+							"navigationBarTitleText" : "选择签约方式",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+						"path" : "rentalIdentity/personIdentity",
+						"style" : 
+						{
+							"navigationBarTitleText" : "个人认证",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+						"path" : "rental/order/rentalOrderDetail",
+						"style" :                                                                                    
+						{
+							"navigationBarTitleText": "订单详情",
+							"enablePullDownRefresh" : false
+						}
 					}
 				]
 			},
