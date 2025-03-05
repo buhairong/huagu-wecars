@@ -74,18 +74,22 @@
 			
 			handlePerson() {
 				if (this.orderParams.riskAuditStatus == 5) {
-					// uni.navigateTo({
-					// 	url: `/pagesOrder/rental/order/rentalOrderDetail`
-					// })
+					if(this.type == 1) {
+						// uni.navigateTo({
+						// 	url: `/pagesOrder/rental/order/rentalOrderDetail`
+						// })
+					}
 				} else {
 					uni.navigateTo({
-						url: `/pagesOrder/rentalIdentity/personIdentity&type=${this.type}&userId=${this.userId}`
+						url: `/pagesOrder/rentalIdentity/personIdentity?type=${this.type}&userId=${this.userId}`
 					})
 				}
 			},
 			
 			handleCompany() {
-				
+				uni.navigateTo({
+					url: `/pagesOrder/rentalIdentity/companyList?type=${this.type}&userId=${this.userId}`
+				})
 			},
 		}
 	}

@@ -15,11 +15,11 @@
 		        class="identity-card u-flex-1 u-margin-right-20"
 		        @click="handleUploadFace(0)"
 		    >
-		        <template v-if="tempFilePathsFace">
+		        <template v-if="identityParams.idcardUrl">
 		            <u-image
 		                width="100%"
 		                height="100%"
-		                :src="tempFilePathsFace"
+		                :src="identityParams.idcardUrl"
 		            />
 		        </template>
 		        <template v-else>
@@ -34,11 +34,11 @@
 		        class="identity-card  u-flex-1 u-margin-left-20"
 		        @click="handleUploadFace(1)"
 		    >
-		        <template v-if="tempFilePathsBack">
+		        <template v-if="identityParams.idcardBackUrl">
 		            <u-image
 		                width="100%"
 		                height="100%"
-		                :src="tempFilePathsBack"
+		                :src="identityParams.idcardBackUrl"
 		            />
 		        </template>
 		        <template v-else>
@@ -49,6 +49,12 @@
 		            />
 		        </template>
 		    </view>
+		</view>
+		
+		<view class="order-btn-wrap">
+			<view class="order-btn" @click="handleSubmit">
+				立即认证
+			</view>
 		</view>
 	</view>
 </template>
@@ -78,6 +84,16 @@
 				},
 				identityParams: {
 					userId: '',
+					idcardUrl: '',
+					idcardBackUrl: '',
+					name: '',
+					idcard: '',
+					sex: '',
+					birth: '',
+					idcardValidityTimeEnd: '',
+					idcardValidityTimeStart: '',
+					issue: '',
+					isForever: '',
 				},
 			}
 		},
@@ -97,7 +113,89 @@
 		methods: {
 			// type   0： 前   1： 后
 			handleUploadFace(type) {
+				uni.chooseImage({
+					success: async (chooseImageRes) => {
+						uni.showLoading({
+								title: '上传中'
+						});
+						const tempFilePaths = chooseImageRes.tempFilePaths;
+						const upload = await this.$getFileUpload(this.$url.upload, tempFilePaths)
+						if(upload.code != 0) {
+							uni.showToast({
+								title: upload.msg,
+								duration: 2000,
+								icon: 'none'
+							})
+							return false;
+						}
+						uni.hideLoading()
 				
+						if(type == 0) {
+								this.identityParams.idcardUrl = upload.data.src;
+								this.OCRCardImg({
+										idcardImageUrl: upload.data.src
+								}, 0);
+						} else {
+								this.identityParams.idcardBackUrl = upload.data.src;
+								this.OCRCardImg({
+										idcardBackImageUrl: upload.data.src
+								}, 1);
+						}
+				
+					}
+				});
+			},
+			
+			async OCRCardImg(params, type) {
+				const uploadInfo =  await this.$getRequest(this.$url.ocrIdcard, 'POST', params)
+			
+				if(uploadInfo.code != 0) {
+					uni.showToast({
+						title: uploadInfo.msg,
+						duration: 2000,
+						icon: 'none'
+					})
+					if (type === 0) {
+						this.identityParams.idcardUrl = ''
+					} else {
+						this.identityParams.idcardBackUrl = ''
+					}
+					return false;
+				}
+			
+				if (type === 0) {
+					this.identityParams.name = uploadInfo.data.resultJSON.name
+					this.identityParams.idcard = uploadInfo.data.resultJSON.num
+					this.identityParams.sex = uploadInfo.data.resultJSON.sex
+					this.identityParams.birth = uploadInfo.data.resultJSON.birth
+				} else {
+					this.identityParams.idcardValidityTimeEnd = uploadInfo.data.resultJSON.end_date
+					this.identityParams.idcardValidityTimeStart = uploadInfo.data.resultJSON.start_date
+					this.identityParams.issue = uploadInfo.data.resultJSON.issue
+					this.identityParams.isForever = uploadInfo.data.resultJSON.is_fake
+				}
+			},
+			
+			handleSubmit() {
+				if(!this.identityParams.idcardUrl) {
+					uni.showToast({
+							title: '请上传身份证正面',
+							duration: 2000,
+							icon: 'none'
+					});
+			
+					return false;
+				}
+				
+				if(!this.identityParams.idcardBackUrl) {
+					uni.showToast({
+							title: '请上传身份证反面',
+							duration: 2000,
+							icon: 'none'
+					});
+			
+					return false;
+				}
 			},
 		}
 	}

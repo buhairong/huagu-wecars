@@ -858,6 +858,22 @@
 						}
 					},
 					{
+						"path" : "rentalIdentity/companyIdentity",
+						"style" : 
+						{
+							"navigationBarTitleText" : "企业认证",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+						"path" : "rentalIdentity/companyList",
+						"style" : 
+						{
+							"navigationBarTitleText" : "我的公司",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
 						"path" : "rental/order/rentalOrderDetail",
 						"style" :                                                                                    
 						{

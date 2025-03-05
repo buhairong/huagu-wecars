@@ -104,7 +104,7 @@
 				uni.setStorageSync('rentalOrderParams', this.orderParams)
 				console.log('handleChange')
 				uni.navigateTo({
-					url: `/pagesOrder/rentalIdentity/rentalIdentity`
+					url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
 				})
 			},
 			
@@ -121,7 +121,7 @@
 				uni.setStorageSync('rentalOrderParams', this.orderParams)
 				
 				uni.navigateTo({
-					url: `/pagesOrder/rentalIdentity/rentalIdentity&type=${this.type}&userId=${this.orderParams.userId}`
+					url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
 				})
 			},
 		}
