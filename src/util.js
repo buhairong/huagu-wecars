@@ -332,6 +332,9 @@ const url = {
 	getMemberCarRentalDetail: 'app/app/memberCarRental/detail', // 查询会员租车车辆详情
 	getButlerList: 'app/app/memberButler/listByPage', // 查询管家
 	getCompanyList: 'app/appuser/userCompany/ownCompany', // 查询公司
+	userAuditSubmit: 'app/appuser/userAuditSubmit', // 个人认证
+	addOrUpdateMemberUserRentalOrder: 'app/memberUserRentalOrder/addOrUpdate', // 创建会员租车订单
+	createOrUpdateUserCompany: 'app/appuser/userCompany/createOrUpdateUserCompany', // 创建或修改企业
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

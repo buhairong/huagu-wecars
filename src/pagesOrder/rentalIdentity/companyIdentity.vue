@@ -42,6 +42,7 @@
 			return {
 				companyId: '',
 				identityParams: {
+					id: '',
 					userId: '',
 					businessLicense: '',
 					companyName: '',
@@ -56,8 +57,15 @@
 		},
 		
 		onLoad(option) {
-			this.companyId = option.companyId
 			this.identityParams.userId = option.userId
+			if (option.companyId) {
+				this.identityParams.id = option.companyId
+				this.identityParams.businessLicense = option.businessLicense
+				this.OCRCardImg({
+					businessLicense: option.businessLicense
+				})
+			}
+			
 		},
 		
 		onShow() {
@@ -112,7 +120,7 @@
 				this.identityParams.establishDate = uploadInfo.data.establish_date
 			},
 			
-			handleSubmit() {
+			async handleSubmit() {
 				if(!this.identityParams.businessLicense) {
 					uni.showToast({
 							title: '请上传企业营业执照',
@@ -123,7 +131,20 @@
 					return false;
 				}
 				
+				const res = await this.$getRequest(this.$url.createOrUpdateUserCompany, 'POST', this.identityParams)
 				
+				if(res.code != 0) {
+					uni.showToast({
+						title: '保存失败',
+						duration: 2000,
+						icon: 'none'
+					})
+					return false;
+				}
+				
+				uni.navigateBack({
+					delta: 1
+				});
 			},
 		}
 	}

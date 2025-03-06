@@ -72,9 +72,20 @@
 				}
 			},
 			
-			handlePerson() {
+			async handlePerson() {
 				if (this.orderParams.riskAuditStatus == 5) {
 					if(this.type == 1) {
+						const orderRes = await this.$getRequest(this.$url.addOrUpdateMemberUserRentalOrder, 'POST', this.orderParams)
+						
+						if(orderRes.code != 0) {
+							uni.showToast({
+								title: '创建订单失败',
+								duration: 2000,
+								icon: 'none'
+							})
+							return false;
+						}
+						
 						// uni.navigateTo({
 						// 	url: `/pagesOrder/rental/order/rentalOrderDetail`
 						// })

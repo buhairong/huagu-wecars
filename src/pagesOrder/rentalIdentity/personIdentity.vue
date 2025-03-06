@@ -15,11 +15,11 @@
 		        class="identity-card u-flex-1 u-margin-right-20"
 		        @click="handleUploadFace(0)"
 		    >
-		        <template v-if="identityParams.idcardUrl">
+		        <template v-if="identityParams.userInfoEntity.idcardUrl">
 		            <u-image
 		                width="100%"
 		                height="100%"
-		                :src="identityParams.idcardUrl"
+		                :src="identityParams.userInfoEntity.idcardUrl"
 		            />
 		        </template>
 		        <template v-else>
@@ -34,11 +34,11 @@
 		        class="identity-card  u-flex-1 u-margin-left-20"
 		        @click="handleUploadFace(1)"
 		    >
-		        <template v-if="identityParams.idcardBackUrl">
+		        <template v-if="identityParams.userInfoEntity.idcardBackUrl">
 		            <u-image
 		                width="100%"
 		                height="100%"
-		                :src="identityParams.idcardBackUrl"
+		                :src="identityParams.userInfoEntity.idcardBackUrl"
 		            />
 		        </template>
 		        <template v-else>
@@ -84,16 +84,23 @@
 				},
 				identityParams: {
 					userId: '',
-					idcardUrl: '',
-					idcardBackUrl: '',
-					name: '',
-					idcard: '',
+					birthday: '',
 					sex: '',
-					birth: '',
-					idcardValidityTimeEnd: '',
-					idcardValidityTimeStart: '',
-					issue: '',
-					isForever: '',
+					userInfoEntity: {
+						userId: '',
+						idcardUrl: '',
+						idcardBackUrl: '',
+						name: '',
+						idcard: '',
+						sex: '',
+						birthday: '',
+						idcardValidityTimeEnd: '',
+						idcardValidityTimeStart: '',
+						issue: '',
+						isForever: '',
+						idcard_ocr_log_id: '',
+						idcard_back_ocr_log_id: '',
+					}
 				},
 			}
 		},
@@ -101,13 +108,17 @@
 		onLoad(option) {
 			this.type = option.type
 			this.identityParams.userId = option.userId
+			this.identityParams.userInfoEntity.userId = option.userId
 		},
 		
 		onShow() {
-			const params = uni.getStorageSync('rentalOrderParams')
-			if (params) {
-				this.orderParams = params
+			if(this.type == 1) {
+				const params = uni.getStorageSync('rentalOrderParams')
+				if (params) {
+					this.orderParams = params
+				}
 			}
+			
 		},
 		
 		methods: {
@@ -131,12 +142,12 @@
 						uni.hideLoading()
 				
 						if(type == 0) {
-								this.identityParams.idcardUrl = upload.data.src;
+								this.identityParams.userInfoEntity.idcardUrl = upload.data.src;
 								this.OCRCardImg({
 										idcardImageUrl: upload.data.src
 								}, 0);
 						} else {
-								this.identityParams.idcardBackUrl = upload.data.src;
+								this.identityParams.userInfoEntity.idcardBackUrl = upload.data.src;
 								this.OCRCardImg({
 										idcardBackImageUrl: upload.data.src
 								}, 1);
@@ -156,28 +167,32 @@
 						icon: 'none'
 					})
 					if (type === 0) {
-						this.identityParams.idcardUrl = ''
+						this.identityParams.userInfoEntity.idcardUrl = ''
 					} else {
-						this.identityParams.idcardBackUrl = ''
+						this.identityParams.userInfoEntity.idcardBackUrl = ''
 					}
 					return false;
 				}
 			
 				if (type === 0) {
-					this.identityParams.name = uploadInfo.data.resultJSON.name
-					this.identityParams.idcard = uploadInfo.data.resultJSON.num
+					this.identityParams.userInfoEntity.name = uploadInfo.data.resultJSON.name
+					this.identityParams.userInfoEntity.idcard = uploadInfo.data.resultJSON.num
+					this.identityParams.userInfoEntity.sex = uploadInfo.data.resultJSON.sex
 					this.identityParams.sex = uploadInfo.data.resultJSON.sex
-					this.identityParams.birth = uploadInfo.data.resultJSON.birth
+					this.identityParams.userInfoEntity.birthday = uploadInfo.data.resultJSON.birth
+					this.identityParams.birthday = uploadInfo.data.resultJSON.birth
+					this.identityParams.userInfoEntity.idcard_ocr_log_id = uploadInfo.data.id
 				} else {
-					this.identityParams.idcardValidityTimeEnd = uploadInfo.data.resultJSON.end_date
-					this.identityParams.idcardValidityTimeStart = uploadInfo.data.resultJSON.start_date
-					this.identityParams.issue = uploadInfo.data.resultJSON.issue
-					this.identityParams.isForever = uploadInfo.data.resultJSON.is_fake
+					this.identityParams.userInfoEntity.idcardValidityTimeEnd = uploadInfo.data.resultJSON.end_date
+					this.identityParams.userInfoEntity.idcardValidityTimeStart = uploadInfo.data.resultJSON.start_date
+					this.identityParams.userInfoEntity.issue = uploadInfo.data.resultJSON.issue
+					this.identityParams.userInfoEntity.isForever = uploadInfo.data.resultJSON.is_fake
+					this.identityParams.userInfoEntity.idcard_back_ocr_log_id = uploadInfo.data.id
 				}
 			},
 			
-			handleSubmit() {
-				if(!this.identityParams.idcardUrl) {
+			async handleSubmit() {
+				if(!this.identityParams.userInfoEntity.idcardUrl) {
 					uni.showToast({
 							title: '请上传身份证正面',
 							duration: 2000,
@@ -187,7 +202,7 @@
 					return false;
 				}
 				
-				if(!this.identityParams.idcardBackUrl) {
+				if(!this.identityParams.userInfoEntity.idcardBackUrl) {
 					uni.showToast({
 							title: '请上传身份证反面',
 							duration: 2000,
@@ -196,6 +211,36 @@
 			
 					return false;
 				}
+				
+				const res = await this.$getRequest(this.$url.userAuditSubmit, 'POST', this.identityParams)
+				
+				if(res.code != 0) {
+					uni.showToast({
+						title: '认证失败',
+						duration: 2000,
+						icon: 'none'
+					})
+					return false;
+				}
+				
+				if(this.type == 1) {
+					const orderRes = await this.$getRequest(this.$url.addOrUpdateMemberUserRentalOrder, 'POST', this.orderParams)
+					
+					if(orderRes.code != 0) {
+						uni.showToast({
+							title: '创建订单失败',
+							duration: 2000,
+							icon: 'none'
+						})
+						return false;
+					}
+					
+					// uni.navigateTo({
+					// 	url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.id}`
+					// })
+				}
+				
+				
 			},
 		}
 	}
