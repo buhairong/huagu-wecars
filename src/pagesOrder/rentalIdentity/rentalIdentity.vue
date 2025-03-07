@@ -28,6 +28,7 @@
 			return {
 				type: '', // 1.租车订单
 				userId: '',
+				userInfo: {},
 				orderParams: {
 					cityId: '', // 城市ID
 					cityName: '', // 城市名称
@@ -55,6 +56,14 @@
 		},
 		
 		onShow() {
+			const isLogin = uni.getStorageSync('isLogin')
+			if (isLogin) {
+				getApp().globalData.getUserInfo((data) => {
+					console.log('getUserInfo', data)
+					this.userInfo = data
+				})
+			}
+			
 			const params = uni.getStorageSync('rentalOrderParams')
 			if (params) {
 				this.orderParams = params
@@ -73,7 +82,7 @@
 			},
 			
 			async handlePerson() {
-				if (this.orderParams.riskAuditStatus == 5) {
+				if (this.userInfo.riskAuditStatus == 5) {
 					if(this.type == 1) {
 						const orderRes = await this.$getRequest(this.$url.addOrUpdateMemberUserRentalOrder, 'POST', this.orderParams)
 						
@@ -86,9 +95,9 @@
 							return false;
 						}
 						
-						// uni.navigateTo({
-						// 	url: `/pagesOrder/rental/order/rentalOrderDetail`
-						// })
+						uni.navigateTo({
+							url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.data.id}&userId=${this.userId}`
+						})
 					}
 				} else {
 					uni.navigateTo({

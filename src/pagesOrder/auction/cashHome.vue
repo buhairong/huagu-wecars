@@ -1,6 +1,6 @@
 <template>
-	<view class="page-wrap">
-		<view class="search-header">
+	<view class="page-wrap1">
+		<!-- <view class="search-header">
 			<view class="tabs">
 				<view 
 					v-for="tab in tabs"
@@ -13,7 +13,7 @@
 					{{tab.label}}
 				</view>
 			</view>
-		</view>
+		</view> -->
 		
 		<view class="container">
 			<Account v-if="activeTab === 1" :detail="newCarList" :account="account" @search="getNewCarList" @scroll="handleScroll" />
@@ -84,7 +84,7 @@ export default {
 			
 			let params = {
 				fromSys: 1,
-				limit: this.newCarList.pageSize,
+				limit: 1000,
 				pageIndex,
 				userId: this.userId,
 			}

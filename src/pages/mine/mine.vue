@@ -150,10 +150,10 @@
 								</view>
 							</view>
 							<u-cell-item
-							    :title="userInfo.userCompanyEntity ? '我的企业' : '企业申请'"
+							    title="我的企业"
 							    arrow-direction="right"
 							    :title-style="titleStyle"
-							    @click="handleOrderList"
+							    @click="handleCompany"
 							>
 							    <u-icon
 							        slot="icon"
@@ -479,14 +479,15 @@ export default {
             userAccountEntity: null, // 余额账户
             userDepositEntity: null, // 押金账户
             userCouponEntityList: null, // 优惠券
-						showSetNickPopup: false,
-						showDistributionBrokerageFree: 0,
-						showFreezedTipPopup: false,
-						tipModel: {
-							title: '',
-							content: '',
-							btnText: '',
-						},
+			showSetNickPopup: false,
+			showDistributionBrokerageFree: 0,
+			showFreezedTipPopup: false,
+			tipModel: {
+				title: '',
+				content: '',
+				btnText: '',
+			},
+			companyList: [],
         };
     },
 		
@@ -505,12 +506,35 @@ export default {
 					if(data) {
 						this.showDistributionBrokerageFree = data.showDistributionBrokerageFree || 0
 						this.getMyBasicInfo(data.id)
+						//this.getCompanyList()
 					}
 				})
 			}
     },
 		
     methods: {
+		handleCompany() {
+			this.isLogin()
+			uni.navigateTo({
+				url: `/pagesOrder/rentalIdentity/companyList?type=0&userId=${this.userInfo?.id}`
+			})
+		},
+		
+		getCompanyList() {
+			uni.showLoading({
+			  title: '加载中'
+			});
+			this.$getRequest(this.$url.getCompanyList, "GET", {
+			  userId: this.userInfo.id,
+			  page: 1,
+			  limit: 100,
+			}).then(res => {
+				uni.hideLoading()
+				this.companyList = res.data
+			}).catch(() => {
+				uni.hideLoading()
+			})
+		},
 			saveNickName(nickName) {
 				this.userInfo.nickname = nickName
 			},
@@ -571,7 +595,7 @@ export default {
 				myAccount() {
 					this.isLogin()
 					uni.navigateTo({
-						url: `/pagesOrder/auction/cashHome?userId=${this.userInfo.id}`
+						url: `/pagesOrder/account/personAccount?userId=${this.userInfo?.id}`
 					})
 				},
 				

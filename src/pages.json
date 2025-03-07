@@ -869,7 +869,15 @@
 						"path" : "rentalIdentity/companyList",
 						"style" : 
 						{
-							"navigationBarTitleText" : "我的公司",
+							"navigationBarTitleText" : "我的企业",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+						"path" : "rentalIdentity/staffList",
+						"style" : 
+						{
+							"navigationBarTitleText" : "员工列表",
 							"enablePullDownRefresh" : false
 						}
 					},
@@ -880,6 +888,40 @@
 							"navigationBarTitleText": "订单详情",
 							"enablePullDownRefresh" : false
 						}
+					},
+					{
+						"path" : "account/personAccount",
+						"style" : 
+						{
+							"navigationBarTitleText" : "我的账户",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+						"path" : "account/companyAccount",
+						"style" : 
+						{
+							"navigationBarTitleText" : "企业账户",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+						"path" : "account/recharge",
+						"style" : 
+						{
+							"navigationBarTitleText" : "充值",
+							"enablePullDownRefresh" : false
+						}
+					},
+					{
+					    "path" : "qrcode/qrcode",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false,
+									"navigationStyle": "custom"
+					    }
+					    
 					}
 				]
 			},

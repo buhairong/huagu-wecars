@@ -29,27 +29,27 @@
 							</view>
 						</view>
 						
-						<view class="btn-group">
+						<view class="btn-group" v-if="type == 0">
 							<view class="btn" @click.stop="hanleStaff(item)">
 								查看员工
 							</view>
-							<view class="btn" @click.stop="handleIdentity(item)">
+							<view v-if="item.relation == 1" class="btn" @click.stop="handleIdentity(2, item)">
 								修改企业
 							</view>
-							<view class="btn" @click.stop="removeCompany(item)">
+							<view v-if="item.relation == 1" class="btn" @click.stop="removeCompany(item)">
 								删除企业
 							</view>
 						</view>
 					</view>
 					
-					<u-icon v-if="type == 1" name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28"></u-icon>
+					<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28"></u-icon>
 				</view>
 			</view>
 		</view>
 		<u-empty v-else text="暂无企业" mode="list" margin-top="40"></u-empty>
 		
 		<view class="order-btn-wrap">
-			<view class="order-btn" @click="handleIdentity">
+			<view class="order-btn" @click="handleIdentity(1)">
 				添加企业
 			</view>
 		</view>
@@ -62,7 +62,7 @@ import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	export default {
 		data() {
 			return {
-				type: '', // 1.租车订单
+				type: '', // 0 我的企业  1.租车订单
 				userId: '',
 				list: [],
 				selectedCompanyId: '',
@@ -96,7 +96,7 @@ import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 				this.$getRequest(this.$url.getCompanyList, "GET", {
 				  userId: this.userId,
 				  page: 1,
-				  limit: 1000,
+				  limit: 100,
 				}).then(res => {
 					uni.hideLoading()
 					this.list = res.data
@@ -105,15 +105,35 @@ import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 				})
 			},
 			
-			handleChange(item) {
-				
+			async handleChange(item) {
+				if (this.type == 0) {
+					uni.navigateTo({
+						url: `/pagesOrder/account/companyAccount?userId=${this.userId}&companyId=${item.companyId}&companyName=${item.userCompanyEntity.companyName}`
+					})
+				}else if(this.type == 1) {
+					this.orderParams.companyId = item.companyId
+					const orderRes = await this.$getRequest(this.$url.addOrUpdateMemberUserRentalOrder, 'POST', this.orderParams)
+					
+					if(orderRes.code != 0) {
+						uni.showToast({
+							title: '创建订单失败',
+							duration: 2000,
+							icon: 'none'
+						})
+						return false;
+					}
+					
+					uni.navigateTo({
+						url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.data.id}&userId=${this.userId}`
+					})
+				}
 			},
 			
-			handleIdentity(item) {
+			handleIdentity(type, item) {
 				let companyId = ''
 				let businessLicense = ''
-				if (item) {
-					companyId = item.id
+				if (type == 2) {
+					companyId = item.companyId
 					businessLicense = item.userCompanyEntity.businessLicense
 				}
 				uni.navigateTo({
@@ -122,11 +142,41 @@ import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 			},
 			
 			hanleStaff(item) {
-				
+				uni.navigateTo({
+					url: `/pagesOrder/rentalIdentity/staffList?userId=${this.userId}&companyId=${item.companyId}&companyName=${item.userCompanyEntity.companyName}&relation=${item.relation}`
+				})
 			},
 			
 			removeCompany(item) {
-				
+				uni.showModal({
+					title: '提示',
+					content: `确定要删除企业 ${item.userCompanyEntity.companyName} 吗？`,
+					success: async (res) => {
+						if (res.confirm) {
+							uni.showLoading({
+								title: '加载中'
+							})
+							
+							const params = {
+								userCompanyId: item.companyId
+							}
+							
+							const res = await this.$getRequest(this.$url.deleteUserCompany, "GET", params)
+							
+							if (res.code == 0) {
+								uni.showToast({
+									title: '已成功删除',
+									duration: 2000,
+									icon: "none"
+								})
+								
+								this.getList()
+							}
+							
+							uni.hideLoading()
+						}
+					}
+				})
 			},
 		}
 	}
@@ -134,6 +184,10 @@ import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 
 <style lang="scss" scoped>
 @import "~@/styles/common.scss";
+
+.page-wrap1 {
+	padding-bottom: 240rpx;
+}
 
 .card {
 	display: flex;

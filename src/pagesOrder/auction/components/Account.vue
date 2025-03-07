@@ -12,10 +12,10 @@
 					充值
 					<u-icon name="arrow-right" color="#ffffff" size="28" ></u-icon>
 				</view>
-				<view style="margin-top:16rpx;" @click="cardInfo" v-if="account.bankCardNo">
+				<!-- <view style="margin-top:16rpx;" @click="cardInfo" v-if="account.bankCardNo">
 				 	银行卡
 					<u-icon name="arrow-right" color="#ffffff" size="28" ></u-icon>
-				</view>
+				</view> -->
 			</view>
 		</view>
 		
@@ -42,9 +42,9 @@
 			</view>
 		</scroll-view>
 		
-		<view class="buttom-disabled-btn" @click="cash">
+		<!-- <view class="buttom-disabled-btn" @click="cash">
 		  <button>提现</button>
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -121,13 +121,13 @@ export default {
 		},
 		
 		goRechargePage() {
-			if (this.account.bankCardNo) {
+			//if (this.account.bankCardNo) {
 				uni.navigateTo({
-					url: `/pagesOrder/pay/recharge`
+					url: `/pagesOrder/pay/recharge?type=1`
 				})
-			} else {
-				this.bindBankCard()
-			}
+			// } else {
+			// 	this.bindBankCard()
+			// }
 		},
 		
 		cash() {

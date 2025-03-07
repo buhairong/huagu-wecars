@@ -27,6 +27,12 @@
 			</view>
 		</view>
 		
+		<view class="tips">
+			<view class="tip">充值 <text class="price">{{formatThousandNumber(50000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(10000)}}</text> 元</view>
+			<view class="tip">充值 <text class="price">{{formatThousandNumber(80000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(15000)}}</text> 元</view>
+			<view class="tip">充值 <text class="price">{{formatThousandNumber(100000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(20000)}}</text> 元</view>
+		</view>
+		
 		<view class="buttom-disabled-btn">
 			<button :disabled="disabled" @click="save">立即充值</button>
 		</view>
@@ -36,16 +42,19 @@
 </template>
 
 <script>
+import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
+	
 export default {
 	data() {
 		return {
 			type: '', // 1.个人 2.公司
 			userId: '',
+			companyId: '',
 			userInfo: {},
 			moneyList: [
-				{ id: 1, money: 1000, },
-				{ id: 2, money: 2000, },
-				{ id: 3, money: 5000, },
+				{ id: 1, money: 50000, },
+				{ id: 2, money: 80000, },
+				{ id: 3, money: 100000, },
 			],
 			money: undefined,
 			currentTag: '',
@@ -61,6 +70,7 @@ export default {
 	onLoad(option) {
 		this.type = option.type
 		this.userId = option.userId
+		this.companyId = option.companyId
 	},
 	
 	onShow() {
@@ -68,6 +78,10 @@ export default {
 	},
 	
 	methods: {
+		formatThousandNumber(price) {
+			return formatThousandNumber(price)
+		},
+		
 		changeTag(item) {
 			this.currentTag = item.id
 			this.money = item.money
@@ -130,5 +144,21 @@ export default {
 
 .buttom-disabled-btn {
 	margin-top: 200rpx;
+}
+
+.tips {
+	margin-top: 32rpx;
+	.tip {
+		margin-bottom: 16rpx;
+		font-size: 28rpx;
+		line-height: 44rpx;
+		color: rgba(78, 89, 105, 0.6);
+		.price {
+			padding: 0 8rpx;
+			color: #111;
+			font-size: 32rpx;
+			font-weight: 500;
+		}
+	}
 }
 </style>

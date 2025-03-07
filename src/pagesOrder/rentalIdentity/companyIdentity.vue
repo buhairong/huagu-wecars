@@ -42,6 +42,7 @@
 			return {
 				companyId: '',
 				identityParams: {
+					companyId: '',
 					id: '',
 					userId: '',
 					businessLicense: '',
@@ -60,6 +61,7 @@
 			this.identityParams.userId = option.userId
 			if (option.companyId) {
 				this.identityParams.id = option.companyId
+				this.identityParams.companyId = option.companyId
 				this.identityParams.businessLicense = option.businessLicense
 				this.OCRCardImg({
 					businessLicense: option.businessLicense
@@ -81,6 +83,8 @@
 						});
 						const tempFilePaths = chooseImageRes.tempFilePaths;
 						const upload = await this.$getFileUpload(this.$url.upload, tempFilePaths)
+						
+						uni.hideLoading()
 						if(upload.code != 0) {
 							uni.showToast({
 								title: upload.msg,
@@ -89,7 +93,6 @@
 							})
 							return false
 						}
-						uni.hideLoading()
 			
 						this.identityParams.businessLicense = upload.data.src
 						this.OCRCardImg({
@@ -101,7 +104,12 @@
 			},
 			
 			async OCRCardImg(params) {
+				uni.showLoading({
+						title: '加载中'
+				});
 				const uploadInfo =  await this.$getRequest(this.$url.ocrBusinessLicense, 'POST', params)
+				
+				uni.hideLoading()
 				
 				if(uploadInfo.code != 0) {
 					this.identityParams.businessLicense = ''

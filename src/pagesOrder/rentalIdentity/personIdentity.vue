@@ -83,6 +83,7 @@
 					riskAuditStatus: '',
 				},
 				identityParams: {
+					type: 5,
 					userId: '',
 					birthday: '',
 					sex: '',
@@ -235,9 +236,9 @@
 						return false;
 					}
 					
-					// uni.navigateTo({
-					// 	url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.id}`
-					// })
+					uni.navigateTo({
+						url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.data.id}&userId=${this.userId}`
+					})
 				}
 				
 				
