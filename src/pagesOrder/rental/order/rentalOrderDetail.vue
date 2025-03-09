@@ -158,6 +158,28 @@
 			},
 			
 			handleCancel() {
+				uni.showModal({
+					title: '提示',
+					content: `确定要取消这个订单吗？`,
+					success: (res) => {
+						if (res.confirm) {
+							uni.showLoading({
+								title: '加载中'
+							})
+							
+							this.$getRequest(this.$url.cancelMemberUserRentalOrder, "GET", {
+							  id: this.detailInfo.id,
+							}).then(res => {
+								uni.hideLoading()
+								this.getDetail()
+							}).catch(() => {
+								uni.hideLoading()
+							})
+						}
+					}
+				})
+				
+				
 				
 			},
 			

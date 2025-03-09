@@ -340,6 +340,8 @@ const url = {
 	getMemberUserRentalOrderDetail: 'app/memberUserRentalOrder/detail', // 订单详情
 	addStaff: 'app/appuser/userCompany/addStaff', // 添加员工
 	getMemberUserRentalOrderList: 'app/memberUserRentalOrder/listByPage', // 订单列表
+	memberUserRentalOrderPayWay: 'app/memberUserRentalOrder/payOrder', // 订单支付方式
+	cancelMemberUserRentalOrder: 'app/memberUserRentalOrder/cancelOrder', // 取消订单
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key
