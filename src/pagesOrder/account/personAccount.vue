@@ -27,7 +27,10 @@
 			<view class="tip">充值 <text class="price">{{formatThousandNumber(50000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(10000)}}</text> 元</view>
 			<view class="tip">充值 <text class="price">{{formatThousandNumber(80000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(15000)}}</text> 元</view>
 			<view class="tip">充值 <text class="price">{{formatThousandNumber(100000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(20000)}}</text> 元</view>
-			<view class="tip">邀请新用户注册，赠送 <text class="price">{{formatThousandNumber(100)}}</text> 元</view>
+			<view class="tip">
+				邀请新用户注册，赠送 <text class="price">{{formatThousandNumber(100)}}</text> 元
+				<view class="text-btn" @click="invite">去邀请</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -61,6 +64,12 @@
 					url: `/pagesOrder/account/recharge?type=1&userId=${this.userId}`
 				})
 				
+			},
+			
+			invite() {
+				uni.navigateTo({
+					url: `/pagesOrder/qrcode/qrcode?type=1&userId=${this.userId}`
+				})
 			},
 		}
 	}
@@ -104,11 +113,19 @@
 		font-size: 28rpx;
 		line-height: 44rpx;
 		color: rgba(78, 89, 105, 0.6);
+		display: flex;
+		align-items: center;
 		.price {
 			padding: 0 8rpx;
 			color: #111;
 			font-size: 32rpx;
 			font-weight: 500;
+		}
+		.text-btn {
+			margin-left: 32rpx;
+			font-size: 28rpx;
+			color: #4170EE;
+			text-decoration: underline;
 		}
 	}
 }

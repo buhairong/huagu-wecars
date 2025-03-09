@@ -338,6 +338,8 @@ const url = {
 	deleteUserCompany: 'app/appuser/userCompany/deleteUserCompany', // 删除企业
 	companyUserList: 'app/appuser/userCompany/ownCompanyPersonDetail', // 员工列表
 	getMemberUserRentalOrderDetail: 'app/memberUserRentalOrder/detail', // 订单详情
+	addStaff: 'app/appuser/userCompany/addStaff', // 添加员工
+	getMemberUserRentalOrderList: 'app/memberUserRentalOrder/listByPage', // 订单列表
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

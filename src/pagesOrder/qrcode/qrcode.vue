@@ -8,7 +8,10 @@
 			</view>
 		</view>
 		
-		<view class="title">微信扫码进入WECARS小程序</view>
+		<view class="title">
+			<view v-if="type == 1 || type == 2">微信扫码进入WECARS小程序</view>
+			<view v-else-if="type == 3">微信扫码加入 {{companyName}}</view>
+		</view>
 		
 		<view class="line"></view>
 		
@@ -56,13 +59,8 @@
 			
 			// 获取小程序码
 			async getWecarsQrCode() {
-				let page = 'pages/home/choose-index'
-				let scene = `${this.userId}`
-				
-				if (this.page == 2) {
-					page = 'pages/home/profile/index'
-					scene = ``
-				}
+				let page = 'pages/sign/sign'
+				let scene = `${this.type}&${this.userId}&${this.companyId}`
 				
 				const res = await this.$getRequest(this.$url.createQrCode, 'POST', {
 					envVersion: 1,
@@ -97,10 +95,9 @@
 		align-items: center;
 	}
 	.title {
-		padding: 120rpx 0;
-		height: 48rpx;
-		font-size: 40rpx;
+		padding: 120rpx 40rpx;
 		line-height: 48rpx;
+		font-size: 40rpx;
 		color: #FFFFFF;
 	}
 	.line {

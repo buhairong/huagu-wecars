@@ -356,6 +356,14 @@ const applyPartnerStepList = [
 	{ name: '个人信息' },
 ]
 
+// 会员租车订单状态
+const MEMBER_CAR_RENTAL_ORDER_STATUS = {
+	0: '待支付',    
+	1: '支付中', 
+	2: '支付完成',
+	3: '已取消',
+}
+
 export {
     orderStatus,
     orderStatusOptions,
@@ -402,4 +410,5 @@ export {
 		partnerRankingTabList,
 		partnerPriceTypeStatus,
 		applyPartnerStepList,
+		MEMBER_CAR_RENTAL_ORDER_STATUS
 }

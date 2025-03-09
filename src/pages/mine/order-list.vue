@@ -1,7 +1,7 @@
 <template>
     <view class="order-list">
       <u-sticky>
-        <view style="width: 480rpx;">
+        <view style="width: 640rpx;">
         	<u-tabs ref="tabs"  active-color="#0A0F2D" inactive-color="rgba(10, 15, 45, 0.8)" font-size="32" :list="tabList" :is-scroll="false" :current="current" @change="change"></u-tabs>
         </view>
       </u-sticky>
@@ -87,70 +87,93 @@
 							v-for="(item, index) in list"
 							:key="index"
 							class="card rental-item"
-							@click="handleDetail(item)"
+							@click="handleRentalDetail(item)"
 						>
 							<view class="card-header">
 								<view class="car-info-wrap">
 									<image
 										class="img"
-										:src="item.image"
+										:src="item.carTypeYearProductEntity.imageUrl"
 									/>
 									<view class="car-info">
 										<view class="brand">
-											<view class="brand-text">{{item.carBrand}} {{item.carType}}</view>
-											<view class="tag" v-if="item.status === 100 || item.status === 120">{{item.overDay}}天</view>
+											<view class="brand-text">{{item.carTypeYearProductEntity.carBrand}} {{item.carTypeYearProductEntity.carType}}</view>
+											<view class="tag">{{item.totalDay}}天</view>
 										</view>
-										<view class="product">{{item.carTypeYear}} {{item.carTypeYearProduct}}</view>
+										<view class="product">{{item.carTypeYearProductEntity.carTypeYear}} {{item.carTypeYearProductEntity.carTypeYearProduct}}</view>
 									</view>
 								</view>
-								<view class="status-wrap" :class="{'red-status': item.status === 120}">{{CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
+								<view class="status-wrap">{{MEMBER_CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
 							</view>
 							
-							<view class="card-item" v-if="item.status === 80">
-								<view class="card-label">接车信息：</view>
-								<view class="card-item-content">{{item.startDate}} {{item.pickUpAddress}}</view>
-							</view>
-								
-							<view class="card-item" v-else-if="item.status === 110">
-								<view class="card-label">还车信息：</view>
-								<view class="card-item-content">{{item.endDate}} {{item.returnAddress}}</view>
-							</view>
-							
-							<view class="card-item" v-else>
+							<view class="card-item">
 								<view class="card-label">用车时间：</view>
-								<view class="card-item-content">{{item.startDate}} 至 {{item.endDate}}</view>
+								<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
 							</view>
 							
 							<view class="card-item">
 								<view class="card-label">订单总额：</view>
-								<view class="card-item-content">¥ {{item.totalMoney | $numFormat}}</view>
-							</view>
-							
-							<view class="card-item" v-if="item.status === 130 || item.status === 150">
-								<view class="card-label">退还押金：</view>
-								<view class="card-item-content">¥ {{item.deposit | $numFormat}}</view>
-							</view>
-							
-							<view class="card-item" v-else-if="item.businessType === 1">
-								<view class="card-label">还款日期：</view>
-								<view class="card-item-content">每月{{item.day}}日</view>
-							</view>
-							
-							<view class="card-item">
-								<view class="card-label">订单编号：</view>
-								<view class="card-item-content">{{item.orderNum}}</view>
+								<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
 							</view>
 							
 						</view>
 					</view>
-					<u-loadmore
-						v-if="list.length"
-						class="loadmore"
-						:status="status"
-						:load-text="loadText"
-					/>
+					
         </view>
-				<view v-if="current == 2">
+		<view v-if="current == 2">
+			<view class="company-dropdown">
+								<u-dropdown>
+									<u-dropdown-item @change="changeCompany" v-model="currentCompanyId" :title="currentCompanyLabel" :options="companyList" menu-icon>
+									</u-dropdown-item>
+								</u-dropdown>
+			</view>
+		  <view v-if="companyOrderList && companyOrderList.length == 0">
+		      <u-gap
+		          height="200"
+		          bg-color="#FFFFFF"
+		      />
+		      <u-empty
+		          text="暂无订单"
+		          mode="list"
+		      />
+		  </view>
+		   <view class="list-wrap">
+				<view
+					v-for="(item, index) in companyOrderList"
+					:key="index"
+					class="card rental-item"
+					@click="handleRentalDetail(item)"
+				>
+					<view class="card-header">
+						<view class="car-info-wrap">
+							<image
+								class="img"
+								:src="item.carTypeYearProductEntity.imageUrl"
+							/>
+							<view class="car-info">
+								<view class="brand">
+									<view class="brand-text">{{item.carTypeYearProductEntity.carBrand}} {{item.carTypeYearProductEntity.carType}}</view>
+									<view class="tag">{{item.totalDay}}天</view>
+								</view>
+								<view class="product">{{item.carTypeYearProductEntity.carTypeYear}} {{item.carTypeYearProductEntity.carTypeYearProduct}}</view>
+							</view>
+						</view>
+						<view class="status-wrap">{{MEMBER_CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">用车时间：</view>
+						<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">订单总额：</view>
+						<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+				<view v-if="current == 3">
 				  <view v-if="rentalList && rentalList.length == 0">
 				      <u-gap
 				          height="200"
@@ -205,7 +228,7 @@
     </view>
 </template>
 <script>
-import { orderStatus, orderStatusOptions, CAR_RENTAL_ORDER_STATUS, SUBSCRIBE_PERIOD_STATUS } from "@/constants"
+import { orderStatus, orderStatusOptions, CAR_RENTAL_ORDER_STATUS, SUBSCRIBE_PERIOD_STATUS,MEMBER_CAR_RENTAL_ORDER_STATUS } from "@/constants"
 import { subOrderStatusOptions } from "@/constants/order"
 
 export default {
@@ -229,12 +252,16 @@ export default {
 		return {
 			SUBSCRIBE_PERIOD_STATUS,
 			CAR_RENTAL_ORDER_STATUS,
+			MEMBER_CAR_RENTAL_ORDER_STATUS,
 			tabList: [
 				{
 					name: '新车订阅'
 				}, 
 				{
 					name: '会员租车'
+				},
+				{
+					name: '企业租车'
 				},
 				{
 					name: '融资租赁'
@@ -257,6 +284,10 @@ export default {
 				nomore: '实在没有了'
 			},
 			rentalList: [],
+			currentCompanyId: '',
+			companyList: [],
+			currentCompanyLabel: '',
+			companyOrderList: [],
 		}
 	},
 	
@@ -271,6 +302,7 @@ export default {
 			this.userInfo = data;
 			this.userId = data.id;
 			this.list = [];
+			this.getCompanyList()
 			this.getSubscribeOrderList(data.id, 1)
 			this.getOrderList(data.id, 1)
 			this.getRentalOrderList(data.id, 1)
@@ -328,6 +360,12 @@ export default {
 			}
 		},
 		
+		handleRentalDetail(item) {
+			uni.navigateTo({
+				url: `/pagesOrder/rental/order/rentalOrderDetail?id=${item.id}&userId=${this.userId}`
+			})
+		},
+		
 		async getRentalOrderList(userId, page) {
 			const res = await this.$getRequest(this.$url.getCustomerRentalOrderList, 'GET', {
 				userId
@@ -337,13 +375,62 @@ export default {
 		},
 		
 		async getOrderList(userId, page) {
-			const res = await this.$getRequest(this.$url.getCarRentalOrderList, 'GET', {
-				userId
+			const res = await this.$getRequest(this.$url.getMemberUserRentalOrderList, 'POST', {
+				ordertype: 1,
+				userId,
+				page: 1,
+				limit: 1000,
 			})
-			this.list = this.list.concat(res.data)
-			this.totalPages = res.data.pages
-			this.page = res.data.current
-			this.status = 'nomore'
+			this.list = res.data.records
+			// this.totalPages = res.data.pages
+			// this.page = res.data.current
+			// this.status = 'nomore'
+		},
+		
+		async getCompanyOrderList() {
+			const res = await this.$getRequest(this.$url.getMemberUserRentalOrderList, 'POST', {
+				ordertype: 2,
+				companyId: this.currentCompanyId,
+				page: 1,
+				limit: 1000,
+			})
+			this.companyOrderList = res.data.records
+		},
+		
+		getCompanyList() {
+			uni.showLoading({
+			  title: '加载中'
+			});
+			this.$getRequest(this.$url.getCompanyList, "GET", {
+			  userId: this.userId,
+			  page: 1,
+			  limit: 100,
+			}).then(res => {
+				uni.hideLoading()
+				this.companyList = res.data.map(item => {
+					return {
+						label: item.userCompanyEntity.companyName,
+						value: item.companyId,
+					}
+				})
+				
+				this.currentCompanyId = this.companyList[0].value
+				this.currentCompanyLabel = this.companyList[0].label
+				this.getCompanyOrderList()
+			}).catch(() => {
+				uni.hideLoading()
+			})
+		},
+		
+		changeCompany(e) {
+			this.currentCompanyId = e
+			
+			const findItem = this.companyList.find(item => item.companyId == e)
+			if(findItem) {
+				this.currentCompanyLabel = findItem.label
+			}
+			
+			this.getCompanyOrderList()
 		},
 		
 		async getSubscribeOrderList(userId, page) {
@@ -521,5 +608,8 @@ export default {
 			flex: 1;
 		}
 	}
+}
+.company-dropdown {
+	margin-top: 24rpx;
 }
 </style>
