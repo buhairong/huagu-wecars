@@ -23,6 +23,18 @@
 									{{item.sex == 1 ? '男' : '女'}}
 								</view>
 							</view>
+							<view class="custom-item">
+								<view class="label">学历：</view>
+								<view class="content">
+									{{EDUCATION_STATUS[item.education]}}
+								</view>
+							</view>
+							<view class="custom-item">
+								<view class="label">手机：</view>
+								<view class="content">
+									{{item.mobile}}
+								</view>
+							</view>
 						</view>
 					</view>
 					<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28"></u-icon>
@@ -40,9 +52,12 @@
 </template>
 
 <script>
+	import { EDUCATION_STATUS } from "@/constants"
+	
 	export default {
 		data() {
 			return {
+				EDUCATION_STATUS,
 				type: '', // 1.租车订单
 				cityId: '',
 				orderParams: {
@@ -149,8 +164,8 @@
 			}
 			.avatar {
 				margin-right: 24rpx;
-				width: 80rpx;
-				height: 80rpx;
+				width: 160rpx;
+				height: 160rpx;
 				border-radius: 50%;
 			}
 			.custom-item {

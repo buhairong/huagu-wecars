@@ -43,15 +43,30 @@
 			return {
 				userId: '',
 				detail: null,
-				rechargeAmount: 1000,
-				giftAmount: 2000,
-				balance: 3000,
+				rechargeAmount: 0,
+				giftAmount: 0,
+				balance: 0,
 				list: [],
+				userInfo: {},
 			}
 		},
 		
 		onLoad(option) {
 			this.userId = option.userId
+		},
+		
+		onShow() {
+			const isLogin = uni.getStorageSync('isLogin')
+			if (isLogin) {
+				getApp().globalData.getUserInfo((data) => {
+					this.userInfo = data
+					if (data.userInfoEntity) {
+						this.rechargeAmount = data.userInfoEntity.rechargeAmount || 0
+						this.giftAmount = data.userInfoEntity.giftAmount || 0
+						this.balance = data.userInfoEntity.balance || 0
+					}
+				})
+			}
 		},
 		
 		methods: {

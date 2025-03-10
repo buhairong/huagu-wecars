@@ -359,10 +359,40 @@ const applyPartnerStepList = [
 // 会员租车订单状态
 const MEMBER_CAR_RENTAL_ORDER_STATUS = {
 	0: '待支付',    
-	1: '支付中', 
+	1: '审核中', 
 	2: '支付完成',
 	3: '已取消',
 }
+
+const EDUCATION_STATUS = {
+  1: "博士",
+  2: "研究生",
+  3: "本科",
+  4: "专科",
+  5: "高中",
+  6: "初中",
+};
+
+const PAY_WAY_STATUS = {
+  1: "微信支付",
+  2: "余额支付",
+  3: "先租后付",
+};
+
+const BUSINESS_ACTIVITY_LIST = [
+	{ value: 1, label: '高尔夫' },
+	{ value: 2, label: '餐饮' },
+	{ value: 3, label: '会议' },
+	{ value: 4, label: '娱乐' },
+]
+
+
+const BUSINESS_ACTIVITY_STATUS = {
+  1: "高尔夫",
+  2: "餐饮",
+  3: "会议",
+  4: "娱乐",
+};
 
 export {
     orderStatus,
@@ -410,5 +440,9 @@ export {
 		partnerRankingTabList,
 		partnerPriceTypeStatus,
 		applyPartnerStepList,
-		MEMBER_CAR_RENTAL_ORDER_STATUS
+		MEMBER_CAR_RENTAL_ORDER_STATUS,
+		EDUCATION_STATUS,
+		BUSINESS_ACTIVITY_STATUS,
+		PAY_WAY_STATUS,
+		BUSINESS_ACTIVITY_LIST
 }

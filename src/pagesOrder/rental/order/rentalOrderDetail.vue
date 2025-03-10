@@ -83,6 +83,13 @@
 				</view>
 			</view>
 			
+			<view class="item" v-if="detailInfo.status == 1 || detailInfo.status == 2">
+				<view class="item-title">支付方式</view>
+				<view class="item-content">
+					{{PAY_WAY_STATUS[detailInfo.payWay]}}
+				</view>
+			</view>
+			
 			<view class="item">
 				<view class="item-title">我的管家</view>
 				<view class="item-content">
@@ -111,12 +118,18 @@
 				订单支付
 			</view>
 		</view>
+		
+		<u-select
+			v-model="showPayWayList" 
+			:list="payWayList"
+			@confirm="confirmPayWay"
+		></u-select>
 	</view>
 </template>
 
 <script>
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
-	import { MEMBER_CAR_RENTAL_ORDER_STATUS } from "@/constants"
+	import { MEMBER_CAR_RENTAL_ORDER_STATUS,PAY_WAY_STATUS } from "@/constants"
 	
 	
 	export default {
@@ -126,7 +139,28 @@
 				userId: '',
 				detailInfo: null,
 				MEMBER_CAR_RENTAL_ORDER_STATUS,
+				PAY_WAY_STATUS,
+				showPayWayList: false,
 			}
+		},
+		
+		computed: {
+			payWayList() {
+				let res = [
+					{value: 1 , label: '微信支付'},
+					{value: 2 , label: '余额支付'}
+				]
+				
+				if (this.detailInfo && this.detailInfo.orderType == 2) {
+					res = [
+						{value: 1 , label: '微信支付'},
+						{value: 2 , label: '余额支付'},
+						{value: 3 , label: '先租后付'}
+					]
+				}
+				
+				return res
+			},
 		},
 		
 		onLoad(option) {
@@ -171,7 +205,22 @@
 							  id: this.detailInfo.id,
 							}).then(res => {
 								uni.hideLoading()
-								this.getDetail()
+								if (res.code == 0) {
+									uni.showToast({
+										title: '操作成功',
+										duration: 2000,
+										icon: "none"
+									})
+									
+									this.getDetail()
+								} else {
+									uni.showToast({
+										title: res.msg,
+										duration: 2000,
+										icon: "none"
+									})
+								}
+								
 							}).catch(() => {
 								uni.hideLoading()
 							})
@@ -184,7 +233,43 @@
 			},
 			
 			handleOrder() {
-				
+				this.showPayWayList = true
+			},
+			
+			confirmPayWay(e) {
+				console.log('confirmPayWay', e)
+				const payWay = e[0].value
+				if (payWay == 1) {
+					//
+				} else if(payWay == 2 || payWay == 3) {
+					uni.showLoading({
+						title: '加载中'
+					})
+					
+					this.$getRequest(this.$url.memberUserRentalOrderPayWay, "GET", {
+					  id: this.detailInfo.id,
+					  payWay
+					}).then(res => {
+						uni.hideLoading()
+						if (res.code == 0) {
+							uni.showToast({
+								title: '操作成功',
+								duration: 2000,
+								icon: "none"
+							})
+							
+							this.getDetail()
+						} else {
+							uni.showToast({
+								title: res.msg,
+								duration: 2000,
+								icon: "none"
+							})
+						}
+					}).catch(() => {
+						uni.hideLoading()
+					})
+				}
 			},
 		}
 	}
@@ -238,7 +323,6 @@
 	
 	.order-status {
 		margin-left: 20rpx;
-		width: 120rpx;
 		min-height: 108rpx;
 		padding: 8rpx;
 		border-radius: 16rpx;

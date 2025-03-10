@@ -46,9 +46,9 @@
 				companyId: '',
 				companyName: '',
 				detail: null,
-				rechargeAmount: 1000,
-				giftAmount: 2000,
-				balance: 3000,
+				rechargeAmount: 0,
+				giftAmount: 0,
+				balance: 0,
 				list: [],
 			}
 		},
@@ -59,9 +59,36 @@
 			this.companyName = option.companyName
 		},
 		
+		onShow() {
+			this.getList()
+		},
+		
 		methods: {
 			formatThousandNumber(price) {
 				return formatThousandNumber(price)
+			},
+			
+			getList() {
+				uni.showLoading({
+				  title: '加载中'
+				});
+				this.$getRequest(this.$url.getCompanyList, "GET", {
+				  userId: this.userId,
+				  page: 1,
+				  limit: 100,
+				}).then(res => {
+					uni.hideLoading()
+					if(res.data) {
+						const company = res.data.find(item => this.companyId == item.companyId)
+						if (company?.userCompanyEntity?.userCompanyAccountEntity) {
+							this.rechargeAmount = company.userCompanyEntity.userCompanyAccountEntity.rechargeAmount || 0
+							this.giftAmount = company.userCompanyEntity.userCompanyAccountEntity.giftAmount || 0
+							this.balance = company.userCompanyEntity.userCompanyAccountEntity.balance || 0
+						}
+					}
+				}).catch(() => {
+					uni.hideLoading()
+				})
 			},
 			
 			goRechargePage() {

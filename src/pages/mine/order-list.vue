@@ -121,7 +121,7 @@
 					
         </view>
 		<view v-if="current == 2">
-			<view class="company-dropdown">
+			<view class="company-dropdown" v-if="companyList.length > 1">
 								<u-dropdown>
 									<u-dropdown-item @change="changeCompany" v-model="currentCompanyId" :title="currentCompanyLabel" :options="companyList" menu-icon>
 									</u-dropdown-item>
@@ -545,6 +545,8 @@ export default {
 		display: flex;
 		justify-content: space-between;
 		.car-info-wrap {
+			width: 0;
+			flex: 1;
 			display: flex;
 			align-items: center;
 			.img {

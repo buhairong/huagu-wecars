@@ -99,13 +99,12 @@ export default {
         };
     },
     onLoad(option) {
-		option.scene = '3&1099&14'
 		if(option.scene){
 			const scene = decodeURIComponent(option.scene)
 			const sceneParams = scene.split("&")
 			this.sceneParams.type = sceneParams[0]
 			this.sceneParams.userId = sceneParams[1]
-			this.sceneParams.companyId = sceneParams[2]
+			this.sceneParams.companyId = sceneParams[2] || ''
 		}
 			this.partnerId = option.partnerId || ''
 			this.redirectUrl = option.redirectUrl || ''
@@ -178,7 +177,23 @@ export default {
                         success: async () => {
 							if(pageThis.sceneParams.type) {
 								if (pageThis.sceneParams.type == 1 || pageThis.sceneParams.type == 2) {
-									//
+									uni.showLoading({
+										title: '加载中'
+									})
+									
+									const params = {
+										companyId: pageThis.sceneParams.companyId,
+										userId: pageThis.sceneParams.userId,
+										inviteUserId: data.id
+									}
+									
+									const res = await pageThis.$getRequest(pageThis.$url.inviteGift, "GET", params)
+									uni.hideLoading()
+									if (res.code == 0) {
+										uni.reLaunch({
+											url: '/pages/home/choose-index'
+										})
+									}
 								} else if (pageThis.sceneParams.type == 3){
 									uni.showLoading({
 										title: '加载中'
