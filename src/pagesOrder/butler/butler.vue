@@ -37,7 +37,7 @@
 							</view>
 						</view>
 					</view>
-					<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28"></u-icon>
+					<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28" v-if="type == 1"></u-icon>
 				</view>
 			</view>
 			
@@ -58,7 +58,7 @@
 		data() {
 			return {
 				EDUCATION_STATUS,
-				type: '', // 1.租车订单
+				type: '', // 1.租车订单  2.商务活动
 				cityId: '',
 				orderParams: {
 					cityId: '', // 城市ID
@@ -115,12 +115,13 @@
 			},
 			
 			handleChange(item) {
-				this.orderParams.memberButlerId = item.id
-				uni.setStorageSync('rentalOrderParams', this.orderParams)
-				console.log('handleChange')
-				uni.navigateTo({
-					url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
-				})
+				if(this.type == 1) {
+					this.orderParams.memberButlerId = item.id
+					uni.setStorageSync('rentalOrderParams', this.orderParams)
+					uni.navigateTo({
+						url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
+					})
+				}
 			},
 			
 			handleOrder() {

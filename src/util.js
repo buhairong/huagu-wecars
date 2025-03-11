@@ -347,6 +347,8 @@ const url = {
 	createExchangeCode: 'app/exchangeInfo/createCode', // 生成兑换码
 	setExchangeCodeMoney: 'app/exchangeInfo/add', // 兑换码设置金额
 	exchangeCode: 'app/exchangeInfo/exchangeCode', // 核销兑换码
+	getMemberBusinessActivityList: 'app/memberBusinessActivity/listByPage', // 商务活动列表
+	getMemberBusinessActivityDetail: 'app/memberBusinessActivity/detail', // 商务活动详情
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

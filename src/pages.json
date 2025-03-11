@@ -386,6 +386,14 @@
 					    }
 					},
 					{
+					    "path" : "business/businessDetail",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "商务活动详情",
+					        "enablePullDownRefresh": false
+					    }
+					},
+					{
 						"path" : "rental/product/carDetail",
 						"style" :                                                                                    
 						{

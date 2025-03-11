@@ -380,18 +380,18 @@ const PAY_WAY_STATUS = {
 };
 
 const BUSINESS_ACTIVITY_LIST = [
-	{ value: 1, label: '高尔夫' },
-	{ value: 2, label: '餐饮' },
-	{ value: 3, label: '会议' },
-	{ value: 4, label: '娱乐' },
+	{ value: '1', label: '高尔夫' },
+	{ value: '2', label: '餐饮' },
+	{ value: '3', label: '会议' },
+	{ value: '4', label: '娱乐' },
 ]
 
 
 const BUSINESS_ACTIVITY_STATUS = {
-  1: "高尔夫",
-  2: "餐饮",
-  3: "会议",
-  4: "娱乐",
+  '1': "高尔夫",
+  '2': "餐饮",
+  '3': "会议",
+  '4': "娱乐",
 };
 
 export {
