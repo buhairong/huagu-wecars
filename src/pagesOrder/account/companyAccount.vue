@@ -17,6 +17,9 @@
 				</view>
 			</view>
 			<view class="right">
+				<view class="text-btn" style="margin-right: 32rpx;" @click="handleExchange">
+					兑换码
+				</view>
 				<view @click="goRechargePage">
 					充值
 					<u-icon name="arrow-right" color="#ffffff" size="28" ></u-icon>
@@ -33,6 +36,24 @@
 				<view class="text-btn" @click="invite">去邀请</view>
 			</view>
 		</view>
+		
+		<u-popup border-radius="14" mode="center" v-model="showPopup" @close="close">
+			<view class="popup-wrap">
+				<view class="item">
+					<input
+						class="input"
+						v-model="code"
+						placeholder="请输入兑换码"
+					/>
+				</view>
+				
+				<view class="btn-wrap">
+					<view class="btn" @click="handleComfirm">
+						确定
+					</view>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -50,6 +71,8 @@
 				giftAmount: 0,
 				balance: 0,
 				list: [],
+				code: '',
+				showPopup: false,
 			}
 		},
 		
@@ -103,6 +126,55 @@
 					url: `/pagesOrder/qrcode/qrcode?type=2&userId=${this.userId}&companyId=${this.companyId}&companyName=${this.companyName}`
 				})
 			},
+			
+			handleExchange() {
+				this.showPopup = true
+			},
+			
+			close() {
+				this.showPopup = false
+			},
+			
+			handleComfirm() {
+				if(!this.code) {
+					uni.showToast({
+						title: '请输入兑换码',
+						duration: 2000,
+						icon: 'none'
+					})
+					return false;
+				}
+				
+				uni.showLoading({
+					title: '加载中'
+				})
+				
+				this.$getRequest(this.$url.exchangeCode, "GET", {
+					exchangeUserId: this.userId,
+					exchangeCompanyId: this.companyId,
+					code: this.code,
+				}).then(res => {
+					uni.hideLoading()
+					if (res.code == 0) {
+						uni.showToast({
+							title: '兑换成功',
+							duration: 2000,
+							icon: "none"
+						})
+						this.getList()
+						this.showPopup = false
+						this.code = ''
+					} else {
+						uni.showToast({
+							title: res.msg || '兑换失败',
+							duration: 2000,
+							icon: "none"
+						})
+					}
+				}).catch(() => {
+					uni.hideLoading()
+				})
+			},
 		}
 	}
 </script>
@@ -144,6 +216,10 @@
 		font-size: 32rpx;
 		color: #FFFFFF;
 	}
+	.right {
+		display:flex;
+		align-items: center;
+	}
 }
 
 .tips {
@@ -161,11 +237,46 @@
 			font-size: 32rpx;
 			font-weight: 500;
 		}
-		.text-btn {
-			margin-left: 32rpx;
-			font-size: 28rpx;
-			color: #4170EE;
-			text-decoration: underline;
+	}
+}
+
+.text-btn {
+	margin-left: 32rpx;
+	font-size: 28rpx;
+	color: #4170EE;
+	text-decoration: underline;
+}
+
+.popup-wrap {
+	padding: 48rpx;
+	width: 560rpx;
+	.item {
+		margin-bottom: 32rpx;
+		height: 80rpx;
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		.item-title {
+			color: #64696F;
+			width: 120rpx;
+			text-align: right;
+		}
+		.item-content {
+			color: #141414;
+		}
+	}
+	.btn-wrap {
+		margin-top: 80rpx;
+		.btn {
+			width: 100%;
+			height: 80rpx;
+			border-radius: 16rpx;
+			background: #0A0F2D;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 32rpx;
+			color: #FFFFFF;
 		}
 	}
 }

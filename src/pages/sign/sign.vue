@@ -95,10 +95,12 @@ export default {
 				type: '', // 1.个人分享小程序  2 企业分享小程序  3.企业邀请员工  
 				userId: '',
 				companyId: '',
-			}
+			},
+			isHaveMobile: true,
         };
     },
     onLoad(option) {
+		// option.scene = '1&1099&14'
 		if(option.scene){
 			const scene = decodeURIComponent(option.scene)
 			const sceneParams = scene.split("&")
@@ -127,6 +129,7 @@ export default {
 						          }).then( async (res) => {
 						              this.openId = res.data.openid
 						              this.session_key = res.data.session_key
+									  this.isHaveMobile = res.data.isHaveMobile
 													
 													// this.openId = 'oMHQK5VTaP68ByhJbDLamnGwUzxM'
 						          })
@@ -177,19 +180,25 @@ export default {
                         success: async () => {
 							if(pageThis.sceneParams.type) {
 								if (pageThis.sceneParams.type == 1 || pageThis.sceneParams.type == 2) {
-									uni.showLoading({
-										title: '加载中'
-									})
-									
-									const params = {
-										companyId: pageThis.sceneParams.companyId,
-										userId: pageThis.sceneParams.userId,
-										inviteUserId: data.id
-									}
-									
-									const res = await pageThis.$getRequest(pageThis.$url.inviteGift, "GET", params)
-									uni.hideLoading()
-									if (res.code == 0) {
+									if(pageThis.isHaveMobile === false) {
+										uni.showLoading({
+											title: '加载中'
+										})
+										
+										const params = {
+											companyId: pageThis.sceneParams.companyId,
+											userId: pageThis.sceneParams.userId,
+											inviteUserId: data.id
+										}
+										
+										const res = await pageThis.$getRequest(pageThis.$url.inviteGift, "GET", params)
+										uni.hideLoading()
+										if (res.code == 0) {
+											uni.reLaunch({
+												url: '/pages/home/choose-index'
+											})
+										}
+									} else {
 										uni.reLaunch({
 											url: '/pages/home/choose-index'
 										})

@@ -158,7 +158,7 @@
 							    <u-icon
 							        slot="icon"
 							        size="32"
-							        name="coupon"
+							        name="twitter"
 							    />
 							</u-cell-item>
                 <u-cell-item
@@ -173,6 +173,19 @@
                         name="list-dot"
                     />
                 </u-cell-item>
+				<u-cell-item
+					v-if="userInfo && userInfo.isAdmin == 1"
+				    title="兑换推广"
+				    arrow-direction="right"
+				    :title-style="titleStyle"
+				    @click="goCouponPage"
+				>
+				    <u-icon
+				        slot="icon"
+				        size="32"
+				        name="coupon"
+				    />
+				</u-cell-item>
 								<view class="menu-wrap" @click="goAuctionListPage">
 									<view class="title">
 										<image
@@ -517,6 +530,12 @@ export default {
 			this.isLogin()
 			uni.navigateTo({
 				url: `/pagesOrder/rentalIdentity/companyList?type=0&userId=${this.userInfo?.id}`
+			})
+		},
+		
+		goCouponPage() {
+			uni.navigateTo({
+				url: `/pagesOrder/account/coupon?userId=${this.userInfo?.id}`
 			})
 		},
 		

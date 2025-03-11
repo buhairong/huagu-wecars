@@ -343,6 +343,10 @@ const url = {
 	memberUserRentalOrderPayWay: 'app/memberUserRentalOrder/payOrder', // 订单支付
 	cancelMemberUserRentalOrder: 'app/memberUserRentalOrder/cancelOrder', // 取消订单
 	inviteGift: 'app/appuser/userCompany/inviteGift', // 邀请入驻
+	getExchangeList: 'app/exchangeInfo/listByPage', // 券码列表
+	createExchangeCode: 'app/exchangeInfo/createCode', // 生成兑换码
+	setExchangeCodeMoney: 'app/exchangeInfo/add', // 兑换码设置金额
+	exchangeCode: 'app/exchangeInfo/exchangeCode', // 核销兑换码
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

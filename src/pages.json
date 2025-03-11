@@ -922,6 +922,14 @@
 									"navigationStyle": "custom"
 					    }
 					    
+					},
+					{
+						"path" : "account/coupon",
+						"style" : 
+						{
+							"navigationBarTitleText" : "兑换推广",
+							"enablePullDownRefresh" : false
+						}
 					}
 				]
 			},
