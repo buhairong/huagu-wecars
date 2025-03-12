@@ -45,7 +45,7 @@
 					class="car-img"
 					:src="item"
 					mode="widthFix"
-					@click="preview(item)"
+					@click="preview(index)"
 				/>
 			</view>
 		</view>
@@ -103,6 +103,14 @@
 				uni.navigateTo({
 					url: `/pagesOrder/butler/butler?type=2&cityId=${this.detailInfo.cityId}`
 				})
+			},
+			
+			preview(index) {
+				uni.previewImage({
+					urls: this.detailInfo.imageList,
+					current: index,
+					loop: true
+				});
 			},
 		}
 	}

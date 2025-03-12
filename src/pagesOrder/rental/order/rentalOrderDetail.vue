@@ -141,6 +141,7 @@
 				MEMBER_CAR_RENTAL_ORDER_STATUS,
 				PAY_WAY_STATUS,
 				showPayWayList: false,
+				userInfo: {},
 			}
 		},
 		
@@ -170,6 +171,12 @@
 		
 		onShow() {
 			this.getDetail()
+			const isLogin = uni.getStorageSync('isLogin')
+			if (isLogin) {
+				getApp().globalData.getUserInfo((data) => {
+					this.userInfo = data
+				})
+			}
 		},
 		
 		methods: {
@@ -236,11 +243,39 @@
 				this.showPayWayList = true
 			},
 			
+			async handlePay() {
+				// 1.拉起微信支付
+				uni.showToast({
+					title: '微信支付中',
+					duration: 2000,
+					icon: 'loading'
+				})
+				
+				// 2.创建微信订单
+				this.$requestPayment({
+					fromSys: 1,
+					appType: 1,
+					businessId: this.detailInfo.id, // 订单ID
+					businessType: 30,
+					openid: this.userInfo.xcxOpenid,
+					payType: 30,
+					total: this.detailInfo.totalPayment,
+					// total: 0.01,
+					userId: this.userId,
+					companyId:this.detailInfo?.userCompanyEntity?.id
+				}, async (res) => {
+					if(res === 'success') {
+						this.getDetail()
+					}
+				})
+				
+				uni.hideLoading()
+			},
+			
 			confirmPayWay(e) {
-				console.log('confirmPayWay', e)
 				const payWay = e[0].value
 				if (payWay == 1) {
-					//
+					this.handlePay()
 				} else if(payWay == 2 || payWay == 3) {
 					uni.showLoading({
 						title: '加载中'

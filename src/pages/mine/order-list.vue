@@ -1,12 +1,13 @@
 <template>
     <view class="order-list">
       <u-sticky>
-        <view style="width: 640rpx;">
-        	<u-tabs ref="tabs"  active-color="#0A0F2D" inactive-color="rgba(10, 15, 45, 0.8)" font-size="32" :list="tabList" :is-scroll="false" :current="current" @change="change"></u-tabs>
+        <view style="width: 686rpx;padding-right:32rpx;">
+        	<u-tabs ref="tabs" :item-width="160" active-color="#0A0F2D" inactive-color="rgba(10, 15, 45, 0.8)" font-size="32" :list="tabList" :is-scroll="true" :current="current" @change="change"></u-tabs>
         </view>
       </u-sticky>
+        
         <view v-if="current == 0">
-          <view v-if="subList && subList.length == 0">
+          <view v-if="list && list.length == 0">
               <u-gap
                   height="200"
                   bg-color="#FFFFFF"
@@ -16,6 +17,186 @@
                   mode="list"
               />
           </view>
+					<view class="list-wrap">
+						<view
+							v-for="(item, index) in list"
+							:key="index"
+							class="card rental-item"
+							@click="handleRentalDetail(item)"
+						>
+							<view class="card-header">
+								<view class="car-info-wrap">
+									<image
+										class="img"
+										:src="item.carTypeYearProductEntity.imageUrl"
+									/>
+									<view class="car-info">
+										<view class="brand">
+											<view class="brand-text">{{item.carTypeYearProductEntity.carBrand}} {{item.carTypeYearProductEntity.carType}}</view>
+											<view class="tag">{{item.totalDay}}天</view>
+										</view>
+										<view class="product">{{item.carTypeYearProductEntity.carTypeYear}} {{item.carTypeYearProductEntity.carTypeYearProduct}}</view>
+									</view>
+								</view>
+								<view class="status-wrap">{{MEMBER_CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
+							</view>
+							
+							<view class="card-item">
+								<view class="card-label">用车时间：</view>
+								<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
+							</view>
+							
+							<view class="card-item">
+								<view class="card-label">订单总额：</view>
+								<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
+							</view>
+							
+						</view>
+					</view>
+					
+        </view>
+		<view v-if="current == 1">
+			<view class="company-dropdown" v-if="companyList.length > 1">
+								<u-dropdown>
+									<u-dropdown-item @change="changeCompany" v-model="currentCompanyId" :title="currentCompanyLabel" :options="companyList" menu-icon>
+									</u-dropdown-item>
+								</u-dropdown>
+			</view>
+		  <view v-if="companyOrderList && companyOrderList.length == 0">
+		      <u-gap
+		          height="200"
+		          bg-color="#FFFFFF"
+		      />
+		      <u-empty
+		          text="暂无订单"
+		          mode="list"
+		      />
+		  </view>
+		   <view class="list-wrap">
+				<view
+					v-for="(item, index) in companyOrderList"
+					:key="index"
+					class="card rental-item"
+					@click="handleRentalDetail(item)"
+				>
+					<view class="card-header">
+						<view class="car-info-wrap">
+							<image
+								class="img"
+								:src="item.carTypeYearProductEntity.imageUrl"
+							/>
+							<view class="car-info">
+								<view class="brand">
+									<view class="brand-text">{{item.carTypeYearProductEntity.carBrand}} {{item.carTypeYearProductEntity.carType}}</view>
+									<view class="tag">{{item.totalDay}}天</view>
+								</view>
+								<view class="product">{{item.carTypeYearProductEntity.carTypeYear}} {{item.carTypeYearProductEntity.carTypeYearProduct}}</view>
+							</view>
+						</view>
+						<view class="status-wrap">{{MEMBER_CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">用车时间：</view>
+						<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">订单总额：</view>
+						<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<!-- <view v-if="current == 2">
+		    <view v-if="businessOrderList.length == 0">
+		      <u-gap
+		          height="200"
+		          bg-color="#FFFFFF"
+		      />
+		      <u-empty
+		          text="暂无订单"
+		          mode="list"
+		      />
+		    </view>
+			<view class="list-wrap">
+				
+			</view>
+		</view> -->
+		<view v-if="current == 2">
+			<view class="company-dropdown" v-if="companyList.length > 1">
+								<u-dropdown>
+									<u-dropdown-item @change="changeCompany" v-model="currentCompanyId" :title="currentCompanyLabel" :options="companyList" menu-icon>
+									</u-dropdown-item>
+								</u-dropdown>
+			</view>
+		    <view v-if="companyBusinessOrderList.length == 0">
+		      <u-gap
+		          height="200"
+		          bg-color="#FFFFFF"
+		      />
+		      <u-empty
+		          text="暂无订单"
+		          mode="list"
+		      />
+		    </view>
+			<view class="list-wrap">
+				<view
+					v-for="(item, index) in companyBusinessOrderList"
+					:key="index"
+					class="card rental-item"
+					@click="handleBusinessOrderDetail(item)"
+				>
+					<view class="card-item">
+						<view class="card-label">活动名称：</view>
+						<view class="card-item-content">{{item.memberBusinessActivityEntity.siteName}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">活动类型：</view>
+						<view class="card-item-content">
+							{{ BUSINESS_ACTIVITY_STATUS[item.memberBusinessActivityEntity.businessActivityType] }}
+						</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">活动地点：</view>
+						<view class="card-item-content">{{item.memberBusinessActivityEntity.address}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">活动时间：</view>
+						<view class="card-item-content">{{item.startDate}} 至 {{item.endDate}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">订单总额：</view>
+						<view class="card-item-content">¥ {{item.money | $numFormat}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">我的管家：</view>
+						<view class="card-item-content">{{item.memberButlerEntity.name}}</view>
+					</view>
+					
+					<view class="card-item">
+						<view class="card-label">联系管家：</view>
+						<view class="card-item-content">{{item.memberButlerEntity.mobile}}</view>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view v-if="current == 3">
+		  <view v-if="subList && subList.length == 0">
+		      <u-gap
+		          height="200"
+		          bg-color="#FFFFFF"
+		      />
+		      <u-empty
+		          text="暂无订单"
+		          mode="list"
+		      />
+		  </view>
 					<view class="list-wrap">
 						<view
 								v-for="(item, index) in subList"
@@ -70,110 +251,8 @@
 						:status="status"
 						:load-text="loadText"
 					/>
-        </view>
-        <view v-if="current == 1">
-          <view v-if="list && list.length == 0">
-              <u-gap
-                  height="200"
-                  bg-color="#FFFFFF"
-              />
-              <u-empty
-                  text="暂无订单"
-                  mode="list"
-              />
-          </view>
-					<view class="list-wrap">
-						<view
-							v-for="(item, index) in list"
-							:key="index"
-							class="card rental-item"
-							@click="handleRentalDetail(item)"
-						>
-							<view class="card-header">
-								<view class="car-info-wrap">
-									<image
-										class="img"
-										:src="item.carTypeYearProductEntity.imageUrl"
-									/>
-									<view class="car-info">
-										<view class="brand">
-											<view class="brand-text">{{item.carTypeYearProductEntity.carBrand}} {{item.carTypeYearProductEntity.carType}}</view>
-											<view class="tag">{{item.totalDay}}天</view>
-										</view>
-										<view class="product">{{item.carTypeYearProductEntity.carTypeYear}} {{item.carTypeYearProductEntity.carTypeYearProduct}}</view>
-									</view>
-								</view>
-								<view class="status-wrap">{{MEMBER_CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
-							</view>
-							
-							<view class="card-item">
-								<view class="card-label">用车时间：</view>
-								<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
-							</view>
-							
-							<view class="card-item">
-								<view class="card-label">订单总额：</view>
-								<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
-							</view>
-							
-						</view>
-					</view>
-					
-        </view>
-		<view v-if="current == 2">
-			<view class="company-dropdown" v-if="companyList.length > 1">
-								<u-dropdown>
-									<u-dropdown-item @change="changeCompany" v-model="currentCompanyId" :title="currentCompanyLabel" :options="companyList" menu-icon>
-									</u-dropdown-item>
-								</u-dropdown>
-			</view>
-		  <view v-if="companyOrderList && companyOrderList.length == 0">
-		      <u-gap
-		          height="200"
-		          bg-color="#FFFFFF"
-		      />
-		      <u-empty
-		          text="暂无订单"
-		          mode="list"
-		      />
-		  </view>
-		   <view class="list-wrap">
-				<view
-					v-for="(item, index) in companyOrderList"
-					:key="index"
-					class="card rental-item"
-					@click="handleRentalDetail(item)"
-				>
-					<view class="card-header">
-						<view class="car-info-wrap">
-							<image
-								class="img"
-								:src="item.carTypeYearProductEntity.imageUrl"
-							/>
-							<view class="car-info">
-								<view class="brand">
-									<view class="brand-text">{{item.carTypeYearProductEntity.carBrand}} {{item.carTypeYearProductEntity.carType}}</view>
-									<view class="tag">{{item.totalDay}}天</view>
-								</view>
-								<view class="product">{{item.carTypeYearProductEntity.carTypeYear}} {{item.carTypeYearProductEntity.carTypeYearProduct}}</view>
-							</view>
-						</view>
-						<view class="status-wrap">{{MEMBER_CAR_RENTAL_ORDER_STATUS[item.status]}}</view>
-					</view>
-					
-					<view class="card-item">
-						<view class="card-label">用车时间：</view>
-						<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
-					</view>
-					
-					<view class="card-item">
-						<view class="card-label">订单总额：</view>
-						<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
-					</view>
-				</view>
-			</view>
 		</view>
-				<view v-if="current == 3">
+				<view v-if="current == 4">
 				  <view v-if="rentalList && rentalList.length == 0">
 				      <u-gap
 				          height="200"
@@ -228,7 +307,7 @@
     </view>
 </template>
 <script>
-import { orderStatus, orderStatusOptions, CAR_RENTAL_ORDER_STATUS, SUBSCRIBE_PERIOD_STATUS,MEMBER_CAR_RENTAL_ORDER_STATUS } from "@/constants"
+import { orderStatus, orderStatusOptions, CAR_RENTAL_ORDER_STATUS, SUBSCRIBE_PERIOD_STATUS,MEMBER_CAR_RENTAL_ORDER_STATUS,BUSINESS_ACTIVITY_STATUS } from "@/constants"
 import { subOrderStatusOptions } from "@/constants/order"
 
 export default {
@@ -253,15 +332,19 @@ export default {
 			SUBSCRIBE_PERIOD_STATUS,
 			CAR_RENTAL_ORDER_STATUS,
 			MEMBER_CAR_RENTAL_ORDER_STATUS,
+			BUSINESS_ACTIVITY_STATUS,
 			tabList: [
-				{
-					name: '新车订阅'
-				}, 
 				{
 					name: '会员租车'
 				},
 				{
 					name: '企业租车'
+				},
+				{
+					name: '商务活动'
+				},
+				{
+					name: '新车订阅'
 				},
 				{
 					name: '融资租赁'
@@ -288,6 +371,8 @@ export default {
 			companyList: [],
 			currentCompanyLabel: '',
 			companyOrderList: [],
+			businessOrderList: [],
+			companyBusinessOrderList: [],
 		}
 	},
 	
@@ -302,6 +387,7 @@ export default {
 			this.userInfo = data;
 			this.userId = data.id;
 			this.list = [];
+			//this.getBusinessOrderList(data.id)
 			this.getCompanyList()
 			this.getSubscribeOrderList(data.id, 1)
 			this.getOrderList(data.id, 1)
@@ -366,6 +452,32 @@ export default {
 			})
 		},
 		
+		handleBusinessOrderDetail(item) {
+			uni.navigateTo({
+				url: `/pagesOrder/rental/order/businessOrderDetail?id=${item.id}&userId=${this.userId}`
+			})
+		},
+		
+		async getBusinessOrderList(userId) {
+			const res = await this.$getRequest(this.$url.getMemberBusinessActivityOrderList, 'POST', {
+				ordertype: 1,
+				userId,
+				page: 1,
+				limit: 1000,
+			})
+			this.businessOrderList = res.data.records
+		},
+		
+		async getCompanyBusinessOrderList() {
+			const res = await this.$getRequest(this.$url.getMemberBusinessActivityOrderList, 'POST', {
+				ordertype: 2,
+				companyId: this.currentCompanyId,
+				page: 1,
+				limit: 1000,
+			})
+			this.companyBusinessOrderList = res.data.records
+		},
+		
 		async getRentalOrderList(userId, page) {
 			const res = await this.$getRequest(this.$url.getCustomerRentalOrderList, 'GET', {
 				userId
@@ -417,6 +529,7 @@ export default {
 				this.currentCompanyId = this.companyList[0].value
 				this.currentCompanyLabel = this.companyList[0].label
 				this.getCompanyOrderList()
+				this.getCompanyBusinessOrderList()
 			}).catch(() => {
 				uni.hideLoading()
 			})
@@ -448,6 +561,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+::v-deep .u-tab-item {
+	padding: 0 8rpx !important;
+}
 .order-list {
 		padding: 0 32rpx;
 		padding-bottom: 40rpx;
@@ -542,6 +658,7 @@ export default {
 .rental-item {
 	margin-top: 24rpx;
 	.card-header {
+		margin-bottom: 32rpx;
 		display: flex;
 		justify-content: space-between;
 		.car-info-wrap {
@@ -608,6 +725,9 @@ export default {
 		.card-item-content {
 			width: 0;
 			flex: 1;
+		}
+		&:first-child {
+			margin-top: 0;
 		}
 	}
 }
