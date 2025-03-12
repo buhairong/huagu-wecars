@@ -351,6 +351,7 @@ const url = {
 	getMemberBusinessActivityDetail: 'app/memberBusinessActivity/detail', // 商务活动详情
 	getMemberBusinessActivityOrderList: 'app/memberBusinessActivityOrderEntity/listByPage', // 商务活动订单
 	getMemberBusinessActivityOrderDetail: 'app/memberBusinessActivityOrderEntity/detail', // 商务活动订单详情
+	saveMemberUserRechargeOrder: 'app/memberUserRechargeOrder/saveOrder', // 创建充值订单
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

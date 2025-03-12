@@ -374,7 +374,8 @@ const EDUCATION_STATUS = {
 };
 
 const PAY_WAY_STATUS = {
-  1: "微信支付",
+  0: "微信支付",
+  1: "银行转账",
   2: "余额支付",
   3: "先租后付",
 };

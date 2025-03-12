@@ -148,13 +148,13 @@
 		computed: {
 			payWayList() {
 				let res = [
-					{value: 1 , label: '微信支付'},
+					{value: 0 , label: '微信支付'},
 					{value: 2 , label: '余额支付'}
 				]
 				
 				if (this.detailInfo && this.detailInfo.orderType == 2) {
 					res = [
-						{value: 1 , label: '微信支付'},
+						{value: 0 , label: '微信支付'},
 						{value: 2 , label: '余额支付'},
 						{value: 3 , label: '先租后付'}
 					]
@@ -260,7 +260,7 @@
 					openid: this.userInfo.xcxOpenid,
 					payType: 30,
 					total: this.detailInfo.totalPayment,
-					// total: 0.01,
+					//total: 0.01,
 					userId: this.userId,
 					companyId:this.detailInfo?.userCompanyEntity?.id
 				}, async (res) => {
@@ -274,7 +274,7 @@
 			
 			confirmPayWay(e) {
 				const payWay = e[0].value
-				if (payWay == 1) {
+				if (payWay == 0) {
 					this.handlePay()
 				} else if(payWay == 2 || payWay == 3) {
 					uni.showLoading({

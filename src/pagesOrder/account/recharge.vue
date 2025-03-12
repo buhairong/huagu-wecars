@@ -58,6 +58,7 @@ export default {
 			],
 			money: undefined,
 			currentTag: '',
+			userInfo: {},
 		}
 	},
 	
@@ -74,7 +75,12 @@ export default {
 	},
 	
 	onShow() {
-		
+		const isLogin = uni.getStorageSync('isLogin')
+		if (isLogin) {
+			getApp().globalData.getUserInfo((data) => {
+				this.userInfo = data
+			})
+		}
 	},
 	
 	methods: {
@@ -91,11 +97,60 @@ export default {
 			this.currentTag = ''
 		},
 		
+		async handlePay(businessId) {
+			// 1.拉起微信支付
+			uni.showToast({
+				title: '微信支付中',
+				duration: 2000,
+				icon: 'loading'
+			})
+			
+			// 2.创建微信订单
+			this.$requestPayment({
+				fromSys: 1,
+				appType: 1,
+				businessId, // 订单ID
+				businessType: 20,
+				openid: this.userInfo.xcxOpenid,
+				payType: 20,
+				total: this.money,
+				//total: 0.01,
+				userId: this.userId,
+				companyId:this.companyId
+			}, async (res) => {
+				if(res === 'success') {
+					uni.navigateBack({
+						delta: 1
+					});
+				}
+			})
+			
+			uni.hideLoading()
+		},
+		
 		save() {
-			// businessType 0租车、1长租产品、2新车订阅、3购买二手车、4团购、5会员、6、购买服务 7.竞拍
-			// payType 0余额、1押金、2订金、3尾款、4长租费用（包月或季）、6二手车、7支付年费、8订阅费用、9租车租金、10租车押金
-			uni.navigateTo({
-				url: `/pagesOrder/rental/pay/chooseRentalPay?orderId=-1&price=${this.money}&businessType=7&payType=0&openid=${this.userInfo.xcxOpenid}&userId=${this.userInfo.id}`
+			uni.showLoading({
+			  title: '加载中'
+			});
+			this.$getRequest(this.$url.saveMemberUserRechargeOrder, "POST", {
+				orderType: this.type,
+				userId: this.userId,
+				companyId: this.companyId,
+				mobile: this.userInfo.mobile,
+				rechargeAmount: this.money,
+			}).then(res => {
+				uni.hideLoading()
+				if(res.code == 0) {
+					this.handlePay(res.data.id)
+				} else {
+					uni.showToast({
+						title: res.msg || '充值失败',
+						duration: 2000,
+						icon: "none"
+					})
+				}
+			}).catch(() => {
+				uni.hideLoading()
 			})
 		},
 	},
