@@ -28,6 +28,36 @@
 		    </template>
 		</view>
 		
+		<view class="card" v-if="identityParams.businessLicense">
+			<view class="item">
+				<view class="item-title">企业名称</view>
+				<view class="item-content">
+					{{identityParams.companyName}}
+				</view>
+			</view>
+			
+			<view class="item">
+				<view class="item-title">信用代码</view>
+				<view class="item-content">
+					{{identityParams.corporationTaxNumber}}
+				</view>
+			</view>
+			
+			<view class="item">
+				<view class="item-title">法人</view>
+				<view class="item-content">
+					{{identityParams.contactName}}
+				</view>
+			</view>
+			
+			<view class="item">
+				<view class="item-title">注册地址</view>
+				<view class="item-content">
+					{{identityParams.address}}
+				</view>
+			</view>
+		</view>
+		
 		<view class="order-btn-wrap">
 			<view class="order-btn" @click="handleSubmit">
 				立即认证
@@ -178,5 +208,31 @@
 	width: 256rpx;
 	height: 340rpx;
 	overflow: hidden;
+}
+
+.card {
+	margin-top: 40rpx;
+	.item {
+		margin-top: 12px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 14px;
+		color: rgba(10, 15, 45, 0.8);
+		&:first-child {
+			margin-top: 0;
+		}
+		.item-title {
+			display: flex;
+			height: 44rpx;
+			line-height: 44rpx;
+		}
+		.item-content {
+			line-height: 44rpx;
+			flex:1;
+			width:0;
+			padding-left: 24rpx;
+			text-align: right;
+		}
+	}
 }
 </style>

@@ -770,7 +770,7 @@ export default {
 			
 			confirmConfigModal() {
 				uni.navigateTo({
-					url: `/pages/mine/order-list`
+					url: `/pagesOrder/order-list`
 				})
 				this.showConfigModal= false
 			},

@@ -198,6 +198,12 @@
 				})
 			},
 			
+			goHome() {
+				uni.reLaunch({
+					url: '/pages/home/choose-index'
+				})
+			},
+			
 			handleCancel() {
 				uni.showModal({
 					title: '提示',
@@ -219,7 +225,7 @@
 										icon: "none"
 									})
 									
-									this.getDetail()
+									this.goHome()
 								} else {
 									uni.showToast({
 										title: res.msg,
@@ -265,7 +271,7 @@
 					companyId:this.detailInfo?.userCompanyEntity?.id
 				}, async (res) => {
 					if(res === 'success') {
-						this.getDetail()
+						this.goHome()
 					}
 				})
 				
@@ -293,7 +299,7 @@
 								icon: "none"
 							})
 							
-							this.getDetail()
+							this.goHome()
 						} else {
 							uni.showToast({
 								title: res.msg,

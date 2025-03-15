@@ -91,13 +91,6 @@
             }
         },
         {
-            "path": "pages/mine/order-list",
-            "style": {
-                "navigationBarTitleText": "订单列表",
-                "navigationBarBackgroundColor": "#FFFFFF"
-            }
-        },
-        {
             "path": "pages/mine/feedback",
             "style": {
                 "navigationBarTitleText": "建议反馈"
@@ -378,6 +371,13 @@
 				"root": "pagesOrder",
 				"pages": [
 					{
+					    "path": "order-list",
+					    "style": {
+					        "navigationBarTitleText": "订单列表",
+					        "navigationBarBackgroundColor": "#FFFFFF"
+					    }
+					},
+					{
 					    "path" : "business/businessList",
 					    "style" :                                                                                    
 					    {
@@ -394,11 +394,11 @@
 					    }
 					},
 					{
-					    "path" : "business/businessDetail",
-					    "style" :                                                                                    
+					    "path" : "business/businessDetail",                                                         
+					    "style" :
 					    {
-					        "navigationBarTitleText": "商务活动详情",
-					        "enablePullDownRefresh": false
+					    	"navigationBarTitleText": "",
+					    	"navigationBarBackgroundColor": "#D8D9DD"
 					    }
 					},
 					{

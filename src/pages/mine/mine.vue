@@ -634,7 +634,7 @@ export default {
 					if(!this.userInfo) {
 						this.isLogin()
 					}else {
-						this.$u.route('/pages/mine/order-list')
+						this.$u.route('/pagesOrder/order-list')
 					}
         },
         async getMyBasicInfo(id) {

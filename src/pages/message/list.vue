@@ -108,7 +108,7 @@ export default {
         handleOrderList() {
             
             if(this.userInfo) {
-                this.$u.route('/pages/mine/order-list')
+                this.$u.route('/pagesOrder/order-list')
             } else {
                 getUserProfile("/pages/message/list", () => {
                     this.$u.route("/pages/sign/sign");

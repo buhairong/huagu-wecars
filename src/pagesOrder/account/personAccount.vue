@@ -71,6 +71,7 @@
 				userInfo: {},
 				code: '',
 				showPopup: false,
+				showIdentityPopup: false,
 			}
 		},
 		
@@ -101,21 +102,48 @@
 				return formatThousandNumber(price)
 			},
 			
-			goRechargePage() {
-				uni.navigateTo({
-					url: `/pagesOrder/account/recharge?type=1&userId=${this.userId}`
-				})
-				
+			identity() {
+				uni.showModal({
+				    title: '提示',
+				    content: '兑换、充值及邀请新用户需要先实名认证',
+				    showCancel: false,
+				    confirmText: '去认证',
+				    success: (res) => {
+				        if(res.confirm) {
+				            uni.navigateTo({
+				            	url: `/pagesOrder/rentalIdentity/personIdentity?type=2&userId=${this.userId}`
+				            })
+				        }
+				    }
+				});
 			},
 			
-			invite() {
-				uni.navigateTo({
-					url: `/pagesOrder/qrcode/qrcode?type=1&userId=${this.userId}`
-				})
+			goRechargePage() {
+				if(this.userInfo.riskAuditStatus == 5) {
+					uni.navigateTo({
+						url: `/pagesOrder/account/recharge?type=1&userId=${this.userId}`
+					})
+				} else {
+					this.identity()
+				}
 			},
 			
 			handleExchange() {
-				this.showPopup = true
+				if(this.userInfo.riskAuditStatus == 5) {
+					this.showPopup = true
+				} else {
+					this.identity()
+				}
+			},
+			
+			invite() {
+				if(this.userInfo.riskAuditStatus == 5) {
+					uni.navigateTo({
+						url: `/pagesOrder/qrcode/qrcode?type=1&userId=${this.userId}`
+					})
+				} else {
+					this.identity()
+				}
 			},
 			
 			close() {
