@@ -51,6 +51,29 @@
 		    </view>
 		</view>
 		
+		<view class="card" v-if="identityParams.userInfoEntity.idcardUrl">
+			<view class="item">
+				<view class="item-title">姓名</view>
+				<view class="item-content">
+					{{identityParams.userInfoEntity.name}}
+				</view>
+			</view>
+			
+			<view class="item">
+				<view class="item-title">身份证号</view>
+				<view class="item-content">
+					{{identityParams.userInfoEntity.idcard}}
+				</view>
+			</view>
+			
+			<view class="item">
+				<view class="item-title">性别</view>
+				<view class="item-content">
+					{{identityParams.userInfoEntity.sex}}
+				</view>
+			</view>
+		</view>
+		
 		<view class="order-btn-wrap">
 			<view class="order-btn" @click="handleSubmit">
 				立即认证
@@ -63,7 +86,7 @@
 	export default {
 		data() {
 			return {
-				type: '', // 1. 租车订单
+				type: '', // 1. 租车订单 2.我的账户
 				orderParams: {
 					cityId: '', // 城市ID
 					cityName: '', // 城市名称
@@ -237,8 +260,12 @@
 					}
 					
 					uni.navigateTo({
-						url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.data.id}&userId=${this.userId}`
+						url: `/pagesOrder/rental/order/rentalOrderDetail?id=${orderRes.data.id}&userId=${this.identityParams.userId}`
 					})
+				} else if(this.type == 2) {
+					uni.navigateBack({
+						delta: 1
+					});
 				}
 				
 				
@@ -267,5 +294,31 @@
 	height: 200rpx;
 	line-height: 200rpx;
 	text-align: center;
+}
+
+.card {
+	margin-top: 40rpx;
+	.item {
+		margin-top: 12px;
+		display: flex;
+		justify-content: space-between;
+		font-size: 14px;
+		color: rgba(10, 15, 45, 0.8);
+		&:first-child {
+			margin-top: 0;
+		}
+		.item-title {
+			display: flex;
+			height: 44rpx;
+			line-height: 44rpx;
+		}
+		.item-content {
+			line-height: 44rpx;
+			flex:1;
+			width:0;
+			padding-left: 24rpx;
+			text-align: right;
+		}
+	}
 }
 </style>
