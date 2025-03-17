@@ -565,7 +565,7 @@ export default {
 			},
 			
 			goStagePage() {
-				this.$u.route("/pages/stage/stage")
+				this.$u.route("/pagesOrder/stage/stage")
 			},
 			
 			goAuctionListPage() {
@@ -634,7 +634,7 @@ export default {
 					if(!this.userInfo) {
 						this.isLogin()
 					}else {
-						this.$u.route('/pages/mine/order-list')
+						this.$u.route('/pagesOrder/order-list')
 					}
         },
         async getMyBasicInfo(id) {

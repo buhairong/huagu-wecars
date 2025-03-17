@@ -91,13 +91,6 @@
             }
         },
         {
-            "path": "pages/mine/order-list",
-            "style": {
-                "navigationBarTitleText": "订单列表",
-                "navigationBarBackgroundColor": "#FFFFFF"
-            }
-        },
-        {
             "path": "pages/mine/feedback",
             "style": {
                 "navigationBarTitleText": "建议反馈"
@@ -294,17 +287,8 @@
                 "enablePullDownRefresh": false
             }
             
-        }
-        ,{
-            "path" : "pages/stage/stage",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "",
-                "enablePullDownRefresh": false
-            }
-            
         },
-				{
+		{
             "path" : "pages/shopinfo/shopinfo",
             "style" :                                                                                    
             {
@@ -377,6 +361,22 @@
 			{
 				"root": "pagesOrder",
 				"pages": [
+					{
+					    "path": "order-list",
+					    "style": {
+					        "navigationBarTitleText": "订单列表",
+					        "navigationBarBackgroundColor": "#FFFFFF"
+					    }
+					},
+					{
+					    "path" : "stage/stage",
+					    "style" :                                                                                    
+					    {
+					        "navigationBarTitleText": "",
+					        "enablePullDownRefresh": false
+					    }
+					    
+					},
 					{
 					    "path" : "business/businessList",
 					    "style" :                                                                                    
