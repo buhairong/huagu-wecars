@@ -77,11 +77,11 @@
 			</view>
 		</view>
 		
-		<view class="order-btn-wrap">
+		<!-- <view class="order-btn-wrap">
 			<view class="order-btn" @click="handleExchange">
 				生成兑换码
 			</view>
-		</view>
+		</view> -->
 		
 		<u-popup border-radius="14" mode="center" v-model="showPopup" @close="close">
 			<view class="popup-wrap">

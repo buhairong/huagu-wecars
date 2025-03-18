@@ -27,6 +27,10 @@
 		</view>
 		
 		<view class="tips">
+			<view class="tip">🔥 ‌限时升级狂欢！‌ 🔥</view>
+			<view class="tip">💎 充值<text class="price">{{formatThousandNumber(199)}}</text>元秒变尊享会员</view>
+			<view class="tip">👉 ‌立得<text class="price">{{formatThousandNumber(398)}}</text>元赠送金额‌ 👈</view>
+			<view class="tip" style="margin-bottom: 32rpx;">✅ 会员特权翻倍 ✅ 消费抵扣无门槛</view>
 			<view class="tip">充值 <text class="price">{{formatThousandNumber(50000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(10000)}}</text> 元</view>
 			<view class="tip">充值 <text class="price">{{formatThousandNumber(80000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(15000)}}</text> 元</view>
 			<view class="tip">充值 <text class="price">{{formatThousandNumber(100000)}}</text> 元，赠送 <text class="price">{{formatThousandNumber(20000)}}</text> 元</view>

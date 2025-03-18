@@ -762,6 +762,13 @@
             "enablePullDownRefresh": false
           }
         },
+		{
+		  "path": "butler/butlerDetail",
+		  "style": {
+		    "navigationBarTitleText": "管家详情",
+		    "enablePullDownRefresh": false
+		  }
+		},
         {
           "path": "rentalIdentity/rentalIdentity",
           "style": {

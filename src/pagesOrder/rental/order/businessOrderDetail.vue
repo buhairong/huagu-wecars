@@ -44,6 +44,13 @@
 			</view>
 			
 			<view class="item">
+				<view class="item-title">支付方式</view>
+				<view class="item-content">
+					{{ BUSINESS_ORDER_PAY_WAY_STATUS[detailInfo.payWay] }}
+				</view>
+			</view>
+			
+			<view class="item">
 				<view class="item-title">我的管家</view>
 				<view class="item-content">
 					{{detailInfo.memberButlerEntity.name}}
@@ -62,7 +69,7 @@
 
 <script>
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
-	import { MEMBER_CAR_RENTAL_ORDER_STATUS,PAY_WAY_STATUS,BUSINESS_ACTIVITY_STATUS } from "@/constants"
+	import { MEMBER_CAR_RENTAL_ORDER_STATUS,PAY_WAY_STATUS,BUSINESS_ACTIVITY_STATUS,BUSINESS_ORDER_PAY_WAY_STATUS } from "@/constants"
 	
 	
 	export default {
@@ -71,7 +78,8 @@
 				id: '',
 				userId: '',
 				detailInfo: null,
-				BUSINESS_ACTIVITY_STATUS
+				BUSINESS_ACTIVITY_STATUS,
+				BUSINESS_ORDER_PAY_WAY_STATUS
 			}
 		},
 		

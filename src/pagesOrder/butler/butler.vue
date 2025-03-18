@@ -3,7 +3,7 @@
 		<view class="container" v-if="list.length > 0">
 			<view class="tip">请选择一个管家为您服务</view>
 			<view class="list">
-				<view v-for="item in list" :key="item.id" class="card" @click="handleChange(item)">
+				<view v-for="item in list" :key="item.id" class="card" :class="{active: orderParams.memberButlerId == item.id}" @click="goDetailPage(item)">
 					<view class="left">
 						<image
 							class="avatar"
@@ -37,11 +37,13 @@
 							</view>
 						</view>
 					</view>
-					<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28" v-if="type == 1"></u-icon>
+					<view class="right">
+						<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28" ></u-icon>
+					</view>
 				</view>
 			</view>
 			
-			<!-- <view class="order-btn-wrap">
+			<!-- <view class="order-btn-wrap" v-if="type == 1">
 				<view class="order-btn" @click="handleOrder">
 					确定
 				</view>
@@ -114,18 +116,28 @@
 				})
 			},
 			
+			goDetailPage(item) {
+				if(this.type == 1) {
+					this.orderParams.memberButlerId = item.id
+					uni.setStorageSync('rentalOrderParams', this.orderParams)
+				}
+				
+				uni.setStorageSync('ButlerDetailInfo', item)
+				
+				uni.navigateTo({
+					url: `/pagesOrder/butler/butlerDetail?type=${this.type}&id=${item.id}`
+				})
+			},
+			
 			handleChange(item) {
 				if(this.type == 1) {
 					this.orderParams.memberButlerId = item.id
 					uni.setStorageSync('rentalOrderParams', this.orderParams)
-					uni.navigateTo({
-						url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
-					})
 				}
 			},
 			
 			handleOrder() {
-				if (!this.orderParams.butlerId) {
+				if (!this.orderParams.memberButlerId) {
 					uni.showToast({
 						title: '请选择一个管家',
 						duration: 2000,
@@ -134,11 +146,15 @@
 					return 
 				}
 				
-				uni.setStorageSync('rentalOrderParams', this.orderParams)
+				if(this.type == 1) {
+					uni.setStorageSync('rentalOrderParams', this.orderParams)
+					
+					uni.navigateTo({
+						url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
+					})
+				}
 				
-				uni.navigateTo({
-					url: `/pagesOrder/rentalIdentity/rentalIdentity?type=${this.type}&userId=${this.orderParams.userId}`
-				})
+				
 			},
 		}
 	}
@@ -148,6 +164,7 @@
 @import "~@/styles/common.scss";
 	
 .page-wrap1 {
+	padding-bottom: 240rpx;
 	.tip {
 		font-size: 28rpx;
 		line-height: 44rpx;
@@ -156,6 +173,7 @@
 	.list {
 		margin-top: 32rpx;
 		.card {
+			padding-right:0;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
@@ -186,6 +204,12 @@
 					font-size: 28rpx;
 					color: rgba(10, 15, 45, 0.8);
 				}
+			}
+			.right {
+				padding: 0 32rpx;
+				height: 100%;
+				display: flex;
+				align-items: center;
 			}
 			&.active {
 				border-color: #4170EE;

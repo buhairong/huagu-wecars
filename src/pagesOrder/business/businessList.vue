@@ -9,6 +9,15 @@
 			</view>
 		</view>
 		
+		<view class="select-item" @click="openBusinessActivityTypeList">
+			<view class="label">活动类型</view>
+			<view class="content">
+				<view v-if="cityName" class="value">{{businessActivityTypeName}}</view>
+				<view v-else class="placeholder">请选择活动类型</view>
+				<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
+			</view>
+		</view>
+		
 		<view class="list">
 			<view v-for="item in list" :key="item.id" class="card" @click="handleChange(item)">
 				<view class="left">
@@ -56,22 +65,32 @@
 			:list="cityList"
 			@confirm="confirmCity"
 		></u-select>
+		
+		<u-select
+			v-model="showBusinessActivityTypeList" 
+			:list="BUSINESS_ACTIVITY_LIST"
+			@confirm="confirmBusinessActivityType"
+		></u-select>
 	</view>
 </template>
 
 <script>
-	import { BUSINESS_ACTIVITY_STATUS } from "@/constants"
+	import { BUSINESS_ACTIVITY_STATUS,BUSINESS_ACTIVITY_LIST } from "@/constants"
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	
 	export default {
 		data() {
 			return {
 				BUSINESS_ACTIVITY_STATUS,
+				BUSINESS_ACTIVITY_LIST,
 				list: [],
 				cityList: [],
 				showCityList: false,
 				cityId: 310100, // 城市ID
 				cityName: '上海', // 城市名称
+				businessActivityType: '',
+				businessActivityTypeName: '全部',
+				showBusinessActivityTypeList: false,
 			}
 		},
 		
@@ -95,6 +114,7 @@
 				});
 				this.$getRequest(this.$url.getMemberBusinessActivityList, "POST", {
 				  cityId: this.cityId,
+				  businessActivityType: this.businessActivityType,
 				  page: 1,
 				  limit: 1000,
 				}).then(res => {
@@ -134,6 +154,16 @@
 				})
 			},
 			
+			openBusinessActivityTypeList() {
+				this.showBusinessActivityTypeList = true
+			},
+			
+			confirmBusinessActivityType(e) {
+				this.businessActivityType = e[0].value
+				this.businessActivityTypeName = e[0].label
+				this.getList()
+			},
+			
 			handleOrder() {
 				uni.navigateTo({
 					url: `/pagesOrder/butler/butler?type=2&cityId=${this.cityId}`
@@ -147,10 +177,14 @@
 .page-wrap1 {
 	padding-bottom: 240rpx;
 	.select-item {
+		margin-top: 32rpx;
 		height: 44rpx;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		&:first-child {
+			margin-top: 0;
+		}
 		.label {
 			font-size: 30rpx;
 			color: #0A0F2D;

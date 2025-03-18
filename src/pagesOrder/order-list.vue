@@ -175,6 +175,13 @@
 					</view>
 					
 					<view class="card-item">
+						<view class="card-label">支付方式：</view>
+						<view class="card-item-content">
+							{{ BUSINESS_ORDER_PAY_WAY_STATUS[item.payWay] }}
+						</view>
+					</view>
+					
+					<view class="card-item">
 						<view class="card-label">我的管家：</view>
 						<view class="card-item-content">{{item.memberButlerEntity.name}}</view>
 					</view>
@@ -307,7 +314,7 @@
     </view>
 </template>
 <script>
-import { orderStatus, orderStatusOptions, CAR_RENTAL_ORDER_STATUS, SUBSCRIBE_PERIOD_STATUS,MEMBER_CAR_RENTAL_ORDER_STATUS,BUSINESS_ACTIVITY_STATUS } from "@/constants"
+import { orderStatus, orderStatusOptions, CAR_RENTAL_ORDER_STATUS, SUBSCRIBE_PERIOD_STATUS,MEMBER_CAR_RENTAL_ORDER_STATUS,BUSINESS_ACTIVITY_STATUS,BUSINESS_ORDER_PAY_WAY_STATUS } from "@/constants"
 import { subOrderStatusOptions } from "@/constants/order"
 
 export default {
@@ -333,6 +340,7 @@ export default {
 			CAR_RENTAL_ORDER_STATUS,
 			MEMBER_CAR_RENTAL_ORDER_STATUS,
 			BUSINESS_ACTIVITY_STATUS,
+			BUSINESS_ORDER_PAY_WAY_STATUS,
 			tabList: [
 				{
 					name: '会员租车'

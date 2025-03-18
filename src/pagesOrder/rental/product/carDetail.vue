@@ -55,6 +55,13 @@
 			</view>
 		</view>
 		
+		<view class="tip">
+			<view class="tip-title">尊享租车服务套餐</view>
+			<view class="tip-item">✅ 全包服务：专业司机+舒适座驾</view>
+			<view class="tip-item">✅ 基础时长：每日8小时贴心服务（含油费路桥费）</view>
+			<view class="tip-item">✅ 超时计费：100元/小时（单日累计不超过3小时）</view>
+		</view>
+		
 		<view class="container">
 			<template v-if="orderParams.startDate && orderParams.endDate">
 				<view class="period-wrap">
@@ -453,6 +460,21 @@ export default {
 		    }
 			
 		  
+		}
+	}
+	.tip {
+		padding: 32rpx 32rpx 0;
+		line-height: 44rpx;
+		font-size: 28rpx;
+		.tip-title {
+			margin-bottom: 8rpx;
+			line-height: 48rpx;
+			font-size: 36rpx;
+			color: #0a0f2d;
+			font-weight: 600;
+		}
+		.tip-item {
+			margin-bottom: 4rpx;
 		}
 	}
 	.container {

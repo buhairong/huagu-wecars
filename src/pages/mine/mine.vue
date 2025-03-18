@@ -34,10 +34,18 @@
 													color="#0A0F2D"
 													size="32"
 												/>
+												<image
+													v-if="userInfo.isVip == 1"
+													style="height:40rpx;margin-left:24rpx;"
+													shape="circle"
+													src="https://image.51cheyaoshi.com//2025/03/18/159ce577a8a84f548b9e58da3ae5cb59.jpg"
+													mode="heightFix"
+												/>
                     </view>
                     <view class="slogan">
                         让有车生活 · 更简单
                     </view>
+					
                 </view>
             </view>
 						<view class="u-flex" style="align-items: center;">

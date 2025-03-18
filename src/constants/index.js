@@ -381,6 +381,7 @@ const PAY_WAY_STATUS = {
 };
 
 const BUSINESS_ACTIVITY_LIST = [
+	{ value: '', label: '全部' },
 	{ value: '1', label: '高尔夫' },
 	{ value: '2', label: '餐饮' },
 	{ value: '3', label: '会议' },
@@ -393,6 +394,12 @@ const BUSINESS_ACTIVITY_STATUS = {
   '2': "餐饮",
   '3': "会议",
   '4': "娱乐",
+};
+
+const BUSINESS_ORDER_PAY_WAY_STATUS = {
+  1: "账户抵扣",
+  2: "支付定金",
+  3: "仅预定",
 };
 
 export {
@@ -445,5 +452,6 @@ export {
 		EDUCATION_STATUS,
 		BUSINESS_ACTIVITY_STATUS,
 		PAY_WAY_STATUS,
-		BUSINESS_ACTIVITY_LIST
+		BUSINESS_ACTIVITY_LIST,
+		BUSINESS_ORDER_PAY_WAY_STATUS
 }
