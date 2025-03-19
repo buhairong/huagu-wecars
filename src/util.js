@@ -352,6 +352,9 @@ const url = {
 	getMemberBusinessActivityOrderList: 'app/memberBusinessActivityOrderEntity/listByPage', // 商务活动订单
 	getMemberBusinessActivityOrderDetail: 'app/memberBusinessActivityOrderEntity/detail', // 商务活动订单详情
 	saveMemberUserRechargeOrder: 'app/memberUserRechargeOrder/saveOrder', // 创建充值订单
+	getUserTax: 'app/userTax/detail', // 查询开票信息
+	addOrUpdateUserTax: 'app/userTax/addOrUpdate', // 编辑开票信息
+	deleteUserTax: 'app/userTax/delete', // 删除开票信息
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key

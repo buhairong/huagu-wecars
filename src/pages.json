@@ -846,6 +846,14 @@
             "navigationBarTitleText": "兑换推广",
             "enablePullDownRefresh": false
           }
+        },
+        {
+        	"path" : "account/invoice",
+        	"style" : 
+        	{
+        		"navigationBarTitleText" : "我的开票信息",
+        		"enablePullDownRefresh" : false
+        	}
         }
       ]
     },

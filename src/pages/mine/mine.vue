@@ -182,6 +182,18 @@
                     />
                 </u-cell-item>
 				<u-cell-item
+				    title="我要开票"
+				    arrow-direction="right"
+				    :title-style="titleStyle"
+				    @click="handleInvoice"
+				>
+				    <u-icon
+				        slot="icon"
+				        size="32"
+				        name="rmb-circle"
+				    />
+				</u-cell-item>
+				<u-cell-item
 					v-if="userInfo && userInfo.isAdmin == 1"
 				    title="兑换推广"
 				    arrow-direction="right"
@@ -634,6 +646,12 @@ export default {
             this.isLogin();
             this.$u.route('/pages/mine/setup')
         },
+		handleInvoice() {
+			this.isLogin()
+			uni.navigateTo({
+				url: `/pagesOrder/account/invoice?userId=${this.userInfo?.id}`
+			})
+		},
         handleCoupon() {
             this.isLogin();
             this.$u.route('/pages/mine/coupon/list')
