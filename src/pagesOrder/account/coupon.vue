@@ -29,7 +29,7 @@
 							<view class="card-label">兑换码：</view>
 							<view class="card-item-content">
 								{{item.code}}
-								<view class="text-btn" style="padding-left:32rpx;" @click="copy(item.code)">复制兑换码</view>
+								<view class="text-btn" style="padding-left:32rpx;" @click="shareCode(item.code)">分享兑换码</view>
 							</view>
 						</view>
 						<view class="card-item">
@@ -115,7 +115,18 @@
 <script>
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	
+	const app = getApp()
+	
 	export default {
+		onShareAppMessage(res) {
+		  return {
+		    title: 'WECARS给您送红包啦！赶快领取！',
+		    desc: '',
+		    path: this.shareUrl,
+		    imageUrl: '',
+		  }
+		},
+		
 		data() {
 			return {
 				userId: '',
@@ -133,6 +144,7 @@
 				code: '',
 				money: undefined,
 				showPopup: false,
+				shareUrl: '',
 			}
 		},
 		
@@ -262,6 +274,10 @@
 			
 			close() {
 				this.showPopup = false
+			},
+			
+			shareCode(code) {
+				this.shareUrl = `/pages/sign/sign?type=couponCode&userId=${this.userId}&couponCode=${code}`
 			},
 		}
 	}
