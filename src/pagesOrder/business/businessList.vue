@@ -54,11 +54,11 @@
 		
 		<u-empty v-if="list.length == 0" text="该城市暂无商务活动" mode="list" margin-top="80"></u-empty>
 		
-		<view class="order-btn-wrap">
-			<view class="order-btn" @click="handleOrder">
+		<!-- <view class="order-btn-wrap">
+			<view class="order-btn" @click="handleCall">
 				联系管家
 			</view>
-		</view>
+		</view> -->
 		
 		<u-select
 			v-model="showCityList" 
@@ -164,14 +164,16 @@
 				this.getList()
 			},
 			
+			handleCall() {
+				uni.makePhoneCall({
+					phoneNumber: butlerOfBusinessTel
+				})
+			},
+			
 			handleOrder() {
-				// uni.navigateTo({
-				// 	url: `/pagesOrder/butler/butler?type=2&cityId=${this.cityId}`
-				// })
-				
-				// uni.makePhoneCall({
-				// 	phoneNumber: butlerOfBusinessTel
-				// })
+				uni.navigateTo({
+					url: `/pagesOrder/butler/butler?type=2&cityId=${this.cityId}`
+				})
 			},
 		}
 	}

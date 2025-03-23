@@ -71,16 +71,16 @@
 			</view>
 		</view> -->
 		
-		<view class="order-btn-wrap">
-			<view class="order-btn" @click="handleOrder">
+		<!-- <view class="order-btn-wrap">
+			<view class="order-btn" @click="handleCall">
 				联系管家
 			</view>
-		</view>
+		</view> -->
 	</view>
 </template>
 
 <script>
-	import { BUSINESS_ACTIVITY_STATUS } from "@/constants"
+	import { BUSINESS_ACTIVITY_STATUS,butlerOfBusinessTel } from "@/constants"
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	
 	export default {
@@ -123,6 +123,12 @@
 			handleOrder() {
 				uni.navigateTo({
 					url: `/pagesOrder/butler/butler?type=2&cityId=${this.detailInfo.cityId}`
+				})
+			},
+			
+			handleCall() {
+				uni.makePhoneCall({
+					phoneNumber: butlerOfBusinessTel
 				})
 			},
 			
