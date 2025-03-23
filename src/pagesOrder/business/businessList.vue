@@ -75,7 +75,7 @@
 </template>
 
 <script>
-	import { BUSINESS_ACTIVITY_STATUS,BUSINESS_ACTIVITY_LIST } from "@/constants"
+	import { BUSINESS_ACTIVITY_STATUS,BUSINESS_ACTIVITY_LIST,butlerOfBusinessTel } from "@/constants"
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	
 	export default {
@@ -165,9 +165,13 @@
 			},
 			
 			handleOrder() {
-				uni.navigateTo({
-					url: `/pagesOrder/butler/butler?type=2&cityId=${this.cityId}`
-				})
+				// uni.navigateTo({
+				// 	url: `/pagesOrder/butler/butler?type=2&cityId=${this.cityId}`
+				// })
+				
+				// uni.makePhoneCall({
+				// 	phoneNumber: butlerOfBusinessTel
+				// })
 			},
 		}
 	}

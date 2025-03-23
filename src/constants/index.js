@@ -402,6 +402,8 @@ const BUSINESS_ORDER_PAY_WAY_STATUS = {
   3: "仅预定",
 };
 
+const butlerOfBusinessTel = '400-001'
+
 export {
     orderStatus,
     orderStatusOptions,
@@ -453,5 +455,6 @@ export {
 		BUSINESS_ACTIVITY_STATUS,
 		PAY_WAY_STATUS,
 		BUSINESS_ACTIVITY_LIST,
-		BUSINESS_ORDER_PAY_WAY_STATUS
+		BUSINESS_ORDER_PAY_WAY_STATUS,
+		butlerOfBusinessTel
 }

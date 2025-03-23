@@ -199,9 +199,11 @@
 			},
 			
 			goHome() {
-				uni.reLaunch({
-					url: '/pages/home/choose-index'
-				})
+				// uni.reLaunch({
+				// 	url: '/pages/home/choose-index'
+				// })
+				
+				this.getDetail()
 			},
 			
 			handleCancel() {

@@ -195,7 +195,7 @@
 				</u-cell-item>
 				<u-cell-item
 					v-if="userInfo && userInfo.isAdmin == 1"
-				    title="兑换推广"
+				    title="发红包"
 				    arrow-direction="right"
 				    :title-style="titleStyle"
 				    @click="goCouponPage"

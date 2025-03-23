@@ -210,8 +210,6 @@
 																{{ item.carTypeYearProductEntity.carBrand }} {{ item.carTypeYearProductEntity.carType }} {{ item.carTypeYearProductEntity.carTypeYear }} | {{ item.carTypeYearProductEntity.carTypeYearProduct }}
 															</view>
 															
-															{{}}
-															
 															<view>
 																<view class="business">
 																	<view class="tip">租金</view>

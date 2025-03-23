@@ -35,12 +35,12 @@
 					</view>
 				</view>
 				
-				<view class="item">
+				<!-- <view class="item">
 					<view class="item-title">手机</view>
 					<view class="item-content">
 						{{ detailInfo.mobile }}
 					</view>
-				</view>
+				</view> -->
 			</view>
 			
 			<view class="card introduction" v-if="detailInfo.introduce">

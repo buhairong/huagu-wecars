@@ -323,6 +323,14 @@
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
       }
+    },
+    {
+    	"path" : "pages/rental/list",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "会员租车",
+			"enablePullDownRefresh": false
+    	}
     }
   ],
   "subPackages": [
@@ -1087,22 +1095,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/maintenances/index",
-        "iconPath": "/static/tabBar/tab_2.png",
-        "selectedIconPath": "/static/tabBar/tab_2_check.png",
-        "text": "养车"
-      },
-      {
         "pagePath": "pages/rental/home",
         "iconPath": "/static/tabBar/tab_3.png",
         "selectedIconPath": "/static/tabBar/tab_3_check.png",
         "text": "用车"
-      },
-      {
-        "pagePath": "pages/message/list",
-        "iconPath": "/static/tabBar/tab_4.png",
-        "selectedIconPath": "/static/tabBar/tab_4_check.png",
-        "text": "消息"
       },
       {
         "pagePath": "pages/mine/mine",

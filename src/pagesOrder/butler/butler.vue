@@ -29,12 +29,12 @@
 									{{EDUCATION_STATUS[item.education]}}
 								</view>
 							</view>
-							<view class="custom-item">
+							<!-- <view class="custom-item">
 								<view class="label">手机：</view>
 								<view class="content">
 									{{item.mobile}}
 								</view>
-							</view>
+							</view> -->
 						</view>
 					</view>
 					<view class="right">
