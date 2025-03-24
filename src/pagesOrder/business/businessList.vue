@@ -54,11 +54,11 @@
 		
 		<u-empty v-if="list.length == 0" text="该城市暂无商务活动" mode="list" margin-top="80"></u-empty>
 		
-		<!-- <view class="order-btn-wrap">
+		<view class="order-btn-wrap">
 			<view class="order-btn" @click="handleCall">
 				联系管家
 			</view>
-		</view> -->
+		</view>
 		
 		<u-select
 			v-model="showCityList" 
@@ -75,7 +75,7 @@
 </template>
 
 <script>
-	import { BUSINESS_ACTIVITY_STATUS,BUSINESS_ACTIVITY_LIST,butlerOfBusinessTel } from "@/constants"
+	import { BUSINESS_ACTIVITY_STATUS,BUSINESS_ACTIVITY_LIST,sericeTel } from "@/constants"
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	
 	export default {
@@ -166,7 +166,7 @@
 			
 			handleCall() {
 				uni.makePhoneCall({
-					phoneNumber: butlerOfBusinessTel
+					phoneNumber: sericeTel
 				})
 			},
 			

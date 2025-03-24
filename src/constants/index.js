@@ -362,6 +362,7 @@ const MEMBER_CAR_RENTAL_ORDER_STATUS = {
 	1: '审核中', 
 	2: '支付完成',
 	3: '已取消',
+	4: '已完成',
 }
 
 const EDUCATION_STATUS = {
@@ -402,7 +403,7 @@ const BUSINESS_ORDER_PAY_WAY_STATUS = {
   3: "仅预定",
 };
 
-const butlerOfBusinessTel = '400-001'
+const sericeTel = '13661800904'
 
 export {
     orderStatus,
@@ -456,5 +457,5 @@ export {
 		PAY_WAY_STATUS,
 		BUSINESS_ACTIVITY_LIST,
 		BUSINESS_ORDER_PAY_WAY_STATUS,
-		butlerOfBusinessTel
+		sericeTel
 }

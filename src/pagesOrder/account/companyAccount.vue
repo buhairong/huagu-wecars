@@ -17,9 +17,9 @@
 				</view>
 			</view>
 			<view class="right">
-				<view class="text-btn" style="margin-right: 32rpx;" @click="handleExchange">
+				<!-- <view class="text-btn" style="margin-right: 32rpx;" @click="handleExchange">
 					兑换码
-				</view>
+				</view> -->
 				<view @click="goRechargePage">
 					充值
 					<u-icon name="arrow-right" color="#ffffff" size="28" ></u-icon>

@@ -71,16 +71,16 @@
 			</view>
 		</view> -->
 		
-		<!-- <view class="order-btn-wrap">
+		<view class="order-btn-wrap">
 			<view class="order-btn" @click="handleCall">
 				联系管家
 			</view>
-		</view> -->
+		</view>
 	</view>
 </template>
 
 <script>
-	import { BUSINESS_ACTIVITY_STATUS,butlerOfBusinessTel } from "@/constants"
+	import { BUSINESS_ACTIVITY_STATUS,sericeTel } from "@/constants"
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 	
 	export default {
@@ -128,7 +128,7 @@
 			
 			handleCall() {
 				uni.makePhoneCall({
-					phoneNumber: butlerOfBusinessTel
+					phoneNumber: sericeTel
 				})
 			},
 			

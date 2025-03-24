@@ -456,7 +456,7 @@ export default {
 		
 		handleRentalDetail(item) {
 			uni.navigateTo({
-				url: `/pagesOrder/rental/order/rentalOrderDetail?id=${item.id}&userId=${this.userId}`
+				url: `/pagesOrder/rental/order/rentalOrderDetailfrom=list&?id=${item.id}&userId=${this.userId}`
 			})
 		},
 		

@@ -75,14 +75,20 @@
 				<view class="pick-time-wrap">
 					<view>
 						<view class="pick-time">
-							{{custom.pickCarTimeStart.year}}年{{custom.pickCarTimeStart.month}}月{{custom.pickCarTimeStart.date}}日
-							<view class="text-btn" @click="openCalendar">修改</view>
+							{{custom.pickCarTimeStart.month}}月{{custom.pickCarTimeStart.day}}日 {{custom.pickCarTimeStart.hour}}:00
+							<!-- <view class="text-btn" @click="openCalendar">修改</view> -->
+						</view>
+						<view class="pick-car-year">
+							{{custom.pickCarTimeStart.year}}年
 						</view>
 					</view>
 					
 					<view>
 						<view class="pick-time">
-							{{custom.pickCarTimeEnd.year}}年{{custom.pickCarTimeEnd.month}}月{{custom.pickCarTimeEnd.date}}日
+							{{custom.pickCarTimeEnd.month}}月{{custom.pickCarTimeEnd.day}}日  {{custom.pickCarTimeEnd.hour}}:00
+						</view>
+						<view class="pick-car-year">
+							{{custom.pickCarTimeEnd.year}}年
 						</view>
 					</view>
 					
@@ -91,10 +97,18 @@
 				<view class="split-line"></view>
 			</template>
 			
-			<view v-else class="custom-item" @click="openCalendar">
-				<view class="label">用车日期</view>
+			<view class="custom-item" @click="openStartDatePicker">
+				<view class="label">用车开始时间</view>
 				<view class="content">
-					<view class="placeholder">请选择用车日期</view>
+					<view class="placeholder">{{orderParams.startDate ? orderParams.startDate : '请选择用车开始时间'}}</view>
+					<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
+				</view>
+			</view>
+			
+			<view class="custom-item" @click="openEndDatePicker">
+				<view class="label">用车结束时间</view>
+				<view class="content">
+					<view class="placeholder">{{orderParams.endDate ? orderParams.endDate : '请选择用车结束时间'}}</view>
 					<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
 				</view>
 			</view>
@@ -150,6 +164,10 @@
 		></u-select>
 		
 		<u-calendar v-model="showCalendar" mode="range" max-date="2099-12-31" @change="changeCalendar"></u-calendar>
+		
+		<u-picker mode="time" v-model="showStartDatePicker" :params="params" @confirm="changeStartDatePicker"></u-picker>
+		
+		<u-picker mode="time" v-model="showEndDatePicker" :params="params" @confirm="changeEndDatePicker"></u-picker>
 	</view>
 </template>
 
@@ -198,16 +216,31 @@ export default {
 			cityList: [],
 			showCityList: false,
 			showCalendar: false,
+			showStartDatePicker: false,
+			showEndDatePicker: false,
+			params: {
+				year: true,
+				month: true,
+				day: true,
+				hour: true,
+				minute: false,
+				second: false,
+				timestamp: true,
+			},
 			custom: {
 				pickCarTimeStart: {
 					year: '',
 					month: '',
-					date: '',
+					day: '',
+					hour: "",
+					timestamp: 0,
 				},
 				pickCarTimeEnd: {
 					year: '',
 					month: '',
-					date: '',
+					day: '',
+					hour: "",
+					timestamp: 0,
 				},
 			},
 			orderParams: {
@@ -318,8 +351,32 @@ export default {
 			this.orderParams.cityName = e[0].label
 		},
 		
-		openCalendar() {
-			this.showCalendar = true
+		
+		
+		openStartDatePicker() {
+			this.showStartDatePicker = true
+		},
+		
+		changeStartDatePicker(e) {
+			this.custom.pickCarTimeStart.year = e.year
+			this.custom.pickCarTimeStart.month = e.month
+			this.custom.pickCarTimeStart.day = e.day
+			this.custom.pickCarTimeStart.hour = e.hour
+			this.custom.pickCarTimeStart.timestamp = e.timestamp
+			this.orderParams.startDate = `${e.year}-${e.month}-${e.day} ${e.hour}:00`
+		},
+		
+		openEndDatePicker() {
+			this.showEndDatePicker = true
+		},
+		
+		changeEndDatePicker(e) {
+			this.custom.pickCarTimeEnd.year = e.year
+			this.custom.pickCarTimeEnd.month = e.month
+			this.custom.pickCarTimeEnd.day = e.day
+			this.custom.pickCarTimeEnd.hour = e.hour
+			this.custom.pickCarTimeEnd.timestamp = e.timestamp
+			this.orderParams.endDate = `${e.year}-${e.month}-${e.day} ${e.hour}:00`
 		},
 		
 		changeCalendar(e) {
@@ -343,9 +400,18 @@ export default {
 		
 		handleOrder() {
 			if (this.userInfo) {
-				if (!this.orderParams.startDate || !this.orderParams.endDate) {
+				if (!this.orderParams.startDate) {
 					uni.showToast({
-						title: '请选择用车日期',
+						title: '请选择用车开始时间',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				if (!this.orderParams.endDate) {
+					uni.showToast({
+						title: '请选择用车结束时间',
 						duration: 2000,
 						icon: 'none'
 					})

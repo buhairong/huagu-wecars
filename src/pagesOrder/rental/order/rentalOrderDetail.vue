@@ -98,23 +98,24 @@
 			</view>
 			
 			<view class="item">
-				<view class="item-title">联系管家</view>
+				<view class="item-title">客服电话</view>
 				<view class="item-content">
-					{{detailInfo.memberButlerEntity.mobile}}
+					{{sericeTel}}
 				</view>
 			</view>
 		</view>
 		
 		
 		
-		<view class="order-btn-wrap" v-if="detailInfo.status == 0">
+		<view class="order-btn-wrap" >
 			<view
+			  v-if="showCancelOrderBtn"
 			  class="cancel-btn"
 			  @click="handleCancel"
 			>
 			  取消订单
 			</view>
-			<view class="order-btn" @click="handleOrder">
+			<view v-if="detailInfo.status == 0" class="order-btn" @click="handleOrder">
 				订单支付
 			</view>
 		</view>
@@ -129,7 +130,7 @@
 
 <script>
 	import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
-	import { MEMBER_CAR_RENTAL_ORDER_STATUS,PAY_WAY_STATUS } from "@/constants"
+	import { MEMBER_CAR_RENTAL_ORDER_STATUS,PAY_WAY_STATUS,sericeTel } from "@/constants"
 	
 	
 	export default {
@@ -142,6 +143,8 @@
 				PAY_WAY_STATUS,
 				showPayWayList: false,
 				userInfo: {},
+				sericeTel,
+				from: '',
 			}
 		},
 		
@@ -162,11 +165,31 @@
 				
 				return res
 			},
+			
+			showCancelOrderBtn() {
+				let res = false
+				
+				if (this.detailInfo) {
+					if (this.detailInfo.status == 0 || this.detailInfo.status == 1) {
+						res = true
+					} else if (this.detailInfo.status == 2) {
+						const currentTimer = new Date().getTime()
+						const startTimer = new Date(this.detailInfo.startDate).getTime()
+						if (currentTimer < startTimer) {
+							res = true
+						}
+					}
+				}
+				
+				
+				return res
+			}
 		},
 		
 		onLoad(option) {
 			this.id = option.id
 			this.userId = option.userId
+			this.from = option.from
 		},
 		
 		onShow() {

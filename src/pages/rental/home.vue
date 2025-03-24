@@ -3,13 +3,13 @@
 		<view class="img-wrap">
 			<image
 				class="img"
-				:src="form.businessType == 1 ? 'https://image.51cheyaoshi.com/xcx/tab_2.png' : 'https://image.51cheyaoshi.com/xcx/tab_1.png'"
+				src="https://image.51cheyaoshi.com/xcx/tab_2.png"
 			/>
 		</view>
 		
 		<view class="wrap">
 			<view class="card">
-				<view class="tabs">
+				<!-- <view class="tabs">
 					<view 
 						v-for="tab in CAR_RENTAL_BUSINESS_TYPE_LIST"
 						:key="tab.value"
@@ -22,7 +22,7 @@
 					>
 						{{tab.label}}
 					</view>
-				</view>
+				</view> -->
 				
 				<view class="container">
 					<view class="item">
@@ -179,7 +179,7 @@ export default {
 			endDateStr: '',
 			periodStr: '',
 			form: {
-				businessType: 2,
+				businessType: 1,
 				carRentalDetailSubscribeId: '',
 				carTypeYearProductId: '',
 				cityId: '',
