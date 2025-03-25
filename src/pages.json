@@ -323,14 +323,6 @@
         "navigationBarTitleText": "",
         "navigationStyle": "custom"
       }
-    },
-    {
-    	"path" : "pages/rental/list",
-    	"style" : 
-    	{
-    		"navigationBarTitleText" : "会员租车",
-			"enablePullDownRefresh": false
-    	}
     }
   ],
   "subPackages": [
