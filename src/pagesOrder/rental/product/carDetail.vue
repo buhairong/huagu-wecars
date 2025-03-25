@@ -63,7 +63,7 @@
 		</view>
 		
 		<view class="container">
-			<template v-if="orderParams.startDate && orderParams.endDate">
+			<template v-if="isVaildDate">
 				<view class="period-wrap">
 					<view class="period-tip">开始日期</view>
 					<view class="period-box">
@@ -133,7 +133,7 @@
 				</view>
 			</view>
 			
-			<template v-if="orderParams.startDate && orderParams.endDate">
+			<template v-if="isVaildDate">
 				<view class="custom-item">
 					<view class="label">预定天数</view>
 					<view class="content">
@@ -175,6 +175,8 @@
 import { validPhoneNum } from '@/utils/validate'
 import { formatTenThousandNumber, formatThousandNumber } from '@/utils/index.js'
 
+const oneDay = 24 * 60 * 60 * 1000
+
 export default {
 	components: {
 	  
@@ -194,6 +196,21 @@ export default {
 			}
 		},
 		
+		isVaildDate() {
+			let res = false
+			
+			if (this.orderParams.startDate && this.orderParams.endDate) {
+				if(this.custom.pickCarTimeEnd.timestamp > this.custom.pickCarTimeStart.timestamp) {
+					const dis = this.custom.pickCarTimeEnd.timestamp - this.custom.pickCarTimeStart.timestamp
+					this.orderParams.totalDay =  Math.ceil(dis / oneDay)
+					this.orderParams.totalPayment = this.orderParams.totalDay * this.detail.citySubscribeReq[0].money
+					
+					res = true
+				}
+			}
+			
+			return res
+		},
 	},
 	
 	data() {
@@ -362,8 +379,8 @@ export default {
 			this.custom.pickCarTimeStart.month = e.month
 			this.custom.pickCarTimeStart.day = e.day
 			this.custom.pickCarTimeStart.hour = e.hour
-			this.custom.pickCarTimeStart.timestamp = e.timestamp
 			this.orderParams.startDate = `${e.year}-${e.month}-${e.day} ${e.hour}:00`
+			this.custom.pickCarTimeStart.timestamp = new Date(this.orderParams.startDate).getTime()
 		},
 		
 		openEndDatePicker() {
@@ -375,8 +392,8 @@ export default {
 			this.custom.pickCarTimeEnd.month = e.month
 			this.custom.pickCarTimeEnd.day = e.day
 			this.custom.pickCarTimeEnd.hour = e.hour
-			this.custom.pickCarTimeEnd.timestamp = e.timestamp
 			this.orderParams.endDate = `${e.year}-${e.month}-${e.day} ${e.hour}:00`
+			this.custom.pickCarTimeEnd.timestamp = new Date(this.orderParams.endDate).getTime()
 		},
 		
 		changeCalendar(e) {
@@ -412,6 +429,15 @@ export default {
 				if (!this.orderParams.endDate) {
 					uni.showToast({
 						title: '请选择用车结束时间',
+						duration: 2000,
+						icon: 'none'
+					})
+					return 
+				}
+				
+				if(!this.isVaildDate) {
+					uni.showToast({
+						title: '用车结束时间必须大于用车开始时间',
 						duration: 2000,
 						icon: 'none'
 					})

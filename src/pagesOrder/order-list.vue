@@ -43,7 +43,7 @@
 							
 							<view class="card-item">
 								<view class="card-label">用车时间：</view>
-								<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
+								<view class="card-item-content">{{item.startDate}} 至 {{item.endDate}}</view>
 							</view>
 							
 							<view class="card-item">
@@ -98,7 +98,7 @@
 					
 					<view class="card-item">
 						<view class="card-label">用车时间：</view>
-						<view class="card-item-content">{{item.startDate.slice(0, 10)}} 至 {{item.endDate.slice(0, 10)}}</view>
+						<view class="card-item-content">{{item.startDate}} 至 {{item.endDate}}</view>
 					</view>
 					
 					<view class="card-item">
@@ -456,7 +456,7 @@ export default {
 		
 		handleRentalDetail(item) {
 			uni.navigateTo({
-				url: `/pagesOrder/rental/order/rentalOrderDetailfrom=list&?id=${item.id}&userId=${this.userId}`
+				url: `/pagesOrder/rental/order/rentalOrderDetail?from=list&id=${item.id}&userId=${this.userId}`
 			})
 		},
 		

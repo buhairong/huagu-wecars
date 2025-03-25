@@ -29,7 +29,13 @@
 							<view class="card-label">兑换码：</view>
 							<view class="card-item-content">
 								{{item.code}}
-								<view class="text-btn" style="padding-left:32rpx;" @click="shareCode(item.code)">分享兑换码</view>
+								<button
+								    open-type="share"
+								    class="text-btn"
+									@click="shareCode(item.code)"
+								>
+								   分享兑换码
+								</button>
 							</view>
 						</view>
 						<view class="card-item">
@@ -123,7 +129,7 @@
 		    title: 'WECARS给您送红包啦！赶快领取！',
 		    desc: '',
 		    path: this.shareUrl,
-		    imageUrl: '',
+		    imageUrl: 'https://image.51cheyaoshi.com//2025/03/25/574e4aae606c4927bae86b6b3b9d0567.jpg',
 		  }
 		},
 		
@@ -278,6 +284,7 @@
 			
 			shareCode(code) {
 				this.shareUrl = `/pages/sign/sign?type=couponCode&userId=${this.userId}&couponCode=${code}`
+				console.log('this.shareUrl',this.shareUrl)
 			},
 		}
 	}
@@ -311,9 +318,19 @@
 					.card-item-content {
 						display: flex;
 						.text-btn {
+							margin:0;
+							padding:0;
+							margin-left: 32rpx;
 							font-size: 28rpx;
 							color: #4170EE;
 							text-decoration: underline;
+							background-color: transparent;
+							border: none;
+							height: unset;
+							line-height: unset;
+							&:after {
+								border: none;
+							}
 						}
 					}
 				}

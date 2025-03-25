@@ -68,6 +68,45 @@
         </view>
 				
 				<AgreeMentPopup :show.sync="showFirstPageAgreeMentPopup" @agree="handleAgree"/>
+				
+				<u-popup border-radius="14" mode="center" v-model="showCouponPopup" @close="close">
+					<view class="popup-wrap">
+						<view class="item">
+							<view class="label">兑换码</view>
+							<view class="content">{{couponParams.code}}</view>
+						</view>
+						
+						<view v-if="userInfo.riskAuditStatus != 5">
+							<view class="item">
+								<view class="label">姓名</view>
+								<view class="content">
+									<u-input
+										v-model="couponParams.name"
+										placeholder="请输入姓名"
+									/>
+								</view>
+							</view>
+							
+							<view class="item">
+								<view class="label">手机号</view>
+								<view class="content">
+									<u-input
+										v-model="couponParams.mobile"
+										placeholder="请输入手机号"
+										type="number"
+									/>
+								</view>
+							</view>
+						</view>
+						
+						
+						<view class="btn-wrap">
+							<view class="btn" @click="handleComfirm">
+								立即领取
+							</view>
+						</view>
+					</view>
+				</u-popup>
     </view> 
 </template>
 
@@ -97,10 +136,21 @@ export default {
 				companyId: '',
 			},
 			isHaveMobile: true,
+			couponParams: {
+				userId: '',
+				exchangeUserId: '',
+				code: '',
+				name: '',
+				mobile: '',
+			},
+			userInfo: {},
+			showCouponPopup: false,
         };
     },
     onLoad(option) {
 		// option.scene = '1&1099&14'
+		// type=couponCode&userId=1135&couponCode=9ii9SwkC
+		
 		if(option.scene){
 			const scene = decodeURIComponent(option.scene)
 			const sceneParams = scene.split("&")
@@ -108,6 +158,15 @@ export default {
 			this.sceneParams.userId = sceneParams[1]
 			this.sceneParams.companyId = sceneParams[2] || ''
 		}
+		
+		if(option.type == 'couponCode') {
+			this.couponParams = {
+				userId: option.userId,
+				code: option.couponCode
+			}
+		}
+		
+		
 			this.partnerId = option.partnerId || ''
 			this.redirectUrl = option.redirectUrl || ''
 			wx.getPrivacySetting({
@@ -169,11 +228,12 @@ export default {
             
             function intLogin() {
               getApp().globalData.getMemberInfo(data.phoneNumber, userInfo.avatarUrl, '', function(data) {
-									if(data && data.id) {
-                    clearInterval(mt)
-										uni.setStorageSync('openId', data.openId)
-										uni.setStorageSync('isLogin', true)
-										uni.setStorageSync('userInfo', data)
+				if(data && data.id) {
+					pageThis.userInfo = data;
+					clearInterval(mt)
+					uni.setStorageSync('openId', data.openId)
+					uni.setStorageSync('isLogin', true)
+					uni.setStorageSync('userInfo', data)
                     uni.showToast({
                         title: '登录成功',
                         duration: 1000,
@@ -223,6 +283,11 @@ export default {
 									
 									
 								}
+							} else if (pageThis.couponParams.code) {
+								pageThis.couponParams.exchangeUserId = data.id
+								pageThis.couponParams.name = data.name
+								pageThis.couponParams.mobile = data.mobile
+								pageThis.showCouponPopup = true
 							} else {
 								pageThis.$u.route({
 								    type: 'navigateBack',
@@ -237,6 +302,57 @@ export default {
               }, this.partnerId, userInfo.nickname)
             }
         },
+		
+		close() {
+			this.showCouponPopup = false
+		},
+		
+		handleComfirm() {
+			if(!this.couponParams.name) {
+				uni.showToast({
+					title: '请输入姓名',
+					duration: 2000,
+					icon: 'none'
+				})
+				return false;
+			}
+			
+			if(!this.couponParams.mobile) {
+				uni.showToast({
+					title: '请输入手机号',
+					duration: 2000,
+					icon: 'none'
+				})
+				return false;
+			}
+			
+			uni.showLoading({
+				title: '加载中'
+			})
+			
+			this.$getRequest(this.$url.exchangeCode, "GET", this.couponParams).then(res => {
+				uni.hideLoading()
+				if (res.code == 0) {
+					uni.showToast({
+						title: '领取红包成功',
+						duration: 2000,
+						icon: "none"
+					})
+					uni.reLaunch({
+						url: '/pagesOrder/account/personAccount'
+					})
+				} else {
+					uni.showToast({
+						title: res.msg || '领取红包失败',
+						duration: 2000,
+						icon: "none"
+					})
+				}
+			}).catch(() => {
+				uni.hideLoading()
+			})
+		},
+		
         async handleLogin(e) {
 					const self = this
 					console.log('handleLogin', e)
@@ -350,5 +466,39 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+.popup-wrap {
+	padding: 48rpx;
+	width: 560rpx;
+	.item {
+		margin-bottom: 32rpx;
+		height: 80rpx;
+		display: flex;
+		align-items: center;
+		font-size: 14px;
+		.label {
+			color: #64696F;
+			width: 120rpx;
+			text-align: right;
+		}
+		.content {
+			color: #141414;
+		}
+	}
+	.btn-wrap {
+		margin-top: 80rpx;
+		.btn {
+			width: 100%;
+			height: 80rpx;
+			border-radius: 16rpx;
+			background: #0A0F2D;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 32rpx;
+			color: #FFFFFF;
+		}
+	}
 }
 </style>

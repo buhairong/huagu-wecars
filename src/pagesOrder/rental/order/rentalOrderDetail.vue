@@ -65,7 +65,7 @@
 			<view class="item">
 				<view class="item-title">用车日期</view>
 				<view class="item-content">
-					{{detailInfo.startDate.slice(0, 10)}} 至 {{detailInfo.endDate.slice(0, 10)}}
+					{{detailInfo.startDate}} 至 {{detailInfo.endDate}}
 				</view>
 			</view>
 			
@@ -109,7 +109,7 @@
 		
 		<view class="order-btn-wrap" >
 			<view
-			  v-if="showCancelOrderBtn"
+			  v-if="detailInfo.status == 0 || detailInfo.status == 1 || detailInfo.status == 2"
 			  class="cancel-btn"
 			  @click="handleCancel"
 			>
