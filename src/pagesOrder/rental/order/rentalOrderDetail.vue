@@ -15,6 +15,13 @@
 			<view class="order-status">{{MEMBER_CAR_RENTAL_ORDER_STATUS[detailInfo.status]}}</view>
 		</view>
 		
+		<view
+		  v-if="detailInfo.status == 2"
+		  class="tip"
+		>
+		  车辆准备中，可致电联系客服。
+		</view>
+		
 		<view class="card">
 			<view class="item">
 				<view class="item-title">订单编号</view>
@@ -222,11 +229,11 @@
 			},
 			
 			goHome() {
-				// uni.reLaunch({
-				// 	url: '/pages/home/choose-index'
-				// })
+				uni.reLaunch({
+					url: '/pagesOrder/order-list'
+				})
 				
-				this.getDetail()
+				//this.getDetail()
 			},
 			
 			handleCancel() {
@@ -402,6 +409,13 @@
 		justify-content: center;
 		align-items: center;
 	}
+}
+
+.tip {
+	margin-top: 32rpx;
+	font-size: 28rpx;
+	line-height: 44rpx;
+	color: rgba(78, 89, 105, 0.6);
 }
 
 .card {

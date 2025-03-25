@@ -284,7 +284,6 @@
 			
 			shareCode(code) {
 				this.shareUrl = `/pages/sign/sign?type=couponCode&userId=${this.userId}&couponCode=${code}`
-				console.log('this.shareUrl',this.shareUrl)
 			},
 		}
 	}

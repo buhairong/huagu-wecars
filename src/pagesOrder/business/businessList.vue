@@ -56,7 +56,7 @@
 		
 		<view class="order-btn-wrap">
 			<view class="order-btn" @click="handleCall">
-				联系管家
+				联系客服
 			</view>
 		</view>
 		
