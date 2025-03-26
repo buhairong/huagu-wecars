@@ -77,6 +77,10 @@
 							<view class="card-label">兑换金额：</view>
 							<view class="card-item-content">{{formatThousandNumber(item.money)}}元</view>
 						</view>
+						<view class="card-item">
+							<view class="card-label">兑换人：</view>
+							<view class="card-item-content">{{item.exchangeUserEntity && item.exchangeUserEntity.name}}</view>
+						</view>
 					</view>
 					<view class="status-wrap">已失效</view>
 				</view>
