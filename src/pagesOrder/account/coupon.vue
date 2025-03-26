@@ -133,7 +133,7 @@
 		    title: 'WECARS给您送红包啦！赶快领取！',
 		    desc: '',
 		    path: this.shareUrl,
-		    imageUrl: 'https://image.51cheyaoshi.com//2025/03/25/574e4aae606c4927bae86b6b3b9d0567.jpg',
+		    imageUrl: 'https://image.51cheyaoshi.com//2025/03/26/b96ba9495c9d429e9c1c2a2532616352.jpg',
 		  }
 		},
 		
