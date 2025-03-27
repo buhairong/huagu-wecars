@@ -270,7 +270,7 @@ export default {
 									
 									const params = {
 										companyId: pageThis.sceneParams.companyId,
-										userId: pageThis.sceneParams.userId,
+										userId: data.id,
 									}
 									
 									const res = await pageThis.$getRequest(pageThis.$url.addStaff, "GET", params)
