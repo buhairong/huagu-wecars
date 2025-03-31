@@ -59,23 +59,21 @@
             "urlCheck" : false,
             "postcss" : false,
             "minified" : true,
-            "es6" : true
+            "es6" : false
         },
         "usingComponents" : true,
         "permission" : {
             "scope.userLocation" : {
                 "desc" : "将获取你的具体位置信息，用于为您推荐附近车辆、门店地址服务等"
             },
-						"scope.writePhotosAlbum": {
-							"desc" : "为了更好地分享图片"
-						}
+            "scope.writePhotosAlbum" : {
+                "desc" : "为了更好地分享图片"
+            }
         },
-				"requiredPrivateInfos": [
-					"getLocation"
-				],
+        "requiredPrivateInfos" : [ "getLocation" ],
         "lazyCodeLoading" : "requiredComponents",
         "unipush" : {
-            "enable" : true
+            "enable" : false
         }
     },
     "mp-alipay" : {
