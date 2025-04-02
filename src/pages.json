@@ -1090,7 +1090,7 @@
         "pagePath": "pages/rental/home",
         "iconPath": "/static/tabBar/tab_3.png",
         "selectedIconPath": "/static/tabBar/tab_3_check.png",
-        "text": "会员长租"
+        "text": "折扣长租"
       },
       {
         "pagePath": "pages/mine/mine",

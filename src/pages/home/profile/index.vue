@@ -369,6 +369,7 @@
 			</view>
 		</u-popup>
 		
+		
   </view> 
 </template>
 
@@ -617,6 +618,8 @@ export default {
 				this.shareUrl += `&partnerId=${data.id}`
 			})
 		}
+		
+		
 		uni.login({
 			provider: 'weixin',
 			onlyAuthorize: true,
@@ -640,9 +643,12 @@ export default {
 		// if (this.partnerId) {
 		// 	this.showScope = true
 		// }
+		
+		
   },
 	
   methods: {
+	  
 		addUserCarIntention() {
 			const data = {
 				carTypeYearProductId: this.carTypeYearProductId,
@@ -1844,6 +1850,31 @@ export default {
 			background: #0AEB7D;
 			width: 32rpx;
 			height: 8rpx;
+		}
+	}
+}
+
+.inviteStaffPopup {
+	padding: 48rpx;
+	width: 560rpx;
+	.company {
+		line-height: 56rpx;
+		font-size: 30rpx;
+		color: #64696F;
+		text-align: left;
+	}
+	.btn-wrap {
+		margin-top: 80rpx;
+		.btn {
+			width: 100%;
+			height: 80rpx;
+			border-radius: 16rpx;
+			background: #0A0F2D;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 32rpx;
+			color: #FFFFFF;
 		}
 	}
 }

@@ -9,14 +9,18 @@
 			</view>
 		</view>
 		
-		<view class="select-item" @click="openBusinessActivityTypeList">
+		<!-- <view class="select-item" @click="openBusinessActivityTypeList">
 			<view class="label">活动类型</view>
 			<view class="content">
 				<view v-if="cityName" class="value">{{businessActivityTypeName}}</view>
 				<view v-else class="placeholder">请选择活动类型</view>
 				<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
 			</view>
-		</view>
+		</view> -->
+		
+		
+		<u-tabs ref="tabs" active-color="#0A0F2D" inactive-color="rgba(10, 15, 45, 0.8)" font-size="32" :list="tabList" :is-scroll="false" :current="businessActivityType" @change="change"></u-tabs>
+		
 		
 		<view class="list">
 			<view v-for="item in list" :key="item.id" class="card" @click="handleChange(item)">
@@ -52,7 +56,7 @@
 			</view>
 		</view>
 		
-		<u-empty v-if="list.length == 0" text="该城市暂无商务活动" mode="list" margin-top="80"></u-empty>
+		<u-empty v-if="list.length == 0" text="暂无商务活动" mode="list" margin-top="80"></u-empty>
 		
 		<view class="order-btn-wrap">
 			<view class="order-btn" @click="handleCall">
@@ -88,9 +92,24 @@
 				showCityList: false,
 				cityId: 310100, // 城市ID
 				cityName: '上海', // 城市名称
-				businessActivityType: '',
+				businessActivityType: 0,
 				businessActivityTypeName: '全部',
 				showBusinessActivityTypeList: false,
+				tabList: [
+					{
+						name: '高尔夫'
+					},
+					{
+						name: '餐饮'
+					},
+					{
+						name: '会议'
+					},
+					{
+						name: '娱乐'
+					}
+				],
+				current: 0,
 			}
 		},
 		
@@ -114,7 +133,7 @@
 				});
 				this.$getRequest(this.$url.getMemberBusinessActivityList, "POST", {
 				  cityId: this.cityId,
-				  businessActivityType: this.businessActivityType,
+				  businessActivityType: this.businessActivityType+1,
 				  page: 1,
 				  limit: 1000,
 				}).then(res => {
@@ -123,6 +142,11 @@
 				}).catch(() => {
 					uni.hideLoading()
 				})
+			},
+			
+			change(index) {
+				this.businessActivityType = index;
+				this.getList()
 			},
 			
 			getAllCity() {
@@ -204,6 +228,13 @@
 			color: rgba(10, 15, 45, 0.8);
 		}
 	}
+	
+	::v-deep .u-tabs {
+		margin-top: 24rpx;
+		margin-left: -32rpx;
+		font-size: 30rpx;
+	}
+	
 	.list {
 		margin-top: 32rpx;
 		.card {

@@ -107,6 +107,20 @@
 						</view>
 					</view>
 				</u-popup>
+				
+				<u-popup border-radius="14" mode="center" v-model="showInviteStaffPopup" @close="closeInviteStaffPopup">
+					<view class="popup-wrap">
+						<view class="company">
+							您已加入了 {{inviteCompany.userCompanyEntity.companyName}}
+						</view>
+						
+						<view class="btn-wrap">
+							<view class="btn" @click="handleComfirmInviteStaffPopup">
+								确定
+							</view>
+						</view>
+					</view>
+				</u-popup>
     </view> 
 </template>
 
@@ -145,10 +159,16 @@ export default {
 			},
 			userInfo: {},
 			showCouponPopup: false,
+			showInviteStaffPopup: false,
+			inviteCompany: {
+				userCompanyEntity: {
+					companyNam: '',
+				}
+			},
         };
     },
     onLoad(option) {
-		// option.scene = '1&1099&14'
+		//option.scene = '3&1099&20'
 		// type=couponCode&userId=1135&couponCode=9ii9SwkC
 		
 		if(option.scene){
@@ -257,6 +277,7 @@ export default {
 											uni.reLaunch({
 												url: '/pages/home/choose-index'
 											})
+											
 										}
 									} else {
 										uni.reLaunch({
@@ -276,9 +297,12 @@ export default {
 									const res = await pageThis.$getRequest(pageThis.$url.addStaff, "GET", params)
 									uni.hideLoading()
 									if (res.code == 0) {
+										uni.setStorageSync('inviteCompanyInfo', res.data)
 										uni.reLaunch({
 											url: '/pages/home/choose-index'
 										})
+										// pageThis.inviteCompany = res.data
+										// pageThis.showInviteStaffPopup = true
 									}
 									
 									
@@ -302,6 +326,17 @@ export default {
               }, this.partnerId, userInfo.nickname)
             }
         },
+		
+		closeInviteStaffPopup() {
+			this.handleComfirmInviteStaffPopup()
+			this.showInviteStaffPopup = false
+		},
+		
+		handleComfirmInviteStaffPopup() {
+			uni.reLaunch({
+				url: '/pages/home/choose-index'
+			})
+		},
 		
 		close() {
 			this.showCouponPopup = false
@@ -485,6 +520,13 @@ export default {
 		.content {
 			color: #141414;
 		}
+	}
+	.company {
+		margin-bottom: 32rpx;
+		line-height: 56rpx;
+		font-size: 30rpx;
+		color: #64696F;
+		text-align: left;
 	}
 	.btn-wrap {
 		margin-top: 80rpx;

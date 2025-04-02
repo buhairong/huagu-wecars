@@ -170,14 +170,14 @@
 														:cityId="cityId"
 													/>
                         </view>
-												<view class="slide-up-wrap">
+												<view class="slide-up-wrap" @click="goMoreCarPage">
 													<!-- <image
 														style="width:48rpx;height:48rpx;"
 														mode="aspectFill"
 														src="https://image.51cheyaoshi.com/xcx/app/static/right_green.png"
 													/> -->
-													<u-icon name="arrow-right-double" color="#737373" size="32" style="transform: rotate(-90deg);"></u-icon>
-													上滑查看更多订阅方案
+													<u-icon name="arrow-right-double" color="#737373" size="32" style="margin-right:8rpx;"></u-icon>
+													点击查看更多订阅方案
 												</view>
                       </view>
                       <u-empty v-if="carSubscribeData.length == 0" text="暂无车源" mode="list" margin-top="40"></u-empty>
@@ -360,7 +360,19 @@
 			confirm-color="#576B95"
 			:show-cancel-button="false"
 		></u-modal>
-		
+		<u-popup border-radius="14" mode="center" v-model="showInviteStaffPopup" @close="closeInviteStaffPopup">
+			<view class="inviteStaffPopup">
+				<view class="company">
+					您已加入了 {{inviteCompany.userCompanyEntity.companyName}}
+				</view>
+				
+				<view class="btn-wrap">
+					<view class="btn" @click="closeInviteStaffPopup">
+						确定
+					</view>
+				</view>
+			</view>
+		</u-popup>
   </view>
 </template>
 
@@ -494,6 +506,12 @@ export default {
 							content: '',
 							btnText: '',
 						},
+						inviteCompany: {
+							userCompanyEntity: {
+								companyNam: '',
+							}
+						},
+						showInviteStaffPopup: false,
         };
     },
 		
@@ -557,6 +575,13 @@ export default {
 					this.shareUrl += `?partnerId=${data.id}`
 				})
 			}
+			
+			const inviteCompanyInfo = uni.getStorageSync('inviteCompanyInfo')
+			if (inviteCompanyInfo) {
+				this.inviteCompany = inviteCompanyInfo
+				this.showInviteStaffPopup = true
+				uni.removeStorageSync('inviteCompanyInfo');
+			}
 		},
 		
     onReady() {
@@ -564,6 +589,9 @@ export default {
     },
 		
     methods: {
+		closeInviteStaffPopup() {
+				  this.showInviteStaffPopup = false
+		},
 			bindPartnerUser(openId, userId, isBindChange = 0) {
 				const data = {
 					openId,
@@ -781,12 +809,12 @@ export default {
 				this.$u.route('/pages/home/search/list?brandName='+v.brandName+'&logoUrl='+v.logoUrl+"&id="+v.id+'&cityId='+this.cityId+'&from=home')
 			},
       handleBanner(index) {
-        if (this.list[index] && this.list[index].linkType == 2) {
-          this.$u.route(this.list[index].linkUrl);
-        }
-        if (this.list[index] && this.list[index].linkType == 1) {
-          this.$goHtml(this.list[index].linkUrl, '')
-        }
+        // if (this.list[index] && this.list[index].linkType == 2) {
+        //   this.$u.route(this.list[index].linkUrl);
+        // }
+        // if (this.list[index] && this.list[index].linkType == 1) {
+        //   this.$goHtml(this.list[index].linkUrl, '')
+        // }
       },
       // 正式发布版才能跳小程序ID
       // generLink() {
@@ -1310,6 +1338,12 @@ export default {
 			closeAgreeMentPopup() {
 				this.showFirstPageAgreeMentPopup = false
 			},
+			
+			goMoreCarPage() {
+				uni.navigateTo({
+					url: `/pagesOrder/subscribe/list?cityId=${this.cityId}`
+				})
+			},
     },
 		
 		onPageScroll(e) {
@@ -1322,9 +1356,9 @@ export default {
 		
     onReachBottom() {
 			if (this.current === 0) {
-				uni.navigateTo({
-					url: `/pagesOrder/subscribe/list?cityId=${this.cityId}`
-				})
+				// uni.navigateTo({
+				// 	url: `/pagesOrder/subscribe/list?cityId=${this.cityId}`
+				// })
 				return
 			}
 			if(this.page >= this.totalPages) {
@@ -1474,6 +1508,31 @@ export default {
     background: transparent;
     color: transparent;
     background-color: transparent;
+  }
+  
+  .inviteStaffPopup {
+  	padding: 48rpx;
+  	width: 560rpx;
+  	.company {
+  		line-height: 56rpx;
+  		font-size: 30rpx;
+  		color: #64696F;
+  		text-align: left;
+  	}
+  	.btn-wrap {
+  		margin-top: 80rpx;
+  		.btn {
+  			width: 100%;
+  			height: 80rpx;
+  			border-radius: 16rpx;
+  			background: #0A0F2D;
+  			display: flex;
+  			justify-content: center;
+  			align-items: center;
+  			font-size: 32rpx;
+  			color: #FFFFFF;
+  		}
+  	}
   }
 </style>
 <style lang="scss" scoped>
@@ -1985,12 +2044,13 @@ export default {
 
 
 .slide-up-wrap {
-	margin: 40rpx 0;
+	padding: 40rpx 0;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	color: #737373;
 	font-size: 28rpx;
+	
 }
 
 .rental-custom-order-btn {
@@ -2086,4 +2146,5 @@ export default {
 		}
 	}
 }
+
 </style>

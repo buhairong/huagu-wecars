@@ -337,7 +337,7 @@ export default {
 		comfirmPicker(date) {
 			const str = `${date.month}月${date.date}日（${date.weekDay}）${date.hour}:${date.minute}`
 			if (this.pickerType === 1) {
-				this.form.startDate = date.timer
+				this.form.startDate = date.timer+':00'
 				this.startDateStr = str
 				this.startDateObj = date
 				this.startTimeStamp = date.timeStamp
@@ -345,7 +345,7 @@ export default {
 					this.getEndTime() 
 				}
 			} else {
-				this.form.endDate = date.timer
+				this.form.endDate = date.timer+':00'
 				this.endDateStr = str
 				const timer = date.timeStamp - this.startTimeStamp
 				const days = Math.floor(timer / dayTimer)
@@ -385,9 +385,8 @@ export default {
 					}
 				}
 				
-				this.form.endDate = `${year}-${month}-${date} ${this.startDateObj.hour}:${this.startDateObj.minute}`
+				this.form.endDate = `${year}-${month}-${date} ${this.startDateObj.hour}:${this.startDateObj.minute}:00`
 				this.endDateStr = `${month}月${date}日（${weekDay}）${this.startDateObj.hour}:${this.startDateObj.minute}`
-				console.log('endDate', this.form.endDate, this.endDateStr)
 			}
 		},
 		

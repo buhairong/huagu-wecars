@@ -360,9 +360,10 @@ const applyPartnerStepList = [
 const MEMBER_CAR_RENTAL_ORDER_STATUS = {
 	0: '待支付',    
 	1: '审核中', 
-	2: '支付完成',
+	2: '备车中',
 	3: '已取消',
 	4: '已完成',
+	5: '订单进行中',
 }
 
 const EDUCATION_STATUS = {

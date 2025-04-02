@@ -355,6 +355,7 @@ const url = {
 	getUserTax: 'app/userTax/detail', // 查询开票信息
 	addOrUpdateUserTax: 'app/userTax/addOrUpdate', // 编辑开票信息
 	deleteUserTax: 'app/userTax/delete', // 删除开票信息
+	deleteMemberUserRentalOrder: 'app/memberUserRentalOrder/deleteOrder', // 删除订单
 }
 
 const QQMapWXKey = 'ONYBZ-WH6KF-BAIJO-NWS5O-KM4LS-BSFY4'; // 腾讯地图key
@@ -377,7 +378,7 @@ const getRequest = (url, method, data) => {
                 "content-type": "multipart/form-data",
             },
             success: (res) => {
-                console.log(url, res.data);
+                console.log(url,data, res.data);
                 if (res.data.code != 0 ) {
 					
                     // uni.showToast({

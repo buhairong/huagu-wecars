@@ -90,7 +90,7 @@
 				</view>
 			</view>
 			
-			<view class="item" v-if="detailInfo.status == 1 || detailInfo.status == 2">
+			<view class="item" v-if="detailInfo.status == 1 || detailInfo.status == 2 || detailInfo.status == 4 || detailInfo.status == 5">
 				<view class="item-title">支付方式</view>
 				<view class="item-content">
 					{{PAY_WAY_STATUS[detailInfo.payWay]}}
@@ -116,7 +116,7 @@
 		
 		<view class="order-btn-wrap" >
 			<view
-			  v-if="detailInfo.status == 0 || detailInfo.status == 1 || detailInfo.status == 2"
+			  v-if="detailInfo.status == 0 || detailInfo.status == 1 || detailInfo.status == 2 || detailInfo.status == 5"
 			  class="cancel-btn"
 			  @click="handleCancel"
 			>

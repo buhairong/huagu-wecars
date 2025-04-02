@@ -51,6 +51,8 @@
 								<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
 							</view>
 							
+							<view v-if="item.status == 3" class="del-btn" @click.stop="removeRentalOrder(item)">删除订单</view>
+							
 						</view>
 					</view>
 					
@@ -105,6 +107,8 @@
 						<view class="card-label">订单总额：</view>
 						<view class="card-item-content">¥ {{item.totalPayment | $numFormat}}</view>
 					</view>
+					
+					<view v-if="item.status == 3" class="del-btn" @click.stop="removeRentalOrder(item)">删除订单</view>
 				</view>
 			</view>
 		</view>
@@ -439,15 +443,15 @@ export default {
 		},
 		
 		handleDetail(item) {
-			let orderType = this.current === 0 ? 'subscribe' : 'rent'
-			if (this.current == 0) {
+			let orderType = this.current === 3 ? 'subscribe' : 'rent'
+			if (this.current == 3) {
 				uni.setStorageSync('orderDetail',`pagesOrder/order-detail/order-detail?orderId=${item.id}`)
 				this.$u.route(`/pagesOrder/order-detail/order-detail?orderId=${item.id}`)
 			} else if(this.current == 1) {
 				uni.navigateTo({
 					url: `/pagesOrder/rental/order/detail?orderId=${item.userCarRentalSubscribeId}`
 				})
-			} else if(this.current == 2) {
+			} else if(this.current == 4) {
 				uni.navigateTo({
 					url: `/pagesOrder/customer/order/detail?orderId=${item.userCarFinanceLeaseSubscribe.id}`
 				})
@@ -476,6 +480,44 @@ export default {
 			this.businessOrderList = res.data.records
 		},
 		
+		removeRentalOrder(item) {
+			uni.showModal({
+				title: '提示',
+				content: `确定要删除这个订单吗？`,
+				success: (res) => {
+					if (res.confirm) {
+						uni.showLoading({
+							title: '加载中'
+						})
+						
+						this.$getRequest(this.$url.deleteMemberUserRentalOrder, "GET", {
+						  id: item.id,
+						}).then(res => {
+							uni.hideLoading()
+							if (res.code == 0) {
+								uni.showToast({
+									title: '删除成功',
+									duration: 2000,
+									icon: "none"
+								})
+								this.getOrderList()
+								this.getCompanyOrderList()
+							} else {
+								uni.showToast({
+									title: res.msg,
+									duration: 2000,
+									icon: "none"
+								})
+							}
+							
+						}).catch(() => {
+							uni.hideLoading()
+						})
+					}
+				}
+			})
+		},
+		
 		async getCompanyBusinessOrderList() {
 			const res = await this.$getRequest(this.$url.getMemberBusinessActivityOrderList, 'POST', {
 				ordertype: 2,
@@ -494,10 +536,10 @@ export default {
 			this.status = 'nomore'
 		},
 		
-		async getOrderList(userId, page) {
+		async getOrderList() {
 			const res = await this.$getRequest(this.$url.getMemberUserRentalOrderList, 'POST', {
 				ordertype: 1,
-				userId,
+				userId: this.userId,
 				page: 1,
 				limit: 1000,
 			})
@@ -665,6 +707,23 @@ export default {
 
 .rental-item {
 	margin-top: 24rpx;
+	position: relative;
+	.del-btn {
+		position: absolute;
+		right: 32rpx;
+		bottom: 26rpx;
+		z-index: 100;
+		padding: 0 16rpx;
+		height: 56rpx;
+		border-radius: 8rpx;
+		border: 1rpx solid #f51a4e;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 24rpx;
+		color: #f51a4e;
+		font-weight: 500;
+	}
 	.card-header {
 		margin-bottom: 32rpx;
 		display: flex;

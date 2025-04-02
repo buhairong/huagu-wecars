@@ -230,7 +230,7 @@
 									</view>
 									<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
 								</view>
-                <u-cell-item
+                <!-- <u-cell-item
                     title="门店订单"
                     arrow-direction="right"
                     :title-style="titleStyle"
@@ -253,7 +253,7 @@
                         size="32"
                         name="integral"
                     />
-                </u-cell-item>
+                </u-cell-item> -->
             </u-cell-group>
         </view>
 				
