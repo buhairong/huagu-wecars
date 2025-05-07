@@ -218,7 +218,7 @@
 									</view>
 									<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
 								</view>
-								<view class="menu-wrap" @click="goStagePage">
+								<!-- <view class="menu-wrap" @click="goStagePage">
 									<view class="title">
 										<image
 											style="width: 36rpx;"
@@ -229,7 +229,7 @@
 										<text class="text">我要分期</text>
 									</view>
 									<u-icon name="arrow-right" color="#969799" size="28"></u-icon>
-								</view>
+								</view> -->
                 <!-- <u-cell-item
                     title="门店订单"
                     arrow-direction="right"
@@ -466,6 +466,20 @@
 								        name="file-text"
 								    />
 								</u-cell-item>
+								
+								<u-cell-item
+								    title="联系我们"
+								    arrow-direction="right"
+								    :title-style="titleStyle"
+								    index="1"
+								    @click="handleCall"
+								>
+								    <u-icon
+								        slot="icon"
+								        size="32"
+								        name="phone"
+								    />
+								</u-cell-item>
             </u-cell-group>
         </view>
 				
@@ -486,6 +500,7 @@
 </template>
 
 <script>
+import { sericeTel } from "@/constants"
 import SetNickPopup from './components/SetNickPopup.vue'
 	
 export default {
@@ -546,6 +561,11 @@ export default {
     },
 		
     methods: {
+		handleCall() {
+			uni.makePhoneCall({
+				phoneNumber: sericeTel
+			})
+		},
 		handleCompany() {
 			this.isLogin()
 			uni.navigateTo({

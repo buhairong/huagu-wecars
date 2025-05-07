@@ -3,7 +3,7 @@
 		<view class="img-wrap">
 			<image
 				class="img"
-				:src="activeTab == 1 ? 'https://image.51cheyaoshi.com/xcx/app/static/home/custom-select-bg.png' : 'https://image.51cheyaoshi.com/xcx/app/static/home/custom-rental-bg.png'"
+				:src="activeTab == 1 ? 'https://image.51cheyaoshi.com/xcx/app/static/home/custom-select-bg.png' : 'https://image.51cheyaoshi.com/xcx/tab_2.png'"
 			/>
 			<view class="back-btn" @click="back">
 				<u-icon name="arrow-left" color="rgba(0, 0, 0, 0.9)" size="48"></u-icon>
@@ -219,7 +219,7 @@ export default {
 			session_key: '',
 			tabs: [
 				{id: 1, label: '新车订阅'},
-				{id: 2, label: '融资租赁'},
+				{id: 2, label: '折扣长租'},
 			],
 			activeTab: 1,
 			rentalForm: {

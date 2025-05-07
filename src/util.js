@@ -242,6 +242,7 @@ const url = {
 	deleteDecorate: 'app/app/deleteDecorate', // 删除装潢
 	updateConfirm: 'app/app/updateConfirm', // 更新确认状态
 	addGuarantor: 'app/app/depositFreeApply/addGuarantor', // 添加担保人
+	deleteNewCarOrder: 'app/app/userCarSubscribe/deleteCarOrder', // 删除订单
 	
 	// 个人中心
 	saveNickNameOrImg: 'app/app/xcx/saveNickNameOrImg', // 修改昵称或头像
@@ -309,6 +310,7 @@ const url = {
 	getCustomerRentalOrderList: '/app/app/userCarFinanceLeaseSubscribe/list', // 融资租赁订单列表
 	getCustomerRentalOrderDetail: '/app/app/userCarFinanceLeaseSubscribe/detail', // 融资租赁订单详情
 	getcarRentalSubscribeList: 'app/app/carRental/subscribeList', // 租车方案列表
+	deleteLongRentalOrderOrder: 'app/app/userCarRental/deleteCarOrder', // 删除订单
 	
 	// 竞拍
 	getAuctionList: 'app/app/secondAuction/listByPage', // 竞拍列表

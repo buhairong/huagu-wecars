@@ -121,9 +121,9 @@
 							<view class="address-info">
 								<view class="top-line">
 									<view class="address-name">{{item.deliveryName}}</view>
-									<view class="distance" v-if="item.distance">
+									<!-- <view class="distance" v-if="item.distance">
 										{{item.distance}}{{item.unit === 1 ? 'm' : 'km'}}
-									</view>
+									</view> -->
 								</view>
 								<view class="address-detail">
 									<view class="address-icon-wrap">

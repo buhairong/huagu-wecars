@@ -23,7 +23,7 @@ const orderByType = [
 /** 支付方式 **/
 const paymentTypeAll = ['月付','季付','年付','全款']
 const paymentTypeAll1 = ['一次性买断','月付','季付','年付','全款']
-const paymentTypeAll2 = ['一次性付','月付','季付','年付','分两次付']
+const paymentTypeAll2 = ['两月一付','月付','季付','年付','分两次付']
 
 /** 账户余额状态 **/
 const accountStatusAll = [
@@ -386,7 +386,6 @@ const BUSINESS_ACTIVITY_LIST = [
 	{ value: '', label: '全部' },
 	{ value: '1', label: '高尔夫' },
 	{ value: '2', label: '餐饮' },
-	{ value: '3', label: '会议' },
 	{ value: '4', label: '娱乐' },
 ]
 

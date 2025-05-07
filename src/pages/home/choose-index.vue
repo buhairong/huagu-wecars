@@ -128,22 +128,24 @@
                             :current="current"
                             @change="change"
                         /> -->
+							<scroll-view class="tabs_scroll" scroll-x>
+							 <view class="tabs">
+							 	<view 
+							 		v-for="(tab, index) in listTabs"
+							 		:key="index"
+							 		class="tab"
+							 		:class="{'tab-active': index == current}"
+							 		@click="change(index)"
+							 	>
+							 		<view class="line" v-if="index == current"></view>
+							 		{{tab.name}}
+							 	</view>
+							 </view>
+							</scroll-view>
 												
-												<view class="tabs">
-													<view 
-														v-for="(tab, index) in listTabs"
-														:key="index"
-														class="tab"
-														:class="{'tab-active': index == current}"
-														@click="change(index)"
-													>
-														<view class="line" v-if="index == current"></view>
-														{{tab.name}}
-													</view>
-												</view>
 												
 												<CustomOrderBtn :showTopCustomBtn="showTopCustomBtn" v-if="current == 0" />
-												<view class="rental-custom-order-btn" @click="goBusinessPage" v-else-if="current == 1">
+												<!-- <view class="rental-custom-order-btn" @click="goBusinessPage" v-else-if="current == 1">
 													<view class="left">
 															预定商务活动
 													</view>
@@ -151,7 +153,7 @@
 															class="detail-arrow"
 															src="https://image.51cheyaoshi.com/xcx/app/static/right_green.png"
 														/>
-												</view>
+												</view> -->
                     </view>
 
                     <!-- 新车订阅 -->
@@ -322,7 +324,7 @@
 										</view>
 										
                     <u-loadmore
-												v-show="totalPages >= 1 && status"
+												v-show="totalPages >= 1 && status && current != 4"
                         :status="status"
                         :load-text="loadText"
                     />
@@ -456,6 +458,7 @@ export default {
               // { name: "折扣新车" },
               { name: "二手好车" },
 							{ name: "好车易拍" },
+							{ name: "商务活动" },
               // { name: "无忧新能源" },
             ],
             custom: app.globalData.custom,
@@ -1213,7 +1216,13 @@ export default {
             this.$u.route(`/pages/home/search/slip-condition?cityId=${this.cityId}`);
         },
         change(index) {
-            this.current = index;
+			uni.showLoading({
+				title: '加载中'
+			})
+			if (index != 4) {
+				this.current = index;
+			}
+            
             // const query = uni.createSelectorQuery().in(this).select(`#u-tab-item-1`);
             // let upx2px = uni.upx2px(index * )
             // uni.upx2px(num)
@@ -1245,11 +1254,12 @@ export default {
               this.auctionCarData = []
               this.fetchAuctionCar();
               break;
-            // case 4:
-            //   this.certifiedCarData = []
-            //   this.fetchCertifiedCar();
-            //   break;
+            case 4:
+              this.goBusinessPage()
+              break;
             }
+			
+			uni.hideLoading()
         },
         go2detail(id,qt='',proId=false, carBrandId = '') {
             if(proId){
@@ -1308,9 +1318,11 @@ export default {
 			},
 			
 			goBusinessPage() {
+				
 				uni.navigateTo({
 					url: `/pagesOrder/business/businessList`
 				})
+				
 			},
 			
 			agreeMentPopup() {
@@ -1926,11 +1938,17 @@ export default {
 }
 
 .tabs-wrap {
+	margin-bottom: 32rpx;
 	position: sticky;
 	left: 0;
 	width: 100%;
 	background-color: #fff;
 	z-index: 100;
+}
+
+.tabs_scroll {
+	width: 100%;
+	white-space: nowrap;
 }
 
 .tabs {

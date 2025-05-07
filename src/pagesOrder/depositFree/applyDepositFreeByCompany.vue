@@ -128,6 +128,7 @@ export default {
 		this.applyDepositFreeForm.cityId = options.cityId || ''
 		this.applyDepositFreeForm.cityName = options.cityName || ''
 		this.applyDepositFreeForm.companyName = options.companyName || ''
+		this.applyDepositFreeForm.issue = options.issue || ''
 	},
 	
 	onShow() {
@@ -136,6 +137,7 @@ export default {
 	
 	methods: {
 		nextIdentityStep(data) {
+			console.log('nextIdentityStep', this.identityStep, data)
 			if (this.identityStep === 0) {
 				this.applyDepositFreeForm.companyName = data.companyName
 			} else if (this.identityStep === 1) {
@@ -143,11 +145,13 @@ export default {
 			} else if (this.identityStep === 3) {
 				this.idNum = data.idNum
 				this.username = data.username
+				this.applyDepositFreeForm.issue = data.issue
 			}
 			++this.identityStep
 		},
 		
 		nextStep(data) {
+			console.log('nextStep', this.currentStep, data)
 			if (this.currentStep == 1) {
 				this.applyDepositFreeForm = data
 				uni.setStorageSync('applyDepositFreeForm', this.applyDepositFreeForm)

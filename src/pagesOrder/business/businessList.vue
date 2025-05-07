@@ -24,35 +24,50 @@
 		
 		<view class="list">
 			<view v-for="item in list" :key="item.id" class="card" @click="handleChange(item)">
-				<view class="left">
-					<view class="title">
-						{{item.siteName}}
-					</view>
-					
-					<view class="custom-item">
-						<view class="label">活动类型：</view>
-						<view class="content">
-							{{ BUSINESS_ACTIVITY_STATUS[item.businessActivityType] }}
-						</view>
-					</view>
-					
-					<view class="custom-item">
-						<view class="label">活动价格：</view>
-						<view class="content">
-							{{ formatThousandNumber(item.money) }}元
-						</view>
-					</view>
-					
-					<view class="custom-item">
-						<view class="label">活动地址：</view>
-						<view class="content">
-							{{ item.address }}
-						</view>
-					</view>
-					
+				<view class="title">
+					{{item.siteName}}
 				</view>
 				
-				<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28"></u-icon>
+				<view class="info">
+					<view class="img_box" v-if="item.backImage">
+						<image
+							class="item-img"
+							mode="aspectFill"
+							:src="item.backImage"
+						/>
+					</view>
+					<view class="right">
+						<view class="left">
+							
+							
+							<view class="custom-item">
+								<view class="label">活动类型：</view>
+								<view class="content">
+									{{ BUSINESS_ACTIVITY_STATUS[item.businessActivityType] }}
+								</view>
+							</view>
+							
+							<view class="custom-item">
+								<view class="label">活动价格：</view>
+								<view class="content">
+									{{ formatThousandNumber(item.money) }}元
+								</view>
+							</view>
+							
+							<view class="custom-item">
+								<view class="label">活动地址：</view>
+								<view class="content">
+									{{ item.address }}
+								</view>
+							</view>
+							
+						</view>
+						
+						<u-icon name="arrow-right" color="rgba(0, 0, 0, 0.9)" size="28"></u-icon>
+					</view>
+				</view>
+				
+				
 			</view>
 		</view>
 		
@@ -103,11 +118,11 @@
 						name: '餐饮'
 					},
 					{
-						name: '会议'
+						name: '娱乐'
 					},
 					{
-						name: '娱乐'
-					}
+						name: '管家'
+					},
 				],
 				current: 0,
 			}
@@ -131,9 +146,13 @@
 				uni.showLoading({
 				  title: '加载中'
 				});
+				let businessActivityType = this.businessActivityType+1
+				if (businessActivityType == 3) {
+					businessActivityType = 4
+				}
 				this.$getRequest(this.$url.getMemberBusinessActivityList, "POST", {
 				  cityId: this.cityId,
-				  businessActivityType: this.businessActivityType+1,
+				  businessActivityType,
 				  page: 1,
 				  limit: 1000,
 				}).then(res => {
@@ -145,8 +164,16 @@
 			},
 			
 			change(index) {
-				this.businessActivityType = index;
-				this.getList()
+				if(index == 3) {
+					uni.navigateTo({
+						url: `/pagesOrder/butler/butler?type=3&cityId=${this.cityId}`
+					})
+				} else {
+					this.businessActivityType = index;
+					
+					this.getList()
+				}
+				
 			},
 			
 			getAllCity() {
@@ -238,28 +265,48 @@
 	.list {
 		margin-top: 32rpx;
 		.card {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			.left {
-				padding-right: 24rpx;
-				width: 0;
-				flex: 1;
+			
+			.info {
+				display: flex;
+				align-items: center;
 			}
 			.title {
 				line-height: 44rpx;
 				font-size: 32rpx;
 				color: #0A0F2D;
-				font-weight: 500;
-				margin-bottom: 32rpx;
+				font-weight: 600;
+				margin-bottom: 24rpx;
 			}
+			.img_box {
+				margin-right: 16rpx;
+				width: 200rpx;
+				height: 200rpx;
+				.item-img {
+					border-radius: 16rpx;
+					width: 100%;
+					height: 100%;
+				}
+			}
+			.right {
+				width: 0;
+				flex: 1;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+			}
+			.left {
+				padding-right: 24rpx;
+				width: 0;
+				flex: 1;
+			}
+			
 			.custom-item {
-				margin-top: 8rpx;
 				line-height: 44rpx;
 				display: flex;
 				
+				margin-top: 8rpx;
 				&:first-child {
-					margin-top: 32rpx;
+					margin-top: 0;
 				}
 				.label {
 					font-size: 28rpx;

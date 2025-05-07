@@ -589,7 +589,7 @@
 			
 		</view>
 		
-		<view class="tel">客服电话：{{serviceTel}}</view>
+		<view class="tel">客服电话：{{sericeTel}}</view>
 		
 		<view class="o-footer" v-if="paymentStatus == 1">
 			<view>签订合约即代表您已阅读并认同<text @click="showProtocol">《车要试用车服务协议》</text></view>
@@ -901,7 +901,7 @@
 </template>
 
 <script>
-import { contractUrl, paymentTypeAll1, finalSelect, purchaseOrderStatus, serviceTel, paymentTypeAll2, violationDeposit } from "@/constants"
+import { contractUrl, paymentTypeAll1, finalSelect, purchaseOrderStatus, sericeTel, paymentTypeAll2, violationDeposit } from "@/constants"
 import { formatTenThousandNumber, formatThousandNumber, getDeposit } from '@/utils/index.js'
 import DepositPayPopup from '../components/DepositPayPopup.vue'
 import SubscribeFreePayPopup from '../components/SubscribeFreePayPopup.vue'
@@ -1001,7 +1001,7 @@ export default {
 			subscribeFreeAboutNoPay: {}, // 组合支付 — 订阅费用未支付金额
 			showDepositPay: false,
 			showSubscribeFreePay: false,
-			serviceTel,
+			sericeTel,
 			carPlatePay: 0,
 			showConfirmCarPhotos: false,
 			showIdentityDialog: false,

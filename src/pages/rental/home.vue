@@ -162,6 +162,21 @@ import { CAR_RENTAL_BUSINESS_TYPE_LIST, CAR_RENTAL_PERIOD_STATUS, dayTimer, dayL
 import { formatDate, formatTimeStamp } from '@/utils'
 import { CustomerPicker } from '@/common/CustomerPicker.vue'
 
+const monthLastDay = {
+	1: 31,
+	2: 28,
+	3: 31,
+	4: 30,
+	5: 31,
+	6: 30,
+	7: 31,
+	8: 31,
+	9: 30,
+	10: 31,
+	11: 30,
+	12: 31,
+}
+
 export default {
 	components: {
 		CustomerPicker,
@@ -341,6 +356,7 @@ export default {
 				this.startDateStr = str
 				this.startDateObj = date
 				this.startTimeStamp = date.timeStamp
+				console.log('comfirmPicker', this.startTimeStamp)
 				if (this.form.businessType == 1) {
 					this.getEndTime() 
 				}
@@ -356,17 +372,22 @@ export default {
 		getEndTime() {
 			if (this.form.businessType == 1 && this.startTimeStamp && this.form.carRentalDetailSubscribeId) {
 				const plan = this.item.typeReqVos.find(item => item.id === this.form.carRentalDetailSubscribeId)
-				
-				const endTimeStamp = CAR_RENTAL_PERIOD_STATUS[plan.period].days * dayTimer + this.startTimeStamp
+				const days = CAR_RENTAL_PERIOD_STATUS[plan.period].days
+				console.log('getEndTime', days)
+				const endTimeStamp = days * dayTimer + this.startTimeStamp
+				console.log('getEndTime endTimeStamp', endTimeStamp)
 				const pickCarTimeEnd = formatTimeStamp(endTimeStamp)
 				
 				const date1 = new Date(endTimeStamp)
+				console.log('getEndTime date1', date1)
 				const weekDay = `周${dayList[date1.getDay()]}`
+				console.log('getEndTime weekDay', weekDay)
 				
 				const year = pickCarTimeEnd.year
 				
 				let month = this.startDateObj.month
-				if (this.item.period === 180) {
+				console.log('getEndTime this.item.period', plan.period)
+				if (plan.period === 180) {
 					month = (parseInt(this.startDateObj.month) + 6) % 12
 					if (month === 0) {
 						month = 12
@@ -409,9 +430,9 @@ export default {
 		},
 		
 		getRentalPrice() {
-			this.form.carRentalDetailSubscribeId = ''
-			this.selectPeriod = ''
-			this.periodStr = ''
+			// this.form.carRentalDetailSubscribeId = ''
+			// this.selectPeriod = ''
+			// this.periodStr = ''
 			if (this.form.cityId && this.form.carTypeYearProductId) {
 				let item = this.selectProduct.carRentalDetailEntityList.find(city => city.cityId === this.form.cityId)
 				if (!item) {

@@ -298,6 +298,14 @@
               您订阅的车辆增配项信息已更新，请前往查看并确认。
             </view>
           </view>
+		  
+		  <view
+		      v-if="item.status == 8"
+		      class="del-btn"
+		      @click.stop="removeNewCarOrder(item)"
+		  >
+			删除订单
+		  </view>
         </view>
       </view>
       <u-loadmore
@@ -307,7 +315,105 @@
         :load-text="loadText"
       />
     </view>
-    <view v-if="current == 4">
+	<view v-if="current == 4">
+	  <view v-if="longRentalOrderList && longRentalOrderList.length == 0">
+	    <u-gap height="200" bg-color="#FFFFFF" />
+	    <u-empty text="暂无订单" mode="list" />
+	  </view>
+	
+	  <view class="list-wrap">
+	    <view
+	      v-for="(item, index) in longRentalOrderList"
+	      :key="index"
+	      class="card rental-item"
+	      @click="handleLongRentalOrderDetail(item)"
+	    >
+	      <view class="card-header">
+	        <view class="car-info-wrap">
+	          <image class="img" :src="item.image" />
+	          <view class="car-info">
+	            <view class="brand">
+	              <view class="brand-text"
+	                >{{ item.carBrand }} {{ item.carType }}</view
+	              >
+	              <view
+	                class="tag"
+	                v-if="item.status === 100 || item.status === 120"
+	                >{{ item.overDay }}天</view
+	              >
+	            </view>
+	            <view class="product"
+	              >{{ item.carTypeYear }} {{ item.carTypeYearProduct }}</view
+	            >
+	          </view>
+	        </view>
+	        <view
+	          class="status-wrap"
+	          :class="{ 'red-status': item.status === 120 }"
+	          >{{ CAR_RENTAL_ORDER_STATUS[item.status] }}</view
+	        >
+	      </view>
+	
+	      <view class="card-item" v-if="item.status === 80">
+	        <view class="card-label">接车信息：</view>
+	        <view class="card-item-content"
+	          >{{ item.startDate }} {{ item.pickUpAddress }}</view
+	        >
+	      </view>
+	
+	      <view class="card-item" v-else-if="item.status === 110">
+	        <view class="card-label">还车信息：</view>
+	        <view class="card-item-content"
+	          >{{ item.endDate }} {{ item.returnAddress }}</view
+	        >
+	      </view>
+	
+	      <view class="card-item" v-else>
+	        <view class="card-label">用车时间：</view>
+	        <view class="card-item-content"
+	          >{{ item.startDate }} 至 {{ item.endDate }}</view
+	        >
+	      </view>
+	
+	      <view class="card-item">
+	        <view class="card-label">订单总额：</view>
+	        <view class="card-item-content"
+	          >¥ {{ item.totalMoney | $numFormat }}</view
+	        >
+	      </view>
+	
+	      <view
+	        class="card-item"
+	        v-if="item.status === 130 || item.status === 150"
+	      >
+	        <view class="card-label">退还押金：</view>
+	        <view class="card-item-content"
+	          >¥ {{ item.deposit | $numFormat }}</view
+	        >
+	      </view>
+	
+	      <view class="card-item" v-else-if="item.businessType === 1">
+	        <view class="card-label">还款日期：</view>
+	        <view class="card-item-content">每月{{ item.day }}日</view>
+	      </view>
+	
+	      <view class="card-item">
+	        <view class="card-label">订单编号：</view>
+	        <view class="card-item-content">{{ item.orderNum }}</view>
+	      </view>
+		  
+		  <view
+		      v-if="item.status == 50"
+		      class="del-btn"
+		      @click.stop="removeLongRentalOrderOrder(item)"
+		  >
+		  			删除订单
+		  </view>
+	    </view>
+	  </view>
+	</view>
+	  
+    <view v-if="current == 5">
       <view v-if="rentalList && rentalList.length == 0">
         <u-gap height="200" bg-color="#FFFFFF" />
         <u-empty text="暂无订单" mode="list" />
@@ -368,95 +474,9 @@
       />
     </view>
 
-    <view v-if="current == 5">
-      <view v-if="longRentalOrderList && longRentalOrderList.length == 0">
-        <u-gap height="200" bg-color="#FFFFFF" />
-        <u-empty text="暂无订单" mode="list" />
-      </view>
-
-      <view class="list-wrap">
-        <view
-          v-for="(item, index) in longRentalOrderList"
-          :key="index"
-          class="card rental-item"
-          @click="handleLongRentalOrderDetail(item)"
-        >
-          <view class="card-header">
-            <view class="car-info-wrap">
-              <image class="img" :src="item.image" />
-              <view class="car-info">
-                <view class="brand">
-                  <view class="brand-text"
-                    >{{ item.carBrand }} {{ item.carType }}</view
-                  >
-                  <view
-                    class="tag"
-                    v-if="item.status === 100 || item.status === 120"
-                    >{{ item.overDay }}天</view
-                  >
-                </view>
-                <view class="product"
-                  >{{ item.carTypeYear }} {{ item.carTypeYearProduct }}</view
-                >
-              </view>
-            </view>
-            <view
-              class="status-wrap"
-              :class="{ 'red-status': item.status === 120 }"
-              >{{ CAR_RENTAL_ORDER_STATUS[item.status] }}</view
-            >
-          </view>
-
-          <view class="card-item" v-if="item.status === 80">
-            <view class="card-label">接车信息：</view>
-            <view class="card-item-content"
-              >{{ item.startDate }} {{ item.pickUpAddress }}</view
-            >
-          </view>
-
-          <view class="card-item" v-else-if="item.status === 110">
-            <view class="card-label">还车信息：</view>
-            <view class="card-item-content"
-              >{{ item.endDate }} {{ item.returnAddress }}</view
-            >
-          </view>
-
-          <view class="card-item" v-else>
-            <view class="card-label">用车时间：</view>
-            <view class="card-item-content"
-              >{{ item.startDate }} 至 {{ item.endDate }}</view
-            >
-          </view>
-
-          <view class="card-item">
-            <view class="card-label">订单总额：</view>
-            <view class="card-item-content"
-              >¥ {{ item.totalMoney | $numFormat }}</view
-            >
-          </view>
-
-          <view
-            class="card-item"
-            v-if="item.status === 130 || item.status === 150"
-          >
-            <view class="card-label">退还押金：</view>
-            <view class="card-item-content"
-              >¥ {{ item.deposit | $numFormat }}</view
-            >
-          </view>
-
-          <view class="card-item" v-else-if="item.businessType === 1">
-            <view class="card-label">还款日期：</view>
-            <view class="card-item-content">每月{{ item.day }}日</view>
-          </view>
-
-          <view class="card-item">
-            <view class="card-label">订单编号：</view>
-            <view class="card-item-content">{{ item.orderNum }}</view>
-          </view>
-        </view>
-      </view>
-    </view>
+    
+  
+  
   </view>
 </template>
 <script>
@@ -510,12 +530,9 @@ export default {
         {
           name: "新车订阅",
         },
-        {
-          name: "融资租赁",
-        },
-        {
-          name: "折扣长租",
-        },
+		{
+		  name: "折扣长租",
+		}
       ],
       current: 0,
       subList: [],
@@ -557,7 +574,7 @@ export default {
       this.list = [];
       //this.getBusinessOrderList(data.id)
       this.getCompanyList();
-      this.getSubscribeOrderList(data.id, 1);
+      this.getSubscribeOrderList();
       this.getOrderList(data.id, 1);
       this.getLongRentalOrderList();
       this.getRentalOrderList(data.id, 1);
@@ -678,6 +695,82 @@ export default {
       );
       this.longRentalOrderList = res.data;
     },
+	
+	removeLongRentalOrderOrder(item) {
+		uni.showModal({
+		  title: "提示",
+		  content: `确定要删除这个订单吗？`,
+		  success: (res) => {
+		    if (res.confirm) {
+		      uni.showLoading({
+		        title: "加载中",
+		      });
+		
+		      this.$getRequest(this.$url.deleteLongRentalOrderOrder, "GET", {
+		        id: item.userCarRentalSubscribeId,
+		      })
+		        .then((res) => {
+		          uni.hideLoading();
+		          if (res.code == 0) {
+		            uni.showToast({
+		              title: "删除成功",
+		              duration: 2000,
+		              icon: "none",
+		            });
+		            this.getLongRentalOrderList();
+		          } else {
+		            uni.showToast({
+		              title: res.msg,
+		              duration: 2000,
+		              icon: "none",
+		            });
+		          }
+		        })
+		        .catch(() => {
+		          uni.hideLoading();
+		        });
+		    }
+		  },
+		});
+	},
+	
+	removeNewCarOrder(item) {
+		uni.showModal({
+		  title: "提示",
+		  content: `确定要删除这个订单吗？`,
+		  success: (res) => {
+		    if (res.confirm) {
+		      uni.showLoading({
+		        title: "加载中",
+		      });
+		
+		      this.$getRequest(this.$url.deleteNewCarOrder, "GET", {
+		        id: item.id,
+		      })
+		        .then((res) => {
+		          uni.hideLoading();
+		          if (res.code == 0) {
+		            uni.showToast({
+		              title: "删除成功",
+		              duration: 2000,
+		              icon: "none",
+		            });
+		            this.getSubscribeOrderList();
+		          } else {
+		            uni.showToast({
+		              title: res.msg,
+		              duration: 2000,
+		              icon: "none",
+		            });
+		          }
+		        })
+		        .catch(() => {
+		          uni.hideLoading();
+		        });
+		    }
+		  },
+		});
+	},
 
     removeRentalOrder(item) {
       uni.showModal({
@@ -814,17 +907,17 @@ export default {
       this.getCompanyOrderList();
     },
 
-    async getSubscribeOrderList(userId, page) {
+    async getSubscribeOrderList() {
       const res = await this.$getRequest(
         this.$url.getSubscribeOrderList,
         "POST",
         {
-          page,
-          userId,
+          page:1,
+          userId:this.userId,
           limit: 1000,
         }
       );
-      this.subList = this.subList.concat(res.data.records);
+      this.subList = res.data.records;
       this.subTotalPages = res.data.pages;
       this.subPage = res.data.current;
       this.subStatus = "nomore";
@@ -847,6 +940,7 @@ export default {
     margin-top: 24rpx;
     padding: 36rpx 30rpx;
     position: relative;
+	
     .brand {
       margin-left: 20rpx;
       .name {
@@ -931,22 +1025,7 @@ export default {
 .rental-item {
   margin-top: 24rpx;
   position: relative;
-  .del-btn {
-    position: absolute;
-    right: 32rpx;
-    bottom: 26rpx;
-    z-index: 100;
-    padding: 0 16rpx;
-    height: 56rpx;
-    border-radius: 8rpx;
-    border: 1rpx solid #f51a4e;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 24rpx;
-    color: #f51a4e;
-    font-weight: 500;
-  }
+  
   .card-header {
     margin-bottom: 32rpx;
     display: flex;
@@ -1021,6 +1100,22 @@ export default {
     }
   }
 }
+.del-btn {
+    position: absolute;
+    right: 32rpx;
+    bottom: 26rpx;
+    z-index: 100;
+    padding: 0 16rpx;
+    height: 56rpx;
+    border-radius: 8rpx;
+    border: 1rpx solid #f51a4e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24rpx;
+    color: #f51a4e;
+    font-weight: 500;
+  }
 .company-dropdown {
   margin-top: 24rpx;
 }
